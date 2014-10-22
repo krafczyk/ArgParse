@@ -19,5 +19,5 @@ set_target_properties(ArgParseStatic PROPERTIES VERSION ${ArgParse_VERSION_STRIN
 set_target_properties(ArgParseStatic PROPERTIES SOVERSION ${ArgParse_VERSION_MAJOR})
 set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
-install(TARGETS ArgParse DESTINATION lib)
+install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
