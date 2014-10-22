@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace ArgParse {
 	const std::string& GetMessage();
 	void SetMessage(const std::string& message);
-	void SetMessage(const char* message);
 	void SetMessage(const char* format,...);
 	int _vscprintf (const char * format, va_list pargs); 
 }

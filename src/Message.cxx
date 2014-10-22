@@ -13,10 +13,6 @@ namespace ArgParse {
 		currentMessage = message;
 	}
 
-	void SetMessage(const char* message) {
-		currentMessage = std::string(message);
-	}
-
 	int _vscprintf (const char* format, va_list pargs) { 
 		int retval; 
 		va_list argcopy; 
