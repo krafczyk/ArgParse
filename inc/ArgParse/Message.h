@@ -22,10 +22,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 
 namespace ArgParse {
-	const std::string& GetMessage();
-	void SetMessage(const std::string& message);
-	void SetMessage(const char* format,...);
 	int _vscprintf (const char * format, va_list pargs); 
+
+	const std::string& GetMessage();
+
+	void SetMessage(const std::string& message);
+	void SetMessage(const char* format, ...);
+
+	void SetSTDOUTChannel(FILE* stdout_channel);
+	void SetSTDERRChannel(FILE* stderr_channel);
+
+	void MessageStandardPrint(const char* format, ...);
+	void MessageErrorPrint(const char* format, ...);
 }
+
+#define ArgParseMessagePrint(format, ...) ArgParse::MessageStandardPrint(format, ##__VA_ARGS__)
+#define ArgParseMessageWarning(format, ...) ArgParse::MessageStandardPrint("%s-W (%s:%i): " format, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ##__VA_ARGS__)
+#define ArgParseMessageError(format, ...) ArgParse::MessageErrorPrint("%s-W (%s:%i): " format, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ##__VA_ARGS__)
 
 #endif
