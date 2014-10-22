@@ -10,8 +10,8 @@ set(ArgParse_VERSION_STRING ${ArgParse_VERSION_MAJOR}.${ArgParse_VERSION_MINOR}.
 add_definitions("-std=c++11 -Wall -Wextra -Werror")
 include_directories(inc)
 
-add_library(ArgParse SHARED src/ArgParse.cxx)
-add_library(ArgParseStatic STATIC src/ArgParse.cxx)
+add_library(ArgParse SHARED src/ArgParse.cxx src/Message.cxx)
+add_library(ArgParseStatic STATIC src/ArgParse.cxx src/Message.cxx)
 
 set_target_properties(ArgParse PROPERTIES VERSION ${ArgParse_VERSION_STRING})
 set_target_properties(ArgParse PROPERTIES SOVERSION ${ArgParse_VERSION_MAJOR})
