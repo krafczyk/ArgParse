@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstring>
 
 #include "ArgParse/ArgParse.h"
+#include "ArgParse/Message.h"
 
 namespace ArgParse {
 	const Option::Type_t Option::Bool = 0;
@@ -167,7 +168,8 @@ namespace ArgParse {
 
 	int Option::SetValue(const char* optarg) {
 		if(type == Bool) {
-			//Error("Cannot set a Value to a Bool option!\n");
+			ArgParseMessageError("Cannot set a Value to a Bool option!\n");
+			SetMessage("Cannot set a Value to a Bool option!\n");
 			return -1;
 		} else if (type == Str) {
 			if(mode == Single) {
@@ -197,7 +199,8 @@ namespace ArgParse {
 					return 0;
 				}
 			} else {
-				//Error("The argument passed is not an Integer!\n");
+				ArgParseMessageError("The argument passed is not an Integer!\n");
+				SetMessage("The argument passed is not an Integer!\n");
 				return -3;
 			}
 		} else if (type == Float) {
@@ -216,11 +219,13 @@ namespace ArgParse {
 					return 0;
 				}
 			} else {
-				//Error("The argument passed is not a Float!\n");
+				ArgParseMessageError("The argument passed is not a Float!\n");
+				SetMessage("The argument passed is not a Float!\n");
 				return -4;
 			}
 		}
-		//Error("The option is of unknown type!\n");
+		ArgParseMessageError("The option is of unknown type!\n");
+		SetMessage("The option is of unknown type!\n");
 		return -2;
 	}
 
@@ -240,12 +245,12 @@ namespace ArgParse {
 	void ArgParser::AddOption(Option* option) {
 		for(size_t i=0;i<option->GetNum();++i) {
 			if((option->GetName(i) == "-h") || (option->GetName(i) == "-?") || (option->GetName(i) == "--help")) {
-				//Warning("The option %s will be ignored, as this is reserved by the help text.\n", option->GetName(i).c_str());
+				ArgParseMessageWarning("The option %s will be ignored, as this is reserved by the help text.\n", option->GetName(i).c_str());
 			}
 			for(size_t j=0;j<options.size();++j) {
 				for(size_t k=0;k<options[j]->GetNum();++k) {
 					if(option->GetName(i) == options[j]->GetName(k)) {
-						//Warning("The option %s has already been passed, and will be ignored for an earlier option.\n", option->GetName(i).c_str());
+						ArgParseMessageWarning("The option %s has already been passed, and will be ignored for an earlier option.\n", option->GetName(i).c_str());
 					}
 				}
 			}
@@ -255,12 +260,12 @@ namespace ArgParse {
 
 
 	void ArgParser::PrintHelp() {
-		//Print("%s\n", help_intro.c_str());
-		//Print("--- Options ---\n");
-		//Print("-h / -? / --help : Takes no arguments : Print this help text.\n");
-		//for(size_t i=0;i<options.size();++i) {
-		//	Print("%s\n", options[i]->GetHelpText().c_str());
-		//}
+		ArgParseMessagePrint("%s\n", help_intro.c_str());
+		ArgParseMessagePrint("--- Options ---\n");
+		ArgParseMessagePrint("-h / -? / --help : Takes no arguments : Print this help text.\n");
+		for(size_t i=0;i<options.size();++i) {
+			ArgParseMessagePrint("%s\n", options[i]->GetHelpText().c_str());
+		}
 	}
 
 	int ArgParser::ParseArgs(int argc, char** argv) {
@@ -286,14 +291,16 @@ namespace ArgParse {
 						++arg_i;
 						int status;
 						if((status = options[i]->SetValue(argv[arg_i]))<0) {
-							//Error("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
+							ArgParseMessageError("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
+							SetMessage("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
 							return -1;
 						}
 					}
 				}
 			}
 			if(I < 0) {
-				//Error("The option (%s) does not exist.\n", argv[arg_i]);
+				ArgParseMessageError("The option (%s) does not exist.\n", argv[arg_i]);
+				SetMessage("The option (%s) does not exist.\n", argv[arg_i]);
 				return -2;
 			}
 			++arg_i;
@@ -301,7 +308,8 @@ namespace ArgParse {
 		for(size_t i=0;i<options.size();++i) {
 			if(options[i]->IsRequired()) {
 				if(!options[i]->WasDefined()) {
-					//Error("The option (%s) needs to be defined.\n", options[i]->GetName().c_str());
+					ArgParseMessageError("The option (%s) needs to be defined.\n", options[i]->GetName().c_str());
+					SetMessage("The option (%s) needs to be defined.\n", options[i]->GetName().c_str());
 					return -3;
 				}
 			}
