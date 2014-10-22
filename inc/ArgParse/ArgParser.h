@@ -16,11 +16,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ARGPARSE_ArgParse_HDR
-#define ARGPARSE_ArgParse_HDR
+#ifndef ARGPARSE_ArgParser_HDR
+#define ARGPARSE_ArgParser_HDR
 
-#include "ArgParse/Message.h"
+#include <vector>
+#include <string>
+
 #include "ArgParse/Option.h"
-#include "ArgParse/ArgParser.h"
+
+namespace ArgParse {
+	class ArgParser {
+		public:
+			ArgParser(const std::string& help_intro);
+
+			void AddOption(Option* option);
+
+			void PrintHelp();
+
+			int ParseArgs(int argc, char** argv) __attribute__((warn_unused_result));
+
+		private:
+			std::string help_intro;
+			std::vector<Option*> options;
+	};
+}
 
 #endif

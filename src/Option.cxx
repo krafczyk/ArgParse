@@ -1,3 +1,6 @@
+
+#include <sstream>
+
 #include "ArgParse/Option.h"
 #include "ArgParse/Message.h"
 

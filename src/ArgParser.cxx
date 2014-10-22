@@ -16,11 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <sstream>
 #include <cstring>
 
-#include "ArgParse/ArgParse.h"
+#include "ArgParse/ArgParser.h"
 #include "ArgParse/Message.h"
 
 namespace ArgParse {

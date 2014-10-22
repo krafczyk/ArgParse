@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ARGPARSE_Message_HDR
 
 #include <string>
+#include <cstring>
 
 namespace ArgParse {
 	int _vscprintf (const char * format, va_list pargs); 

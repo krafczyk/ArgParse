@@ -1,6 +1,9 @@
 #ifndef ARGPARSE_Option_HDR
 #define ARGPARSE_Option_HDR
 
+#include <vector>
+#include <string>
+
 namespace ArgParse {
 	class Option {
 		public:
