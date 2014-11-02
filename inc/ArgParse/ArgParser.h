@@ -33,11 +33,16 @@ namespace ArgParse {
 
 			void PrintHelp();
 
+			bool HelpPrinted() const {
+				return help_printed;
+			}
+
 			int ParseArgs(int argc, char** argv) __attribute__((warn_unused_result));
 
 		private:
 			std::string help_intro;
 			std::vector<Option*> options;
+			bool help_printed;
 	};
 }
 

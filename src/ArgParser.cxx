@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace ArgParse {
 	ArgParser::ArgParser(const std::string& help_intro) {
+		this->help_printed = false;
 		this->help_intro = help_intro;
 	}
 
