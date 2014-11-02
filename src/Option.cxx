@@ -181,9 +181,18 @@ namespace ArgParse {
 
 	int Option::SetValue(const char* optarg) {
 		if(type == Bool) {
-			ArgParseMessageError("Cannot set a Value to a Bool option!\n");
-			SetMessage("Cannot set a Value to a Bool option!\n");
-			return -1;
+			if(optarg != 0) {
+				ArgParseMessageWarning("Ignoring the passed option (%s), since this is a boolean option.\n");
+			}
+			if(mode == Single) {
+				bool* val = (bool*) value;
+				*val = true;
+			} else if (mode == Multiple) {
+				std::vector<bool>* vec_val = (std::vector<bool>*) value;
+				vec_val->push_back(true);
+				defined = true;
+			}
+			return 0;
 		} else if (type == Str) {
 			if(mode == Single) {
 				std::string* string = (std::string*) value;

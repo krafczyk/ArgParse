@@ -97,6 +97,12 @@ namespace ArgParse {
 							SetMessage("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
 							return -1;
 						}
+					} else {
+						int status;
+						if((status = options[i]->SetValue(0)) < 0) {
+							ArgParseMessageError("There was a problem with toggling the option (%s)!\n", argv[arg_i]);
+							return -2;
+						}
 					}
 				}
 			}
