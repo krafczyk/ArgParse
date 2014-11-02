@@ -87,13 +87,22 @@ namespace ArgParse {
 	}
 
 	bool Option::IsOption(const char* opt) {
+		if(DebugLevel > 1) {
+			MessageStandardPrint("Testing the option (%s)\n", opt);
+		}
 		bool result = false;
 		std::stringstream ss;
 		for(size_t i=0; i<call_names.size();++i) {
+			if(DebugLevel > 1) {
+				MessageStandardPrint("against call name (%s)\n", call_names[i].c_str());
+			}
 			if(call_names[i].size() == 1) {
 				ss.str("");
 				ss << "-" << call_names[i];
-				if(ss.str() == opt) {
+				if(DebugLevel > 2) {
+					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
+				}
+				if(ss.str() == std::string(opt)) {
 					result = true;
 					break;
 				}
@@ -101,7 +110,10 @@ namespace ArgParse {
 			if(call_names[i].size() > 1) {
 				ss.str("");
 				ss << "--" << call_names[i];
-				if(ss.str() == opt) {
+				if(DebugLevel > 2) {
+					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
+				}
+				if(ss.str() == std::string(opt)) {
 					result = true;
 					break;
 				}
