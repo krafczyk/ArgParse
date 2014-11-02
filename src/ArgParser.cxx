@@ -53,21 +53,36 @@ namespace ArgParse {
 		for(size_t i=0;i<options.size();++i) {
 			ArgParseMessagePrint("%s\n", options[i]->GetHelpText().c_str());
 		}
+		help_printed = true;
 	}
 
 	int ArgParser::ParseArgs(int argc, char** argv) {
 		int arg_i=1;
 		while(arg_i<argc) {
+			if(DebugLevel > 0) {
+				MessageStandardPrint("Argument is: (%s)\n", argv[arg_i]);
+			}
 			int I = -1;
 			if(std::string(argv[arg_i]) == std::string("-h")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
 				PrintHelp();
 				return 0;
 			}
 			if(std::string(argv[arg_i]) == std::string("--help")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
+
 				PrintHelp();
 				return 0;
 			}
 			if(std::string(argv[arg_i]) == std::string("-?")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
+
 				PrintHelp();
 				return 0;
 			}

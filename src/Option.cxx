@@ -77,6 +77,9 @@ namespace ArgParse {
 			if(token == NULL) {
 				break;
 			}
+			if(DebugLevel > 0) {
+				MessageStandardPrint("Found name: (%s)\n", token);
+			}
 			answer.push_back(std::string(token));
 			token = strtok(NULL, "/");
 		} while (true);

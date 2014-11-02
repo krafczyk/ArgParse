@@ -27,6 +27,8 @@ namespace ArgParse {
 
 	const std::string& GetMessage();
 
+	extern int DebugLevel;
+
 	void SetMessage(const std::string& message);
 	void SetMessage(const char* format, ...);
 
