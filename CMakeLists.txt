@@ -20,8 +20,8 @@ project(ArgParse)
 cmake_minimum_required(VERSION 2.8)
 
 set(ArgParse_VERSION_MAJOR 0)
-set(ArgParse_VERSION_MINOR 0)
-set(ArgParse_VERSION_PATCH 1)
+set(ArgParse_VERSION_MINOR 1)
+set(ArgParse_VERSION_PATCH 0)
 set(ArgParse_VERSION_STRING ${ArgParse_VERSION_MAJOR}.${ArgParse_VERSION_MINOR}.${ArgParse_VERSION_PATCH})
 
 add_definitions("-std=c++11 -Wall -Wextra -Werror")
