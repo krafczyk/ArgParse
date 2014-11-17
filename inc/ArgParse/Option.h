@@ -46,10 +46,10 @@ namespace ArgParse {
 			Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t requred = Optional);
-			Option(const std::string& call_name, const std::string& help_text, int* options, const Req_t required = Optional);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t required = Optional);
+			Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, double* options, const Req_t required = Optional);
+			Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Req_t required = Optional);
 			Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options);
 
