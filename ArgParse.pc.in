@@ -7,7 +7,7 @@ Name: @CMAKE_PROJECT_NAME@
 
 Description: The @CMAKE_PROJECT_NAME@ library.
 
-Version: @ArgParse_VERSION_STRING@
+Version: @VERSION_STRING@
 
 Cflags: -I${incdir}
 Libs: -L${libdir} -lArgParse
