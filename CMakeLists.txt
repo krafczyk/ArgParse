@@ -19,12 +19,30 @@ project(ArgParse)
 
 cmake_minimum_required(VERSION 2.8)
 
+include(CheckCXXCompilerFlag)
+
+#Check for C++11 support
+check_cxx_compiler_flag("-std=c++11" CPP11)
+check_cxx_compiler_flag("-std=c++0x" CPP0X)
+
+if(CPP11)
+message(STATUS "Compiler uses -std=c++11")
+set(CPPSTANDARD "-std=c++11")
+else()
+if(CPP0X)
+message(STATUS "Compiler uses -std=c++0x")
+set(CPPSTANDARD "-std=c++0x")
+else()
+message(FATAL "Compiler does not support C++11!")
+endif()
+endif()
+
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 2)
 set(VERSION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
-add_definitions("-std=c++11 -Wall -Wextra -Werror")
+add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
 include_directories(inc)
 
 add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Option.cxx)
