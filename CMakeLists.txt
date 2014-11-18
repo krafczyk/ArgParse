@@ -53,7 +53,6 @@ configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/inc/ArgParse/config.h.in"
 	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h")
 	
-
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 2)
 set(VERSION_PATCH 0)
