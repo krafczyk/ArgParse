@@ -20,6 +20,7 @@ project(ArgParse)
 cmake_minimum_required(VERSION 2.8)
 
 include(CheckCXXCompilerFlag)
+include(CheckCXXSourceCompiles)
 
 #Check for C++11 support
 check_cxx_compiler_flag("-std=c++11" CPP11)
@@ -37,13 +38,29 @@ message(FATAL "Compiler does not support C++11!")
 endif()
 endif()
 
+#Check if we have nullptr
+file(READ ${CMAKE_CURRENT_SOURCE_DIR}/platform_tests/nullptr_test.cpp NULLPTR_CODE)
+check_cxx_source_compiles("${NULLPTR_CODE}" ARGPARSE_HAVE_NULLPTR)
+
+if(ARGPARSE_HAVE_NULLPTR)
+message(STATUS "Compiler has nullptr")
+else()
+message(STATUS "Compiler doesn't have nullptr")
+endif()
+
+#configure config.h
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/inc/ArgParse/config.h.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h")
+	
+
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 2)
 set(VERSION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
-include_directories(inc)
+include_directories(inc ${CMAKE_CURRENT_BINARY_DIR}/inc)
 
 add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Option.cxx)
 add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Option.cxx)
@@ -56,6 +73,7 @@ set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h DESTINATION include)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/ArgParse.pc.in"
