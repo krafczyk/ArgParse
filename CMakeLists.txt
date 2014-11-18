@@ -38,6 +38,8 @@ message(FATAL "Compiler does not support C++11!")
 endif()
 endif()
 
+set(CMAKE_REQUIRED_FLAGS "${CPPSTANDARD}")
+
 #Check if we have nullptr
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/platform_tests/nullptr_test.cpp NULLPTR_CODE)
 check_cxx_source_compiles("${NULLPTR_CODE}" ARGPARSE_HAVE_NULLPTR)
