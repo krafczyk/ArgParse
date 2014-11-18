@@ -34,6 +34,42 @@ namespace ArgParse {
 	const Option::Req_t Option::Optional = false;
 
 	Option::Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
+		InitializeOption(call_name, Type, Mode, help_text, required, options);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required) {
+		InitializeOption(call_name, Bool, Single, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* option, const Req_t required) {
+		InitializeOption(call_name, Bool, Multiple, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required) {
+		InitializeOption(call_name, Str, Single, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* option, const Req_t required) {
+		InitializeOption(call_name, Str, Multiple, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required) {
+		InitializeOption(call_name, Int, Single, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<int>* option, const Req_t required) {
+		InitializeOption(call_name, Int, Multiple, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required) {
+		InitializeOption(call_name, Float, Single, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required) {
+		InitializeOption(call_name, Float, Multiple, help_text, required, (void*) option);
+	}
+
+	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
 		this->call_names = GetCallNames(call_name);
 		this->type = Type;
 		this->mode = Mode;
@@ -41,30 +77,6 @@ namespace ArgParse {
 		this->value = options;
 		this->required = required;
 		this->defined = false;
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required) : Option(call_name, Bool, Single, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* option, const Req_t required) : Option(call_name, Bool, Multiple, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required) : Option(call_name, Str, Single, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* option, const Req_t required) : Option(call_name, Str, Multiple, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required) : Option(call_name, Int, Single, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<int>* option, const Req_t required) : Option(call_name, Int, Multiple, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required) : Option(call_name, Float, Single, help_text, required, (void*) option) {
-	}
-
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required) : Option(call_name, Float, Multiple, help_text, required, (void*) option) {
 	}
 
 	std::vector<std::string> Option::GetCallNames(const std::string& combined_names) {

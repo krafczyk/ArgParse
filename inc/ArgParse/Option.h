@@ -80,6 +80,8 @@ namespace ArgParse {
 			}
 			
 		private:
+			void InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options);
+
 			std::vector<std::string> call_names;
 			Type_t type;
 			Mode_t mode;
