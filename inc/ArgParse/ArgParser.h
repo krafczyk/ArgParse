@@ -28,6 +28,7 @@ namespace ArgParse {
 	class ArgParser {
 		public:
 			ArgParser(const std::string& help_intro);
+			~ArgParser();
 
 			void AddOption(const std::string& call_name, const std::string& help_text, bool* option, const Option::Req_t required = Option::Optional);
 			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Option::Req_t required = Option::Optional);
@@ -51,6 +52,7 @@ namespace ArgParse {
 		private:
 			std::string help_intro;
 			std::vector<Option*> options;
+			std::vector<Option*> responsible_options;
 			bool help_printed;
 	};
 }

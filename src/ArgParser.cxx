@@ -28,43 +28,57 @@ namespace ArgParse {
 		this->help_intro = help_intro;
 	}
 
+	ArgParser::~ArgParser() {
+		for(size_t i=0;i<responsible_options.size();++i) {
+			delete responsible_options[i];
+		}
+	}
+
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, bool* option, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, option, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, options, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::string* option, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, option, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, options, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, int* option, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, option, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, options, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, double* option, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, option, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
 	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Option::Req_t required) {
 		Option* the_option = new Option(call_name, help_text, options, required);
+		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
 
