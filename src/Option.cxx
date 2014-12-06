@@ -177,7 +177,7 @@ namespace ArgParse {
 		}
 
 		char* p;
-		strtol(optarg, &p, 10);
+		strtol(optarg, &p, 0);
 		return (*p == 0);
 	}
 
