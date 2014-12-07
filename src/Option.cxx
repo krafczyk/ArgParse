@@ -197,13 +197,13 @@ namespace ArgParse {
 			//Parsing completed successfully.
 			//Now check range.
 			if(temp_val > INT_MAX) {
-				ArgParseMessageError("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
-				SetMessage("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				ArgParseMessageError("The option (%s) is greater than the maximum integer. Integer range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				SetMessage("The option (%s) is greater than the maximum integer. Integer range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
 				return Option::OutOfRange;
 			}
 			if(temp_val < INT_MIN) {
-				ArgParseMessageError("The option (%s) is less than the minimum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
-				SetMessage("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				ArgParseMessageError("The option (%s) is less than the minimum integer. Integer range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				SetMessage("The option (%s) is greater than the maximum integer. Integer range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
 				return Option::OutOfRange;
 			}
 			val = (int) temp_val;
