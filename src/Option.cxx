@@ -33,6 +33,11 @@ namespace ArgParse {
 	const Option::Req_t Option::Required = true;
 	const Option::Req_t Option::Optional = false;
 
+	const Option::Status_t Option::Complete = 0;
+	const Option::Status_t Option::Incomplete = -1;
+	const Option::Status_t Option::OutOfRange = -2;
+	const Option::Status_t Option::ParseError = -3;
+
 	Option::Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
 		InitializeOption(call_name, Type, Mode, help_text, required, options);
 	}

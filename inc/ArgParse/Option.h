@@ -42,6 +42,13 @@ namespace ArgParse {
 			static const Req_t Required;
 			static const Req_t Optional;
 
+			//Parser status
+			typedef int Status_t;
+			static const Status_t Complete;
+			static const Status_t Incomplete;
+			static const Status_t OutOfRange;
+			static const Status_t ParseError;
+
 		public:
 			Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Req_t required = Optional);
