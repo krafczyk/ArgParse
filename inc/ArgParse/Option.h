@@ -38,6 +38,8 @@ namespace ArgParse {
 			static const Type_t UInt;
 			static const Type_t Long;
 			static const Type_t ULong;
+			static const Type_t LongLong;
+			static const Type_t ULongLong;
 			static const Type_t Float;
 			static const Type_t Double;
 			static const Type_t LongDouble;
@@ -80,6 +82,10 @@ namespace ArgParse {
 			Option(const std::string& call_name, const std::string& help_text, std::vector<long>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, unsigned long* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, long long* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<long long>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, unsigned long long* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<float>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
@@ -106,6 +112,8 @@ namespace ArgParse {
 			static ParseStatus_t ParseArgumentAsUInt(unsigned int& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsLong(long& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsULong(unsigned long& val, const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsLongLong(long long& val, const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsULongLong(unsigned long long& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsFloat(float& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsDouble(double& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const char* optarg) __attribute__((warn_unused_result));
