@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <sstream>
+#include <cerrno>
+#include <climits>
 
 #include "ArgParse/Option.h"
 #include "ArgParse/Message.h"
@@ -177,17 +179,43 @@ namespace ArgParse {
 		return ss.str();
 	}
 
-	bool Option::IsArgumentInt(const char* optarg) {
-		if( (strlen(optarg) == 0) || ((!isdigit(optarg[0])) && (optarg[0] != '-') && (optarg[0] != '+'))) {
-			return false;
-		}
-
+	Option::ParseStatus_t Option::ParseArgumentAsInt(int& val, const char* optarg) {
 		char* p;
-		strtol(optarg, &p, 0);
-		return (*p == 0);
+		long temp_val = strtol(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed\n", optarg);
+			SetMessage("The option (%s) could not be parsed\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > INT_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				SetMessage("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				return Option::OutOfRange;
+			}
+			if(temp_val < INT_MIN) {
+				ArgParseMessageError("The option (%s) is less than the minimum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				SetMessage("The option (%s) is greater than the maximum integer. Range is: [ %lli, %lli ]\n", INT_MIN, INT_MAX);
+				return Option::OutOfRange;
+			}
+			val = (int) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
 	}
 
-	bool Option::IsArgumentFloat(const char* optarg) {
+	Option::ParseStatus_t Option::IsArgumentFloat(const char* optarg) {
 		if( (strlen(optarg) == 0) || ((!isdigit(optarg[0])) && (optarg[0] != '-') && (optarg[0] != '+'))) {
 			return false;
 		}
@@ -224,24 +252,21 @@ namespace ArgParse {
 				return 0;
 			}
 		} else if (type == Int) {
-			if(IsArgumentInt(optarg))  {
+			int temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsInt(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
 				if(mode == Single) {
-					int* val = (int*) value;
-					char* p;
-					*val = strtol(optarg, &p, 10);
+					*((int*) value) = temp_val;
 					defined = true;
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<int>* vec_val = (std::vector<int>*) value;
-					char* p;
-					vec_val->push_back(strtol(optarg, &p, 10));
+					vec_val->push_back(temp_val);
 					defined = true;
 					return 0;
 				}
-			} else {
-				ArgParseMessageError("The argument passed is not an Integer!\n");
-				SetMessage("The argument passed is not an Integer!\n");
-				return -3;
 			}
 		} else if (type == Float) {
 			if(IsArgumentFloat(optarg)) {

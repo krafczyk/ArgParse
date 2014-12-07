@@ -71,8 +71,8 @@ namespace ArgParse {
 				return call_names.size();
 			}
 
-			static bool IsArgumentInt(const char* optarg) __attribute__((warn_unused_result));
-			static bool IsArgumentFloat(const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsInt(int& val, const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t IsArgumentFloat(const char* optarg) __attribute__((warn_unused_result));
 			int SetValue(const char* optarg) __attribute__((warn_unused_result));
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
