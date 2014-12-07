@@ -191,8 +191,8 @@ namespace ArgParse {
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg, strerror(errno));
 				return Option::ParseError;
 			}
 			//Parsing completed successfully.
@@ -227,8 +227,41 @@ namespace ArgParse {
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Check for inf
+			if(std::isinf(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is infinite.\n");
+			}
+			//Check for nan
+			if(std::isfinite(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is nan.\n");
+			}
+			//Parsing completed successfully.
+			val = temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsDouble(double& val, const char* optarg) {
+		char* p;
+		double temp_val = strtof(optarg, &p);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as double.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as double.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
 				return Option::ParseError;
 			}
 			//Check for inf
@@ -304,6 +337,23 @@ namespace ArgParse {
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<float>* vec_val = (std::vector<float>*) value;
+					vec_val->push_back(temp_val);
+					defined = true;
+					return 0;
+				}
+			}
+		} else if (type == Double) {
+			double temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsDouble(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((double*) value) = temp_val;
+					defined = true;
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<double>* vec_val = (std::vector<double>*) value;
 					vec_val->push_back(temp_val);
 					defined = true;
 					return 0;
