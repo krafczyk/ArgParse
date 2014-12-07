@@ -27,13 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace ArgParse {
 	const Option::Type_t Option::Bool = 0;
 	const Option::Type_t Option::Str = 1;
-	const Option::Type_t Option::Short = 2;
-	const Option::Type_t Option::UShort = 3;
-	const Option::Type_t Option::Int = 4;
-	const Option::Type_t Option::UInt = 5;
-	const Option::Type_t Option::Float = 6;
-	const Option::Type_t Option::Double = 7;
-	const Option::Type_t Option::LongDouble = 8;
+	const Option::Type_t Option::Char = 2;
+	const Option::Type_t Option::UChar = 3;
+	const Option::Type_t Option::Short = 4;
+	const Option::Type_t Option::UShort = 5;
+	const Option::Type_t Option::Int = 6;
+	const Option::Type_t Option::UInt = 7;
+	const Option::Type_t Option::Float = 8;
+	const Option::Type_t Option::Double = 9;
+	const Option::Type_t Option::LongDouble = 10;
 
 	const Option::Mode_t Option::Single = 0;
 	const Option::Mode_t Option::Multiple = 1;
@@ -64,6 +66,22 @@ namespace ArgParse {
 
 	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* option, const Req_t required, bool* was_defined) {
 		InitializeOption(call_name, Str, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, char* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Char, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<char>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Char, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, unsigned char* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, UChar, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, UChar, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
 	Option::Option(const std::string& call_name, const std::string& help_text, short* option, const Req_t required, bool* was_defined) {
@@ -222,6 +240,73 @@ namespace ArgParse {
 		}
 		ss << help_text;
 		return ss.str();
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsChar(char& val, const char* optarg) {
+		char* p;
+		long temp_val = strtol(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as char.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as char.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > CHAR_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum char. Char range is: [ %lli , %lli ]\n", CHAR_MIN, CHAR_MAX);
+				SetMessage("The option (%s) is greater than the maximum short. Char range is: [ %lli , %lli ]\n", CHAR_MIN, CHAR_MAX);
+				return Option::OutOfRange;
+			}
+			if(temp_val < CHAR_MIN) {
+				ArgParseMessageError("The option (%s) is less than the minimum char. Char range is: [ %lli , %lli ]\n", CHAR_MIN, CHAR_MAX);
+				SetMessage("The option (%s) is greater than the maximum char. Char range is: [ %lli , %lli ]\n", CHAR_MIN, CHAR_MAX);
+				return Option::OutOfRange;
+			}
+			val = (char) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsUChar(unsigned char& val, const char* optarg) {
+		char* p;
+		unsigned long temp_val = strtoul(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as unsigned char.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as unsigned char.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > UCHAR_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum unsigned char. Unsigned char range is: [ 0 , %lli ]\n", UCHAR_MAX);
+				SetMessage("The option (%s) is greater than the maximum unsigned char. Unsigned char range is: [ 0 , %lli ]\n", UCHAR_MAX);
+				return Option::OutOfRange;
+			}
+			val = (unsigned char) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsShort(short& val, const char* optarg) {
@@ -482,6 +567,40 @@ namespace ArgParse {
 				vec_string->push_back(std::string(optarg));
 				SetDefined(true);
 				return 0;
+			}
+		} else if (type == Char) {
+			char temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsChar(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((char*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<char>* vec_val = (std::vector<char>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
+			}
+		} else if (type == UChar) {
+			unsigned char temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsUChar(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((unsigned char*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<unsigned char>* vec_val = (std::vector<unsigned char>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
 			}
 		} else if (type == Short) {
 			short temp_val = 0;
