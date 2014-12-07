@@ -30,14 +30,14 @@ namespace ArgParse {
 			ArgParser(const std::string& help_intro);
 			~ArgParser();
 
-			void AddOption(const std::string& call_name, const std::string& help_text, bool* option, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, std::string* option, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Option::Req_t requred = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, int* option, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, double* option, const Option::Req_t required = Option::Optional);
-			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Option::Req_t required = Option::Optional);
+			void AddOption(const std::string& call_name, const std::string& help_text, bool* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::string* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Option::Req_t requred = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, int* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, double* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
 			void AddOption(Option* option);
 
