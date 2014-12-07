@@ -86,7 +86,7 @@ set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h DESTINATION include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h DESTINATION include/ArgParse)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/ArgParse.pc.in"
