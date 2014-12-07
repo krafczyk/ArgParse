@@ -19,6 +19,8 @@ project(ArgParse)
 
 cmake_minimum_required(VERSION 2.8)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 include(CheckCXXCompilerFlag)
 include(CheckCXXSourceCompiles)
 
