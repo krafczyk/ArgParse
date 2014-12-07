@@ -233,10 +233,24 @@ namespace ArgParse {
 			ss << "Takes no argument : ";
 		} else if (type == Str) {
 			ss << "Takes a string : ";
+		} else if (type == Char) {
+			ss << "Takes a character : ";
+		} else if (type == UChar) {
+			ss << "Takes an unsigned character : ";
+		} else if (type == Short) {
+			ss << "Takes a short : ";
+		} else if (type == UShort) {
+			ss << "Takes an unsigned short : ";
 		} else if (type == Int) {
 			ss << "Takes an integer : ";
+		} else if (type == UInt) {
+			ss << "Takes an unsigned integer : ";
 		} else if (type == Float) {
 			ss << "Takes a float : ";
+		} else if (type == Double) {
+			ss << "Takes a double : ";
+		} else if (type == LongDouble) {
+			ss << "Takes a long double : ";
 		}
 		ss << help_text;
 		return ss.str();
