@@ -301,6 +301,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsChar(char& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long temp_val = strtol(optarg, &p, 0);
 		if (p == optarg) {
@@ -337,6 +338,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsUChar(unsigned char& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		unsigned long temp_val = strtoul(optarg, &p, 0);
 		if (p == optarg) {
@@ -368,6 +370,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsShort(short& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long temp_val = strtol(optarg, &p, 0);
 		if (p == optarg) {
@@ -404,6 +407,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsUShort(unsigned short& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		unsigned long temp_val = strtoul(optarg, &p, 0);
 		if (p == optarg) {
@@ -435,6 +439,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsInt(int& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long temp_val = strtol(optarg, &p, 0);
 		if (p == optarg) {
@@ -471,6 +476,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsUInt(unsigned int& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		unsigned long temp_val = strtoul(optarg, &p, 0);
 		if (p == optarg) {
@@ -502,6 +508,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsLong(long& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long temp_val = strtol(optarg, &p, 0);
 		if (p == optarg) {
@@ -538,6 +545,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsULong(unsigned long& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		unsigned long temp_val = strtoul(optarg, &p, 0);
 		if (p == optarg) {
@@ -569,6 +577,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsLongLong(long long& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long long temp_val = strtoll(optarg, &p, 0);
 		if (p == optarg) {
@@ -605,6 +614,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsULongLong(unsigned long long& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		unsigned long long temp_val = strtoull(optarg, &p, 0);
 		if (p == optarg) {
@@ -636,6 +646,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsFloat(float& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		float temp_val = strtof(optarg, &p);
 		if (p == optarg) {
@@ -669,6 +680,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsDouble(double& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		double temp_val = strtod(optarg, &p);
 		if (p == optarg) {
@@ -702,6 +714,7 @@ namespace ArgParse {
 	}
 
 	Option::ParseStatus_t Option::ParseArgumentAsLongDouble(long double& val, const char* optarg) {
+		errno = 0;
 		char* p;
 		long double temp_val = strtold(optarg, &p);
 		if (p == optarg) {
