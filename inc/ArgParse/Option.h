@@ -30,6 +30,8 @@ namespace ArgParse {
 			typedef int Type_t;
 			static const Type_t Bool;
 			static const Type_t Str;
+			static const Type_t Short;
+			static const Type_t UShort;
 			static const Type_t Int;
 			static const Type_t UInt;
 			static const Type_t Float;
@@ -58,6 +60,10 @@ namespace ArgParse {
 			Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, short* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<short>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, unsigned short* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			Option(const std::string& call_name, const std::string& help_text, unsigned int* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
@@ -80,6 +86,8 @@ namespace ArgParse {
 				return call_names.size();
 			}
 
+			static ParseStatus_t ParseArgumentAsShort(short& val, const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsUShort(unsigned short& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsInt(int& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsUInt(unsigned int& val, const char* optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsFloat(float& val, const char* optarg) __attribute__((warn_unused_result));
