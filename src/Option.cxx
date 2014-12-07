@@ -30,6 +30,7 @@ namespace ArgParse {
 	const Option::Type_t Option::Int = 2;
 	const Option::Type_t Option::Float = 3;
 	const Option::Type_t Option::Double = 4;
+	const Option::Type_t Option::LongDouble = 5;
 
 	const Option::Mode_t Option::Single = 0;
 	const Option::Mode_t Option::Multiple = 1;
@@ -84,6 +85,14 @@ namespace ArgParse {
 
 	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required, bool* was_defined) {
 		InitializeOption(call_name, Double, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, long double* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, LongDouble, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<long double>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, LongDouble, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
 	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined) {
@@ -259,7 +268,7 @@ namespace ArgParse {
 
 	Option::ParseStatus_t Option::ParseArgumentAsDouble(double& val, const char* optarg) {
 		char* p;
-		double temp_val = strtof(optarg, &p);
+		double temp_val = strtod(optarg, &p);
 		if (p == optarg) {
 			//No conversion performed
 			ArgParseMessageError("The option (%s) could not be parsed as double.\n", optarg);
@@ -270,6 +279,39 @@ namespace ArgParse {
 			if(errno != 0) {
 				ArgParseMessageError("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
 				SetMessage("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Check for inf
+			if(std::isinf(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is infinite.\n");
+			}
+			//Check for nan
+			if(std::isfinite(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is nan.\n");
+			}
+			//Parsing completed successfully.
+			val = temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsLongDouble(long double& val, const char* optarg) {
+		char* p;
+		long double temp_val = strtold(optarg, &p);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as long double.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as long double.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg, strerror(errno));
 				return Option::ParseError;
 			}
 			//Check for inf
@@ -362,6 +404,23 @@ namespace ArgParse {
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<double>* vec_val = (std::vector<double>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
+			}
+		} else if (type == LongDouble) {
+			long double temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsLongDouble(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((long double*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<long double>* vec_val = (std::vector<long double>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;

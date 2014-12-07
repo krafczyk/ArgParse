@@ -81,6 +81,18 @@ namespace ArgParse {
 		this->responsible_options.push_back(the_option);
 		AddOption(the_option);
 	}
+	
+	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, long double* option, const Option::Req_t required, bool* was_defined) {
+		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
+		this->responsible_options.push_back(the_option);
+		AddOption(the_option);
+	}
+
+	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<long double>* options, const Option::Req_t required, bool* was_defined) {
+		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
+		this->responsible_options.push_back(the_option);
+		AddOption(the_option);
+	}
 
 	void ArgParser::AddOption(Option* option) {
 		for(size_t i=0;i<option->GetNum();++i) {
