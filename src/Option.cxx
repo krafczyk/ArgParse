@@ -33,9 +33,11 @@ namespace ArgParse {
 	const Option::Type_t Option::UShort = 5;
 	const Option::Type_t Option::Int = 6;
 	const Option::Type_t Option::UInt = 7;
-	const Option::Type_t Option::Float = 8;
-	const Option::Type_t Option::Double = 9;
-	const Option::Type_t Option::LongDouble = 10;
+	const Option::Type_t Option::Long = 8;
+	const Option::Type_t Option::ULong = 9;
+	const Option::Type_t Option::Float = 10;
+	const Option::Type_t Option::Double = 11;
+	const Option::Type_t Option::LongDouble = 12;
 
 	const Option::Mode_t Option::Single = 0;
 	const Option::Mode_t Option::Multiple = 1;
@@ -114,6 +116,22 @@ namespace ArgParse {
 
 	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* option, const Req_t required, bool* was_defined) {
 		InitializeOption(call_name, UInt, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, long* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Long, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<long>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Long, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, unsigned long* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, ULong, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, ULong, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
 	Option::Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required, bool* was_defined) {
@@ -245,6 +263,10 @@ namespace ArgParse {
 			ss << "Takes an integer : ";
 		} else if (type == UInt) {
 			ss << "Takes an unsigned integer : ";
+		} else if (type == Long) {
+			ss << "Takes an long : ";
+		} else if (type == ULong) {
+			ss << "Takes an unsigned long : ";
 		} else if (type == Float) {
 			ss << "Takes a float : ";
 		} else if (type == Double) {
@@ -449,6 +471,73 @@ namespace ArgParse {
 				return Option::OutOfRange;
 			}
 			val = (unsigned int) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsLong(long& val, const char* optarg) {
+		char* p;
+		long temp_val = strtol(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as long.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as long.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > LONG_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum long. Long range is: [ %lli , %lli ]\n", LONG_MIN, LONG_MAX);
+				SetMessage("The option (%s) is greater than the maximum long. Long range is: [ %lli , %lli ]\n", LONG_MIN, LONG_MAX);
+				return Option::OutOfRange;
+			}
+			if(temp_val < LONG_MIN) {
+				ArgParseMessageError("The option (%s) is less than the minimum long. Long range is: [ %lli , %lli ]\n", LONG_MIN, LONG_MAX);
+				SetMessage("The option (%s) is greater than the maximum long. Long range is: [ %lli , %lli ]\n", LONG_MIN, LONG_MAX);
+				return Option::OutOfRange;
+			}
+			val = (long) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
+	Option::ParseStatus_t Option::ParseArgumentAsULong(unsigned long& val, const char* optarg) {
+		char* p;
+		unsigned long temp_val = strtoul(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as unsigned long.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as unsigned long.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > ULONG_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum unsigned long. Unsigned long range is: [ 0 , %lli ]\n", ULONG_MAX);
+				SetMessage("The option (%s) is greater than the maximum unsigned long. Unsigned long range is: [ 0 , %lli ]\n", ULONG_MAX);
+				return Option::OutOfRange;
+			}
+			val = (unsigned long) temp_val;
 			return Option::Complete;
 		} else {
 			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
@@ -679,6 +768,40 @@ namespace ArgParse {
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<unsigned int>* vec_val = (std::vector<unsigned int>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
+			}
+		} else if (type == Long) {
+			long temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsLong(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((long*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<long>* vec_val = (std::vector<long>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
+			}
+		} else if (type == ULong) {
+			unsigned long temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsULong(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((unsigned long*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<unsigned long>* vec_val = (std::vector<unsigned long>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;

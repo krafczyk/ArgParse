@@ -46,6 +46,10 @@ namespace ArgParse {
 			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddOption(const std::string& call_name, const std::string& help_text, unsigned int* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, long* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<long>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, unsigned long* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddOption(const std::string& call_name, const std::string& help_text, double* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddOption(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddOption(const std::string& call_name, const std::string& help_text, long double* option, const Option::Req_t required = Option::Optional, bool* was_defined = ARGPARSE_NULLPTR);
