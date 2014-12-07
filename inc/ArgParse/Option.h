@@ -52,17 +52,17 @@ namespace ArgParse {
 			static const ParseStatus_t ParseError;
 
 		public:
-			Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<float>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required = Optional);
-			Option(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Req_t required = Optional);
-			Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options);
+			Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<float>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
+			Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined = ARGPARSE_NULLPTR);
 
 			//Getters/Setters
 			std::string GetHelpText();
@@ -101,7 +101,7 @@ namespace ArgParse {
 			}
 			
 		private:
-			void InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options);
+			void InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined);
 
 			std::vector<std::string> call_names;
 			Type_t type;

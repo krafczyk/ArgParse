@@ -42,58 +42,58 @@ namespace ArgParse {
 	const Option::ParseStatus_t Option::OutOfRange = -2;
 	const Option::ParseStatus_t Option::ParseError = -3;
 
-	Option::Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
-		InitializeOption(call_name, Type, Mode, help_text, required, options);
+	Option::Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined) {
+		InitializeOption(call_name, Type, Mode, help_text, required, options, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required) {
-		InitializeOption(call_name, Bool, Single, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, bool* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Bool, Single, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* option, const Req_t required) {
-		InitializeOption(call_name, Bool, Multiple, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<bool>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Bool, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required) {
-		InitializeOption(call_name, Str, Single, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::string* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Str, Single, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* option, const Req_t required) {
-		InitializeOption(call_name, Str, Multiple, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Str, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required) {
-		InitializeOption(call_name, Int, Single, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Int, Single, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<int>* option, const Req_t required) {
-		InitializeOption(call_name, Int, Multiple, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<int>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Int, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required) {
-		InitializeOption(call_name, Float, Single, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Float, Single, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<float>* option, const Req_t required) {
-		InitializeOption(call_name, Float, Multiple, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<float>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Float, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required) {
-		InitializeOption(call_name, Double, Single, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Double, Single, help_text, required, (void*) option, was_defined);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required) {
-		InitializeOption(call_name, Double, Multiple, help_text, required, (void*) option);
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, Double, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
-	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
+	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined) {
 		this->call_names = GetCallNames(call_name);
 		this->type = Type;
 		this->mode = Mode;
 		this->help_text = help_text;
 		this->value = options;
 		this->required = required;
-		this->defined = ARGPARSE_NULLPTR;
+		this->defined = was_defined;
 	}
 
 	std::vector<std::string> Option::GetCallNames(const std::string& combined_names) {
