@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <vector>
 #include <string>
+#include "ArgParse/config.h"
 
 namespace ArgParse {
 	class Option {
@@ -57,6 +58,8 @@ namespace ArgParse {
 			Option(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, int* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Req_t required = Optional);
+			Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required = Optional);
+			Option(const std::string& call_name, const std::string& help_text, std::vector<float>* options, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required = Optional);
 			Option(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Req_t required = Optional);
 			Option(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options);
@@ -79,7 +82,16 @@ namespace ArgParse {
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
 			bool WasDefined() const {
-				return defined;
+				if(defined != ARGPARSE_NULLPTR) {
+					return *defined;
+				} else {
+					return false;
+				}
+			}
+			void SetDefined(bool status) {
+				if(defined != ARGPARSE_NULLPTR) {
+					*defined = status;
+				}
 			}
 			void SetRequired(const Req_t required) {
 				this->required = required;
@@ -95,7 +107,7 @@ namespace ArgParse {
 			Type_t type;
 			Mode_t mode;
 			bool required;
-			bool defined;
+			bool* defined;
 			std::string help_text;
 			void* value;
 	};

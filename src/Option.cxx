@@ -70,12 +70,20 @@ namespace ArgParse {
 		InitializeOption(call_name, Int, Multiple, help_text, required, (void*) option);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required) {
+	Option::Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required) {
 		InitializeOption(call_name, Float, Single, help_text, required, (void*) option);
 	}
 
-	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required) {
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<float>* option, const Req_t required) {
 		InitializeOption(call_name, Float, Multiple, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, double* option, const Req_t required) {
+		InitializeOption(call_name, Double, Single, help_text, required, (void*) option);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<double>* option, const Req_t required) {
+		InitializeOption(call_name, Double, Multiple, help_text, required, (void*) option);
 	}
 
 	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options) {
@@ -85,7 +93,7 @@ namespace ArgParse {
 		this->help_text = help_text;
 		this->value = options;
 		this->required = required;
-		this->defined = false;
+		this->defined = ARGPARSE_NULLPTR;
 	}
 
 	std::vector<std::string> Option::GetCallNames(const std::string& combined_names) {
@@ -293,19 +301,19 @@ namespace ArgParse {
 			} else if (mode == Multiple) {
 				std::vector<bool>* vec_val = (std::vector<bool>*) value;
 				vec_val->push_back(true);
-				defined = true;
+				SetDefined(true);
 			}
 			return 0;
 		} else if (type == Str) {
 			if(mode == Single) {
 				std::string* string = (std::string*) value;
 				*string = std::string(optarg);
-				defined = true;
+				SetDefined(true);
 				return 0;
 			} else if (mode == Multiple) {
 				std::vector<std::string>* vec_string = (std::vector<std::string>*) value;
 				vec_string->push_back(std::string(optarg));
-				defined = true;
+				SetDefined(true);
 				return 0;
 			}
 		} else if (type == Int) {
@@ -316,12 +324,12 @@ namespace ArgParse {
 			} else {
 				if(mode == Single) {
 					*((int*) value) = temp_val;
-					defined = true;
+					SetDefined(true);
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<int>* vec_val = (std::vector<int>*) value;
 					vec_val->push_back(temp_val);
-					defined = true;
+					SetDefined(true);
 					return 0;
 				}
 			}
@@ -333,12 +341,12 @@ namespace ArgParse {
 			} else {
 				if(mode == Single) {
 					*((float*) value) = temp_val;
-					defined = true;
+					SetDefined(true);
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<float>* vec_val = (std::vector<float>*) value;
 					vec_val->push_back(temp_val);
-					defined = true;
+					SetDefined(true);
 					return 0;
 				}
 			}
@@ -350,12 +358,12 @@ namespace ArgParse {
 			} else {
 				if(mode == Single) {
 					*((double*) value) = temp_val;
-					defined = true;
+					SetDefined(true);
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<double>* vec_val = (std::vector<double>*) value;
 					vec_val->push_back(temp_val);
-					defined = true;
+					SetDefined(true);
 					return 0;
 				}
 			}
