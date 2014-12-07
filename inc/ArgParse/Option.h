@@ -31,6 +31,7 @@ namespace ArgParse {
 			static const Type_t Str;
 			static const Type_t Int;
 			static const Type_t Float;
+			static const Type_t Double;
 
 			//Mode management
 			typedef int Mode_t;

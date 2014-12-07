@@ -26,6 +26,7 @@ namespace ArgParse {
 	const Option::Type_t Option::Str = 1;
 	const Option::Type_t Option::Int = 2;
 	const Option::Type_t Option::Float = 3;
+	const Option::Type_t Option::Double = 4;
 
 	const Option::Mode_t Option::Single = 0;
 	const Option::Mode_t Option::Multiple = 1;
