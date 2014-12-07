@@ -28,9 +28,10 @@ namespace ArgParse {
 	const Option::Type_t Option::Bool = 0;
 	const Option::Type_t Option::Str = 1;
 	const Option::Type_t Option::Int = 2;
-	const Option::Type_t Option::Float = 3;
-	const Option::Type_t Option::Double = 4;
-	const Option::Type_t Option::LongDouble = 5;
+	const Option::Type_t Option::UInt = 3;
+	const Option::Type_t Option::Float = 4;
+	const Option::Type_t Option::Double = 5;
+	const Option::Type_t Option::LongDouble = 6;
 
 	const Option::Mode_t Option::Single = 0;
 	const Option::Mode_t Option::Multiple = 1;
@@ -69,6 +70,14 @@ namespace ArgParse {
 
 	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<int>* option, const Req_t required, bool* was_defined) {
 		InitializeOption(call_name, Int, Multiple, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, unsigned int* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, UInt, Single, help_text, required, (void*) option, was_defined);
+	}
+
+	Option::Option(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* option, const Req_t required, bool* was_defined) {
+		InitializeOption(call_name, UInt, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
 	Option::Option(const std::string& call_name, const std::string& help_text, float* option, const Req_t required, bool* was_defined) {
@@ -233,6 +242,37 @@ namespace ArgParse {
 		}
 	}
 
+	Option::ParseStatus_t Option::ParseArgumentAsUInt(unsigned int& val, const char* optarg) {
+		char* p;
+		unsigned long temp_val = strtoul(optarg, &p, 0);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as unsigned integer.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as unsigned integer.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Parsing completed successfully.
+			//Now check range.
+			if(temp_val > UINT_MAX) {
+				ArgParseMessageError("The option (%s) is greater than the maximum unsigned integer. Unsigned integer range is: [ 0 , %lli ]\n", UINT_MAX);
+				SetMessage("The option (%s) is greater than the maximum unsigned integer. Unsigned integer range is: [ 0 , %lli ]\n", UINT_MAX);
+				return Option::OutOfRange;
+			}
+			val = (unsigned int) temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
+	}
+
 	Option::ParseStatus_t Option::ParseArgumentAsFloat(float& val, const char* optarg) {
 		char* p;
 		float temp_val = strtof(optarg, &p);
@@ -370,6 +410,23 @@ namespace ArgParse {
 					return 0;
 				} else if (mode == Multiple) {
 					std::vector<int>* vec_val = (std::vector<int>*) value;
+					vec_val->push_back(temp_val);
+					SetDefined(true);
+					return 0;
+				}
+			}
+		} else if (type == UInt) {
+			unsigned int temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsUInt(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
+				if(mode == Single) {
+					*((unsigned int*) value) = temp_val;
+					SetDefined(true);
+					return 0;
+				} else if (mode == Multiple) {
+					std::vector<unsigned int>* vec_val = (std::vector<unsigned int>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
