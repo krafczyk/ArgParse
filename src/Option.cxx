@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <cerrno>
 #include <climits>
+#include <cmath>
 
 #include "ArgParse/Option.h"
 #include "ArgParse/Message.h"
@@ -184,8 +185,8 @@ namespace ArgParse {
 		long temp_val = strtol(optarg, &p, 0);
 		if (p == optarg) {
 			//No conversion performed
-			ArgParseMessageError("The option (%s) could not be parsed\n", optarg);
-			SetMessage("The option (%s) could not be parsed\n", optarg);
+			ArgParseMessageError("The option (%s) could not be parsed as integer.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as integer.\n", optarg);
 			return Option::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
@@ -215,14 +216,37 @@ namespace ArgParse {
 		}
 	}
 
-	Option::ParseStatus_t Option::IsArgumentFloat(const char* optarg) {
-		if( (strlen(optarg) == 0) || ((!isdigit(optarg[0])) && (optarg[0] != '-') && (optarg[0] != '+'))) {
-			return false;
-		}
-
+	Option::ParseStatus_t Option::ParseArgumentAsFloat(float& val, const char* optarg) {
 		char* p;
-		strtod(optarg, &p);
-		return (*p == 0);
+		float temp_val = strtof(optarg, &p);
+		if (p == optarg) {
+			//No conversion performed
+			ArgParseMessageError("The option (%s) could not be parsed as float.\n", optarg);
+			SetMessage("The option (%s) could not be parsed as float.\n", optarg);
+			return Option::ParseError;
+		} else if (*p == '\0') {
+			//Check whether the value is out of range
+			if(errno != 0) {
+				ArgParseMessageError("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s). The error was (%s)\n", optarg, strerror(errno));
+				return Option::ParseError;
+			}
+			//Check for inf
+			if(std::isinf(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is infinite.\n");
+			}
+			//Check for nan
+			if(std::isfinite(temp_val)) {
+				ArgParseMessageWarning("The option (%s) is nan.\n");
+			}
+			//Parsing completed successfully.
+			val = temp_val;
+			return Option::Complete;
+		} else {
+			ArgParseMessageError("The whole option (%s) wasn't parsed!\n", optarg);
+			SetMessage("The whole option (%s) wasn't parsed!\n", optarg);
+			return Option::Incomplete;
+		}
 	}
 
 	int Option::SetValue(const char* optarg) {
@@ -269,24 +293,21 @@ namespace ArgParse {
 				}
 			}
 		} else if (type == Float) {
-			if(IsArgumentFloat(optarg)) {
+			float temp_val = 0;
+			Option::ParseStatus_t status;
+			if((status = ParseArgumentAsFloat(temp_val, optarg)) < 0)  {
+				return -3;
+			} else {
 				if(mode == Single) {
-					double* val = (double*) value;
-					char* p;
-					*val = strtod(optarg, &p);
+					*((float*) value) = temp_val;
 					defined = true;
 					return 0;
 				} else if (mode == Multiple) {
-					std::vector<double>* vec_val = (std::vector<double>*) value;
-					char* p;
-					vec_val->push_back(strtod(optarg, &p));
+					std::vector<float>* vec_val = (std::vector<float>*) value;
+					vec_val->push_back(temp_val);
 					defined = true;
 					return 0;
 				}
-			} else {
-				ArgParseMessageError("The argument passed is not a Float!\n");
-				SetMessage("The argument passed is not a Float!\n");
-				return -4;
 			}
 		}
 		ArgParseMessageError("The option is of unknown type!\n");
