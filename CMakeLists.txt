@@ -15,6 +15,16 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #*/
 
+set(CC "$ENV{CC}")
+if(CC)
+	set(CMAKE_C_COMPILER CACHE STRING "${CC}")
+endif()
+
+set(CXX "$ENV{CXX}")
+if(CXX)
+	set(CMAKE_CXX_COMPILER CACHE STRING "${CXX}")
+endif()
+
 project(ArgParse)
 
 cmake_minimum_required(VERSION 2.8)
