@@ -700,7 +700,8 @@ namespace ArgParse {
 				ArgParseMessageWarning("The option (%s) is infinite.\n", optarg);
 			}
 			//Check for nan
-			if(std::isfinite(temp_val)) {
+			//Don't use -ffast-math which will screw this up.
+			if(temp_val != temp_val) {
 				ArgParseMessageWarning("The option (%s) is nan.\n", optarg);
 			}
 			//Parsing completed successfully.
