@@ -697,11 +697,11 @@ namespace ArgParse {
 			}
 			//Check for inf
 			if(std::isinf(temp_val)) {
-				ArgParseMessageWarning("The option (%s) is infinite.\n");
+				ArgParseMessageWarning("The option (%s) is infinite.\n", optarg);
 			}
 			//Check for nan
 			if(std::isfinite(temp_val)) {
-				ArgParseMessageWarning("The option (%s) is nan.\n");
+				ArgParseMessageWarning("The option (%s) is nan.\n", optarg);
 			}
 			//Parsing completed successfully.
 			val = temp_val;
