@@ -176,6 +176,12 @@ namespace ArgParse {
 		InitializeOption(call_name, LongDouble, Multiple, help_text, required, (void*) option, was_defined);
 	}
 
+	Option::~Option() {
+		if(this->responsible_for_defined) {
+			delete this->defined;
+		}
+	}
+
 	void Option::InitializeOption(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* options, bool* was_defined) {
 		this->call_names = GetCallNames(call_name);
 		this->type = Type;
@@ -183,7 +189,14 @@ namespace ArgParse {
 		this->help_text = help_text;
 		this->value = options;
 		this->required = required;
-		this->defined = was_defined;
+		if(was_defined == ARGPARSE_NULLPTR) {
+			this->defined = new bool;
+			this->responsible_for_defined = true;
+			*(this->defined) = false;
+		} else {
+			this->responsible_for_defined = false;
+			this->defined = was_defined;
+		}
 	}
 
 	std::vector<std::string> Option::GetCallNames(const std::string& combined_names) {
