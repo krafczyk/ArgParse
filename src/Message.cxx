@@ -26,6 +26,7 @@ namespace ArgParse {
 	FILE* STDOUT_Channel = stdout;
 	FILE* STDERR_Channel = stderr;
 	int DebugLevel = -1;
+	bool Color = true;
 
 	const std::string& GetMessage() {
 		return currentMessage;
