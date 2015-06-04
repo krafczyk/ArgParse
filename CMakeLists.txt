@@ -13,7 +13,6 @@
 #
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#*/
 
 set(CC "$ENV{CC}")
 if(CC)
@@ -30,6 +29,8 @@ cmake_policy(SET CMP0054 NEW)
 project(ArgParse)
 
 cmake_minimum_required(VERSION 2.8)
+
+option(UNITTESTS "Compile the unittests" OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
@@ -76,6 +77,10 @@ set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
 include_directories(inc ${CMAKE_CURRENT_BINARY_DIR}/inc)
+
+if(UNITTESTS)
+add_subdirectory(unittests)
+endif()
 
 add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Argument.cxx)
 add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Argument.cxx)
