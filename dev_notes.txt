@@ -8,10 +8,12 @@ Features which ought to be implemented:
   to another argument parsing program such as Qt.
 
 
-- AddArgument functions should be added which are identical to 'AddOption'
-  functions. The 'AddOption' function should eventually be phased out. 'AddOption'
-  is not a good description since the library is called after all 'ArgParse' and
-  is to take after the Python version.
+- Proper handling of --arg=value vs. --arg value should be implemented.
+  we should also think of whether we should take --arg= value and
+  --arg =value, Perhaps we can but with a warning?
+
+
+- Addition of unittests
 
 
 - Argument groups should be implemented
@@ -20,12 +22,9 @@ Features which ought to be implemented:
 - Argument groups should have an inclusive mode and an exclusive mode.
 
 
-- Proper handling of --arg=value vs. --arg value should be implemented.
-  we should also think of whether we should take --arg= value and
-  --arg =value, Perhaps we can but with a warning?
-
-
-
 Completed Features
 
 x Update licenses for 2015
+
+x Option class replaced with Argument class. names and variables changed
+  accordingly.
