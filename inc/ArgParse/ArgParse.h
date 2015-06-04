@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ARGPARSE_ArgParse_HDR
 
 #include "ArgParse/Message.h"
-#include "ArgParse/Option.h"
+#include "ArgParse/Argument.h"
 #include "ArgParse/ArgParser.h"
 
 #endif
