@@ -228,42 +228,17 @@ namespace ArgParse {
 			if(DebugLevel > 1) {
 				MessageStandardPrint("against call name (%s)\n", call_names[i].c_str());
 			}
-			if(call_names[i].size() == 1) {
-				ss.str("");
-				ss << "-" << call_names[i];
-				if(DebugLevel > 2) {
-					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
-				}
-				if(ss.str() == opt) {
-					result = true;
-					break;
-				}
-			}
-			if(call_names[i].size() > 1) {
-				ss.str("");
-				ss << "--" << call_names[i];
-				if(DebugLevel > 2) {
-					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
-				}
-				if(ss.str() == opt) {
-					result = true;
-					break;
-				}
+			if(opt == call_names[i]) {
+				result = true;
+				break;
 			}
 		}
 		return result;
 	}
 
 	std::string Argument::GetName(size_t i) {
-		std::stringstream ss;
 		if(call_names.size() > i) {
-			if(call_names[i].size() == 1) {
-				ss << "-" << call_names[i];
-				return ss.str();
-			} else {
-				ss << "--" << call_names[i];
-				return ss.str();
-			}
+			return call_names[i];
 		} else {
 			return "";
 		}
@@ -775,6 +750,9 @@ namespace ArgParse {
 	}
 
 	int Argument::SetValue(const std::string& optarg) {
+		if(DebugLevel > 3) {
+			MessageStandardPrint("Setting a value\n");
+		}
 		if(type == Bool) {
 			if(optarg.size() != 0) {
 				ArgParseMessageWarning("Ignoring the passed argument (%s), since this is a boolean argument.\n");

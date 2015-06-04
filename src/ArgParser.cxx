@@ -278,13 +278,25 @@ namespace ArgParse {
 				if(arguments[i]->IsArgument(arg)) {
 					I = i;
 					if(arguments[i]->NeedsArgument()) {
+						if(DebugLevel > 0) {
+							MessageStandardPrint("Needs a value\n");
+						}
 						if(!split_arg) {
+							if(DebugLevel > 2) {
+								MessageStandardPrint("Eating an argument.\n");
+							}
 							if(EatArgument(argc, argv, arg_i) < 0) {
 								ArgParseMessageError("There was a problem eating an argument!\n");
 								SetMessage("There was a problem eating an argument!\n");
 								return -1;
 							}
+							if(DebugLevel > 2) {
+								MessageStandardPrint("Finished eating an argument.\n");
+							}
 							opt = std::string(argv[arg_i]);
+						}
+						if(DebugLevel > 1) {
+							MessageStandardPrint("Setting Value\n");
 						}
 						int status;
 						if((status = arguments[i]->SetValue(opt))<0) {
@@ -292,15 +304,27 @@ namespace ArgParse {
 							SetMessage("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
 							return -2;
 						}
+						if(DebugLevel > 1) {
+							MessageStandardPrint("Finished Setting Value\n");
+						}
 					} else {
+						if(DebugLevel > 0) {
+							MessageStandardPrint("Doesn't need a value\n");
+						}
 						if (split_arg) {
 							ArgParseMessageError("The argument (%s) doesn't take a value!\n", arg.c_str());
 							return -3;
 						}
+						if(DebugLevel > 1) {
+							MessageStandardPrint("Setting Value\n");
+						}
 						int status;
-						if((status = arguments[i]->SetValue(0)) < 0) {
+						if((status = arguments[i]->SetValue("")) < 0) {
 							ArgParseMessageError("There was a problem with toggling the argument (%s)!\n", argv[arg_i]);
 							return -4;
+						}
+						if(DebugLevel > 1) {
+							MessageStandardPrint("Finished Setting Value\n");
 						}
 					}
 				}
@@ -310,10 +334,16 @@ namespace ArgParse {
 				SetMessage("The argument (%s) does not exist.\n", argv[arg_i]);
 				return -2;
 			}
+			if(DebugLevel > 2) {
+				MessageStandardPrint("Eating an argument.\n");
+			}
 			if(EatArgument(argc, argv, arg_i) < 0) {
 				ArgParseMessageError("There was a problem eating an argument!\n");
 				SetMessage("There was a problem eating an argument!\n");
 				return -2;
+			}
+			if(DebugLevel > 2) {
+				MessageStandardPrint("Finished eating an argument.\n");
 			}
 		}
 		for(size_t i=0;i<arguments.size();++i) {

@@ -28,9 +28,9 @@ int main(int argc, char** argv) {
 	std::vector<int> vector_of_ints;
 
 	ArgParse::ArgParser Parser("This parser demonstrates how to use ArgParse.");
-	Parser.AddArgument("o/output-path", "Pass an output file path", &output_path, ArgParse::Argument::Required);
+	Parser.AddArgument("-o/--output-path", "Pass an output file path", &output_path, ArgParse::Argument::Required);
 	Parser.AddArgument("b/bool-val", "Pass this flag to set a boolean value", &bool_val);
-	Parser.AddArgument("i/int-vector", "Pass this flag multiple times to pass multiple ints", &vector_of_ints);
+	Parser.AddArgument("-i/--int-vector", "Pass this flag multiple times to pass multiple ints", &vector_of_ints);
 	
 	if(Parser.ParseArgs(argc, argv) < 0) {
 		fprintf(stderr, "There was a problem parsing the arguments!\n");
