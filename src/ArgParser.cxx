@@ -29,214 +29,214 @@ namespace ArgParse {
 	}
 
 	ArgParser::~ArgParser() {
-		for(size_t i=0;i<responsible_options.size();++i) {
-			delete responsible_options[i];
+		for(size_t i=0;i<responsible_arguments.size();++i) {
+			delete responsible_arguments[i];
 		}
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, bool* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, bool* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<bool>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::string* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::string* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<std::string>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, char* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, char* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<char>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, unsigned char* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, short* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, short* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<short>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, unsigned short* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, int* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, int* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<int>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, unsigned int* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, long* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<long>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, unsigned long* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, long long* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long long* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<long long>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, unsigned long long* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, float* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, float* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<float>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, double* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, double* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<double>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 	
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, long double* option, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, option, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(const std::string& call_name, const std::string& help_text, std::vector<long double>* options, const Option::Req_t required, bool* was_defined) {
-		Option* the_option = new Option(call_name, help_text, options, required, was_defined);
-		this->responsible_options.push_back(the_option);
-		AddOption(the_option);
+	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
+		this->responsible_arguments.push_back(the_argument);
+		AddArgument(the_argument);
 	}
 
-	void ArgParser::AddOption(Option* option) {
-		for(size_t i=0;i<option->GetNum();++i) {
-			if((option->GetName(i) == "-h") || (option->GetName(i) == "-?") || (option->GetName(i) == "--help")) {
-				ArgParseMessageWarning("The option %s will be ignored, as this is reserved by the help text.\n", option->GetName(i).c_str());
+	void ArgParser::AddArgument(Argument* argument) {
+		for(size_t i=0;i<argument->GetNum();++i) {
+			if((argument->GetName(i) == "-h") || (argument->GetName(i) == "-?") || (argument->GetName(i) == "--help")) {
+				ArgParseMessageWarning("The argument %s will be ignored, as this is reserved by the help text.\n", argument->GetName(i).c_str());
 			}
-			for(size_t j=0;j<options.size();++j) {
-				for(size_t k=0;k<options[j]->GetNum();++k) {
-					if(option->GetName(i) == options[j]->GetName(k)) {
-						ArgParseMessageWarning("The option %s has already been passed, and will be ignored for an earlier option.\n", option->GetName(i).c_str());
+			for(size_t j=0;j<arguments.size();++j) {
+				for(size_t k=0;k<arguments[j]->GetNum();++k) {
+					if(argument->GetName(i) == arguments[j]->GetName(k)) {
+						ArgParseMessageWarning("The argument %s has already been passed, and will be ignored for an earlier argument.\n", argument->GetName(i).c_str());
 					}
 				}
 			}
 		}
-		options.push_back(option);
+		arguments.push_back(argument);
 	}
 
 
 	void ArgParser::PrintHelp() {
 		ArgParseMessagePrint("%s\n", help_intro.c_str());
-		ArgParseMessagePrint("--- Options ---\n");
+		ArgParseMessagePrint("--- Arguments ---\n");
 		ArgParseMessagePrint("-h / -? / --help : Takes no arguments : Print this help text.\n");
-		for(size_t i=0;i<options.size();++i) {
-			ArgParseMessagePrint("%s\n", options[i]->GetHelpText().c_str());
+		for(size_t i=0;i<arguments.size();++i) {
+			ArgParseMessagePrint("%s\n", arguments[i]->GetHelpText().c_str());
 		}
 		help_printed = true;
 	}
@@ -271,38 +271,38 @@ namespace ArgParse {
 				PrintHelp();
 				return 0;
 			}
-			for(size_t i=0;i<options.size();++i) {
-				if(options[i]->IsOption(argv[arg_i])) {
+			for(size_t i=0;i<arguments.size();++i) {
+				if(arguments[i]->IsArgument(argv[arg_i])) {
 					I = i;
-					if(options[i]->NeedsArgument()) {
+					if(arguments[i]->NeedsArgument()) {
 						++arg_i;
 						int status;
-						if((status = options[i]->SetValue(argv[arg_i]))<0) {
-							ArgParseMessageError("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
-							SetMessage("There was a problem setting (%s) as option to (%s).\n", argv[arg_i], argv[arg_i-1]);
+						if((status = arguments[i]->SetValue(argv[arg_i]))<0) {
+							ArgParseMessageError("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
+							SetMessage("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
 							return -1;
 						}
 					} else {
 						int status;
-						if((status = options[i]->SetValue(0)) < 0) {
-							ArgParseMessageError("There was a problem with toggling the option (%s)!\n", argv[arg_i]);
+						if((status = arguments[i]->SetValue(0)) < 0) {
+							ArgParseMessageError("There was a problem with toggling the argument (%s)!\n", argv[arg_i]);
 							return -2;
 						}
 					}
 				}
 			}
 			if(I < 0) {
-				ArgParseMessageError("The option (%s) does not exist.\n", argv[arg_i]);
-				SetMessage("The option (%s) does not exist.\n", argv[arg_i]);
+				ArgParseMessageError("The argument (%s) does not exist.\n", argv[arg_i]);
+				SetMessage("The argument (%s) does not exist.\n", argv[arg_i]);
 				return -2;
 			}
 			++arg_i;
 		}
-		for(size_t i=0;i<options.size();++i) {
-			if(options[i]->IsRequired()) {
-				if(!options[i]->WasDefined()) {
-					ArgParseMessageError("The option (%s) needs to be defined.\n", options[i]->GetName().c_str());
-					SetMessage("The option (%s) needs to be defined.\n", options[i]->GetName().c_str());
+		for(size_t i=0;i<arguments.size();++i) {
+			if(arguments[i]->IsRequired()) {
+				if(!arguments[i]->WasDefined()) {
+					ArgParseMessageError("The argument (%s) needs to be defined.\n", arguments[i]->GetName().c_str());
+					SetMessage("The argument (%s) needs to be defined.\n", arguments[i]->GetName().c_str());
 					return -3;
 				}
 			}

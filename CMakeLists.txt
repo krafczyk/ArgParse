@@ -77,8 +77,8 @@ set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
 include_directories(inc ${CMAKE_CURRENT_BINARY_DIR}/inc)
 
-add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Option.cxx)
-add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Option.cxx)
+add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Argument.cxx)
+add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Argument.cxx)
 
 set_target_properties(ArgParse PROPERTIES VERSION ${VERSION_STRING})
 set_target_properties(ArgParse PROPERTIES SOVERSION ${VERSION_MAJOR})
