@@ -17,13 +17,15 @@
 
 set(CC "$ENV{CC}")
 if(CC)
-	set(CMAKE_C_COMPILER CACHE STRING "${CC}")
+	set(CMAKE_C_COMPILER CACHE STRING ${CC})
 endif()
 
 set(CXX "$ENV{CXX}")
 if(CXX)
-	set(CMAKE_CXX_COMPILER CACHE STRING "${CXX}")
+	set(CMAKE_CXX_COMPILER CACHE STRING ${CXX})
 endif()
+
+cmake_policy(SET CMP0054 NEW)
 
 project(ArgParse)
 
