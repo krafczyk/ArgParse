@@ -8,9 +8,7 @@ Features which ought to be implemented:
   to another argument parsing program such as Qt.
 
 
-- Proper handling of --arg=value vs. --arg value should be implemented.
-  we should also think of whether we should take --arg= value and
-  --arg =value, Perhaps we can but with a warning?
+- Arguments should be specified like -blah/--b/-s/blah/test etc..
 
 
 - Argument groups should be implemented
@@ -28,3 +26,5 @@ x Option class replaced with Argument class. names and variables changed
 
 x Addition of unittests
 
+x Proper handling of --arg=value vs. --arg value should be implemented.
+  we should not take things like --arg= value or --arg =value
