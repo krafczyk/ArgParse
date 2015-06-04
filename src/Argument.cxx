@@ -218,9 +218,9 @@ namespace ArgParse {
 		return answer;
 	}
 
-	bool Argument::IsArgument(const char* opt) {
+	bool Argument::IsArgument(const std::string& opt) {
 		if(DebugLevel > 1) {
-			MessageStandardPrint("Testing the argument (%s)\n", opt);
+			MessageStandardPrint("Testing the argument (%s)\n", opt.c_str());
 		}
 		bool result = false;
 		std::stringstream ss;
@@ -234,7 +234,7 @@ namespace ArgParse {
 				if(DebugLevel > 2) {
 					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
 				}
-				if(ss.str() == std::string(opt)) {
+				if(ss.str() == opt) {
 					result = true;
 					break;
 				}
@@ -245,7 +245,7 @@ namespace ArgParse {
 				if(DebugLevel > 2) {
 					MessageStandardPrint("really against: (%s)\n", ss.str().c_str());
 				}
-				if(ss.str() == std::string(opt)) {
+				if(ss.str() == opt) {
 					result = true;
 					break;
 				}
@@ -313,20 +313,21 @@ namespace ArgParse {
 		return ss.str();
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsChar(char& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsChar(char& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long temp_val = strtol(optarg, &p, 0);
-		if (p == optarg) {
+		long temp_val = strtol(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as char.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as char.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as char.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as char.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a char. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -344,26 +345,27 @@ namespace ArgParse {
 			val = (char) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsUChar(unsigned char& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsUChar(unsigned char& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		unsigned long temp_val = strtoul(optarg, &p, 0);
-		if (p == optarg) {
+		unsigned long temp_val = strtoul(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as unsigned char.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as unsigned char.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as unsigned char.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as unsigned char.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned char. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -376,26 +378,27 @@ namespace ArgParse {
 			val = (unsigned char) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsShort(short& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsShort(short& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long temp_val = strtol(optarg, &p, 0);
-		if (p == optarg) {
+		long temp_val = strtol(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as short.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as short.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as short.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as short.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an short. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an short. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an short. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an short. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -413,26 +416,27 @@ namespace ArgParse {
 			val = (short) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsUShort(unsigned short& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsUShort(unsigned short& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		unsigned long temp_val = strtoul(optarg, &p, 0);
-		if (p == optarg) {
+		unsigned long temp_val = strtoul(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as unsigned short.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as unsigned short.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as unsigned short.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as unsigned short.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned short. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an unsigned short. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned short. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned short. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -445,26 +449,27 @@ namespace ArgParse {
 			val = (unsigned short) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsInt(int& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsInt(int& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long temp_val = strtol(optarg, &p, 0);
-		if (p == optarg) {
+		long temp_val = strtol(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as integer.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as integer.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as integer.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as integer.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an integer. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -482,26 +487,27 @@ namespace ArgParse {
 			val = (int) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsUInt(unsigned int& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsUInt(unsigned int& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		unsigned long temp_val = strtoul(optarg, &p, 0);
-		if (p == optarg) {
+		unsigned long temp_val = strtoul(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as unsigned integer.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as unsigned integer.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as unsigned integer.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as unsigned integer.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned integer. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -514,26 +520,27 @@ namespace ArgParse {
 			val = (unsigned int) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsLong(long& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsLong(long& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long temp_val = strtol(optarg, &p, 0);
-		if (p == optarg) {
+		long temp_val = strtol(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as long.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as long.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as long.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as long.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an long. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -551,26 +558,27 @@ namespace ArgParse {
 			val = (long) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsULong(unsigned long& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsULong(unsigned long& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		unsigned long temp_val = strtoul(optarg, &p, 0);
-		if (p == optarg) {
+		unsigned long temp_val = strtoul(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as unsigned long.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as unsigned long.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as unsigned long.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as unsigned long.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned long. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -583,26 +591,27 @@ namespace ArgParse {
 			val = (unsigned long) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsLongLong(long long& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsLongLong(long long& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long long temp_val = strtoll(optarg, &p, 0);
-		if (p == optarg) {
+		long long temp_val = strtoll(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as long long.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as long long.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as long long.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as long long.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an long long. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an long long. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an long long. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an long long. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -620,26 +629,27 @@ namespace ArgParse {
 			val = (long long) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsULongLong(unsigned long long& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsULongLong(unsigned long long& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		unsigned long long temp_val = strtoull(optarg, &p, 0);
-		if (p == optarg) {
+		unsigned long long temp_val = strtoull(optarg_array, &p, 0);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as unsigned long long.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as unsigned long long.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as unsigned long long.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as unsigned long long.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned long long. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as an unsigned long long. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as an unsigned long long. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as an unsigned long long. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Parsing completed successfully.
@@ -652,26 +662,27 @@ namespace ArgParse {
 			val = (unsigned long long) temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsFloat(float& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsFloat(float& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		float temp_val = strtof(optarg, &p);
-		if (p == optarg) {
+		float temp_val = strtof(optarg_array, &p);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as float.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as float.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as float.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as float.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a float. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Check for inf
@@ -686,61 +697,63 @@ namespace ArgParse {
 			val = temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsDouble(double& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsDouble(double& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		double temp_val = strtod(optarg, &p);
-		if (p == optarg) {
+		double temp_val = strtod(optarg_array, &p);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as double.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as double.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as double.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as double.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a double. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Check for inf
 			if(std::isinf(temp_val)) {
-				ArgParseMessageWarning("The argument (%s) is infinite.\n", optarg);
+				ArgParseMessageWarning("The argument (%s) is infinite.\n", optarg_array);
 			}
 			//Check for nan
 			//Don't use -ffast-math which will screw this up.
 			if(temp_val != temp_val) {
-				ArgParseMessageWarning("The argument (%s) is nan.\n", optarg);
+				ArgParseMessageWarning("The argument (%s) is nan.\n", optarg_array);
 			}
 			//Parsing completed successfully.
 			val = temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	Argument::ParseStatus_t Argument::ParseArgumentAsLongDouble(long double& val, const char* optarg) {
+	Argument::ParseStatus_t Argument::ParseArgumentAsLongDouble(long double& val, const std::string& optarg) {
+		const char* optarg_array = optarg.c_str();
 		errno = 0;
 		char* p;
-		long double temp_val = strtold(optarg, &p);
-		if (p == optarg) {
+		long double temp_val = strtold(optarg_array, &p);
+		if (p == optarg_array) {
 			//No conversion performed
-			ArgParseMessageError("The argument (%s) could not be parsed as long double.\n", optarg);
-			SetMessage("The argument (%s) could not be parsed as long double.\n", optarg);
+			ArgParseMessageError("The argument (%s) could not be parsed as long double.\n", optarg_array);
+			SetMessage("The argument (%s) could not be parsed as long double.\n", optarg_array);
 			return Argument::ParseError;
 		} else if (*p == '\0') {
 			//Check whether the value is out of range
 			if(errno != 0) {
-				ArgParseMessageError("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg, strerror(errno));
-				SetMessage("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg, strerror(errno));
+				ArgParseMessageError("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg_array, strerror(errno));
+				SetMessage("There was a problem parsing the argument (%s) as a long double. The error was (%s)\n", optarg_array, strerror(errno));
 				return Argument::ParseError;
 			}
 			//Check for inf
@@ -755,15 +768,15 @@ namespace ArgParse {
 			val = temp_val;
 			return Argument::Complete;
 		} else {
-			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg);
-			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg);
+			ArgParseMessageError("The whole argument (%s) wasn't parsed!\n", optarg_array);
+			SetMessage("The whole argument (%s) wasn't parsed!\n", optarg_array);
 			return Argument::Incomplete;
 		}
 	}
 
-	int Argument::SetValue(const char* optarg) {
+	int Argument::SetValue(const std::string& optarg) {
 		if(type == Bool) {
-			if(optarg != 0) {
+			if(optarg.size() != 0) {
 				ArgParseMessageWarning("Ignoring the passed argument (%s), since this is a boolean argument.\n");
 			}
 			if(mode == Single) {
@@ -778,12 +791,12 @@ namespace ArgParse {
 		} else if (type == Str) {
 			if(mode == Single) {
 				std::string* string = (std::string*) value;
-				*string = std::string(optarg);
+				*string = optarg;
 				SetDefined(true);
 				return 0;
 			} else if (mode == Multiple) {
 				std::vector<std::string>* vec_string = (std::vector<std::string>*) value;
-				vec_string->push_back(std::string(optarg));
+				vec_string->push_back(optarg);
 				SetDefined(true);
 				return 0;
 			}

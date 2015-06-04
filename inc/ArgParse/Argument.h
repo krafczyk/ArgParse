@@ -98,27 +98,27 @@ namespace ArgParse {
 			//Getters/Setters
 			std::string GetHelpText();
 
-			bool IsArgument(const char* opt) __attribute__((warn_unused_result));
+			bool IsArgument(const std::string& opt) __attribute__((warn_unused_result));
 			bool NeedsArgument();
 			std::string GetName(size_t i=0);
 			size_t GetNum() {
 				return call_names.size();
 			}
 
-			static ParseStatus_t ParseArgumentAsChar(char& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUChar(unsigned char& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsShort(short& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUShort(unsigned short& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsInt(int& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUInt(unsigned int& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLong(long& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsULong(unsigned long& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLongLong(long long& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsULongLong(unsigned long long& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsFloat(float& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsDouble(double& val, const char* optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const char* optarg) __attribute__((warn_unused_result));
-			int SetValue(const char* optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsChar(char& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsUChar(unsigned char& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsShort(short& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsUShort(unsigned short& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsInt(int& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsUInt(unsigned int& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsLong(long& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsULong(unsigned long& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsLongLong(long long& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsULongLong(unsigned long long& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsFloat(float& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsDouble(double& val, const std::string& optarg) __attribute__((warn_unused_result));
+			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const std::string& optarg) __attribute__((warn_unused_result));
+			int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
