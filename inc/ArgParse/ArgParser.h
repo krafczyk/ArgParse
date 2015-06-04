@@ -61,8 +61,6 @@ namespace ArgParse {
 			void AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
-			void AddArgument(Argument* argument);
-
 			void PrintHelp();
 
 			bool HelpPrinted() const {
@@ -74,9 +72,10 @@ namespace ArgParse {
 			bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
 
 		private:
+			void AddArgument(Argument* argument);
+
 			std::string help_intro;
 			std::vector<Argument*> arguments;
-			std::vector<Argument*> responsible_arguments;
 			bool help_printed;
 	};
 }
