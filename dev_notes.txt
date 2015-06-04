@@ -23,3 +23,9 @@ Features which ought to be implemented:
 - Proper handling of --arg=value vs. --arg value should be implemented.
   we should also think of whether we should take --arg= value and
   --arg =value, Perhaps we can but with a warning?
+
+
+
+Completed Features
+
+x Update licenses for 2015
