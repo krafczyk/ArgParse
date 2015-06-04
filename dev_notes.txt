@@ -14,7 +14,10 @@ Features which ought to be implemented:
   is to take after the Python version.
 
 
-- Argument groups shouldbe implemented
+- Argument groups should be implemented
+
+
+- Argument groups should have an inclusive mode and an exclusive mode.
 
 
 - Proper handling of --arg=value vs. --arg value should be implemented.
