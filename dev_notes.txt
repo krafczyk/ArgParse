@@ -1,13 +1,5 @@
 Features which ought to be implemented:
 
-- The user should be able to specify where to stop parsing arguments.
-  I propose the use of '--' to delineate this. i.e.
-  ./program --arg1 blah --arg2 blah -- otherarg otherarg
-  should result in arg1 and arg2 being processed, and then argc, argv
-  should be transformed and passed to the user so they may pass these args
-  to another argument parsing program such as Qt.
-
-
 - Argument groups should be implemented
 
 
@@ -27,3 +19,11 @@ x Proper handling of --arg=value vs. --arg value should be implemented.
   we should not take things like --arg= value or --arg =value
 
 x Arguments should be specified like -blah/--b/-s/blah/test etc..
+
+x The user should be able to specify where to stop parsing arguments.
+  I propose the use of '--' to delineate this. i.e.
+  ./program --arg1 blah --arg2 blah -- otherarg otherarg
+  should result in arg1 and arg2 being processed, and then argc, argv
+  should be transformed and passed to the user so they may pass these args
+  to another argument parsing program such as Qt.
+
