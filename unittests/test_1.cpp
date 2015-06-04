@@ -56,4 +56,12 @@ int main(int argc, char** argv) {
 	} else {
 		printf("There were no passed intergers.\n");
 	}
+
+	if(argc > 1) {
+		printf("Arguments are left over!\n");
+		for(int arg_i = 1; arg_i < argc; ++arg_i) {
+			printf("%s ", argv[arg_i]);
+		}
+		printf("\n");
+	}
 }

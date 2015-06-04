@@ -250,6 +250,16 @@ namespace ArgParse {
 			std::string arg;
 			std::string opt;
 			bool split_arg = SplitArg(arg, opt, argv[arg_i]);
+			if(arg == std::string("--")) {
+				if(!split_arg) {
+					//We need to eat this variable and then quit.
+					if(EatArgument(argc, argv, arg_i) < 0) {
+						MessageStandardPrint("There was a problem eating an argument!\n");
+						return -1;
+					}
+					break;
+				}
+			}
 			if(arg == std::string("-h")) {
 				if(DebugLevel > 0) {
 					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
