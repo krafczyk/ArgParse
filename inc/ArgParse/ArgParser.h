@@ -69,7 +69,7 @@ namespace ArgParse {
 				return help_printed;
 			}
 
-			int ParseArgs(int argc, char** argv) __attribute__((warn_unused_result));
+			int ParseArgs(int& argc, char**& argv) __attribute__((warn_unused_result));
 
 		private:
 			std::string help_intro;

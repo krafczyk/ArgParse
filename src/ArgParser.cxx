@@ -241,7 +241,7 @@ namespace ArgParse {
 		help_printed = true;
 	}
 
-	int ArgParser::ParseArgs(int argc, char** argv) {
+	int ArgParser::ParseArgs(int& argc, char**& argv) {
 		int arg_i=1;
 		while(arg_i<argc) {
 			if(DebugLevel > 0) {
