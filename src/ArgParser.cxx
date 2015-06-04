@@ -247,46 +247,60 @@ namespace ArgParse {
 			if(DebugLevel > 0) {
 				MessageStandardPrint("Argument is: (%s)\n", argv[arg_i]);
 			}
+			std::string arg;
+			std::string opt;
+			bool split_arg = SplitArg(arg, opt, argv[arg_i]);
+			if(arg == std::string("-h")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
+				PrintHelp();
+				return 0;
+			}
+			if(arg == std::string("--help")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
+
+				PrintHelp();
+				return 0;
+			}
+			if(arg == std::string("-?")) {
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
+				}
+
+				PrintHelp();
+				return 0;
+			}
 			int I = -1;
-			if(std::string(argv[arg_i]) == std::string("-h")) {
-				if(DebugLevel > 0) {
-					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
-				}
-				PrintHelp();
-				return 0;
-			}
-			if(std::string(argv[arg_i]) == std::string("--help")) {
-				if(DebugLevel > 0) {
-					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
-				}
-
-				PrintHelp();
-				return 0;
-			}
-			if(std::string(argv[arg_i]) == std::string("-?")) {
-				if(DebugLevel > 0) {
-					MessageStandardPrint("Help discovered!\n", argv[arg_i]);
-				}
-
-				PrintHelp();
-				return 0;
-			}
 			for(size_t i=0;i<arguments.size();++i) {
-				if(arguments[i]->IsArgument(argv[arg_i])) {
+				if(arguments[i]->IsArgument(arg)) {
 					I = i;
 					if(arguments[i]->NeedsArgument()) {
-						++arg_i;
+						if(!split_arg) {
+							if(EatArgument(argc, argv, arg_i) < 0) {
+								ArgParseMessageError("There was a problem eating an argument!\n");
+								SetMessage("There was a problem eating an argument!\n");
+								return -1;
+							}
+							opt = std::string(argv[arg_i]);
+						}
 						int status;
-						if((status = arguments[i]->SetValue(argv[arg_i]))<0) {
+						if((status = arguments[i]->SetValue(opt))<0) {
 							ArgParseMessageError("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
 							SetMessage("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
-							return -1;
+							return -2;
 						}
 					} else {
+						if (split_arg) {
+							ArgParseMessageError("The argument (%s) doesn't take a value!\n", arg.c_str());
+							return -3;
+						}
 						int status;
 						if((status = arguments[i]->SetValue(0)) < 0) {
 							ArgParseMessageError("There was a problem with toggling the argument (%s)!\n", argv[arg_i]);
-							return -2;
+							return -4;
 						}
 					}
 				}
@@ -296,7 +310,11 @@ namespace ArgParse {
 				SetMessage("The argument (%s) does not exist.\n", argv[arg_i]);
 				return -2;
 			}
-			++arg_i;
+			if(EatArgument(argc, argv, arg_i) < 0) {
+				ArgParseMessageError("There was a problem eating an argument!\n");
+				SetMessage("There was a problem eating an argument!\n");
+				return -2;
+			}
 		}
 		for(size_t i=0;i<arguments.size();++i) {
 			if(arguments[i]->IsRequired()) {
@@ -308,5 +326,62 @@ namespace ArgParse {
 			}
 		}
 		return 0;
+	}
+
+	int ArgParser::EatArgument(int& argc, char**& argv, const int i) {
+		if (i >= argc) {
+			return -1;
+		}
+		//shift arguments
+		argc--;
+		int j = i;
+		while (j < argc) {
+			argv[j] = argv[j+1];
+			j++;
+		}
+		return 0;
+	}
+
+	bool ArgParser::SplitArg(std::string& arg, std::string& opt, const std::string argument) {
+		const int normal = 0;
+		const int quoted = 0;
+		const int escaped = 0;
+		int mode = normal;
+
+		bool found_equals = false;
+		size_t equals_position = 0;
+		char quote_type;
+		size_t i = 0;
+		while (i < argument.size()) {
+			if (mode == normal) {
+				if (argument[i] == '=') {
+					found_equals = true;
+					equals_position = i;
+					break;
+				}
+				if ((argument[i] == '\'')||(argument[i] == '"')) {
+					mode = quoted;
+					quote_type = argument[i];
+				}
+			} else if (mode == quoted) {
+				if (argument[i] == quote_type) {
+					mode = normal;
+				}
+				if (argument[i] == '\\') {
+					mode = escaped;
+				}
+			} else if (mode == escaped) {
+			}
+			++i;
+		}
+
+		if (!found_equals) {
+			arg = argument;
+			return false;
+		} else {
+			arg = argument.substr(0, equals_position);
+			opt = argument.substr(equals_position+1, argument.size()-equals_position-1);
+			return true;
+		}
 	}
 }
