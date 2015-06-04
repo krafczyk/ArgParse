@@ -13,9 +13,6 @@ Features which ought to be implemented:
   --arg =value, Perhaps we can but with a warning?
 
 
-- Addition of unittests
-
-
 - Argument groups should be implemented
 
 
@@ -28,3 +25,6 @@ x Update licenses for 2015
 
 x Option class replaced with Argument class. names and variables changed
   accordingly.
+
+x Addition of unittests
+
