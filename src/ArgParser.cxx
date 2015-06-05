@@ -235,6 +235,9 @@ namespace ArgParse {
 		} else {
 			arg = argument.substr(0, equals_position);
 			opt = argument.substr(equals_position+1, argument.size()-equals_position-1);
+			if(opt.size() == 0) {
+				ArgParseMessageWarning("You passed an empty value to the argument (%s)! This could screw up the parsing of later arguments.\n", arg.c_str());
+			}
 			return true;
 		}
 	}
