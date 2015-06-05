@@ -30,6 +30,12 @@ namespace ArgParse {
 	const Argument::ParseStatus_t Argument::OutOfRange = -2;
 	const Argument::ParseStatus_t Argument::ParseError = -3;
 
+	template<class T>
+	size_t Argument::vector_length(void* data) {
+		std::vector<T>* val = (std::vector<T>*) data;
+		return val->size();
+	}
+
 	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined) : ArgObject(help_text, Mode, required, Type) {
 		this->call_names = GetCallNames(call_name);
 		this->value = arguments;
@@ -85,38 +91,38 @@ namespace ArgParse {
 			}
 		}
 		ss << ": ";
-		if(type == Bool) {
+		if(GetType() == Bool) {
 			ss << "Takes no argument : ";
-		} else if (type == Str) {
+		} else if (GetType() == Str) {
 			ss << "Takes a string : ";
-		} else if (type == Char) {
+		} else if (GetType() == Char) {
 			ss << "Takes a character : ";
-		} else if (type == UChar) {
+		} else if (GetType() == UChar) {
 			ss << "Takes an unsigned character : ";
-		} else if (type == Short) {
+		} else if (GetType() == Short) {
 			ss << "Takes a short : ";
-		} else if (type == UShort) {
+		} else if (GetType() == UShort) {
 			ss << "Takes an unsigned short : ";
-		} else if (type == Int) {
+		} else if (GetType() == Int) {
 			ss << "Takes an integer : ";
-		} else if (type == UInt) {
+		} else if (GetType() == UInt) {
 			ss << "Takes an unsigned integer : ";
-		} else if (type == Long) {
+		} else if (GetType() == Long) {
 			ss << "Takes an long : ";
-		} else if (type == ULong) {
+		} else if (GetType() == ULong) {
 			ss << "Takes an unsigned long : ";
-		} else if (type == LongLong) {
+		} else if (GetType() == LongLong) {
 			ss << "Takes an long long : ";
-		} else if (type == ULongLong) {
+		} else if (GetType() == ULongLong) {
 			ss << "Takes an unsigned long long : ";
-		} else if (type == Float) {
+		} else if (GetType() == Float) {
 			ss << "Takes a float : ";
-		} else if (type == Double) {
+		} else if (GetType() == Double) {
 			ss << "Takes a double : ";
-		} else if (type == LongDouble) {
+		} else if (GetType() == LongDouble) {
 			ss << "Takes a long double : ";
 		}
-		ss << help_text;
+		ss << GetHelp();
 		return ss.str();
 	}
 
@@ -585,246 +591,246 @@ namespace ArgParse {
 		if(DebugLevel > 3) {
 			MessageStandardPrint("Setting a value\n");
 		}
-		if(type == Bool) {
+		if(GetType() == Bool) {
 			if(optarg.size() != 0) {
 				ArgParseMessageWarning("Ignoring the passed argument (%s), since this is a boolean argument.\n");
 			}
-			if(mode == Single) {
+			if(GetMode() == Single) {
 				bool* val = (bool*) value;
 				*val = true;
-			} else if (mode == Multiple) {
+			} else if (GetMode() == Multiple) {
 				std::vector<bool>* vec_val = (std::vector<bool>*) value;
 				vec_val->push_back(true);
 				SetDefined(true);
 			}
 			return 0;
-		} else if (type == Str) {
-			if(mode == Single) {
+		} else if (GetType() == Str) {
+			if(GetMode() == Single) {
 				std::string* string = (std::string*) value;
 				*string = optarg;
 				SetDefined(true);
 				return 0;
-			} else if (mode == Multiple) {
+			} else if (GetMode() == Multiple) {
 				std::vector<std::string>* vec_string = (std::vector<std::string>*) value;
 				vec_string->push_back(optarg);
 				SetDefined(true);
 				return 0;
 			}
-		} else if (type == Char) {
+		} else if (GetType() == Char) {
 			char temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsChar(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((char*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<char>* vec_val = (std::vector<char>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == UChar) {
+		} else if (GetType() == UChar) {
 			unsigned char temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsUChar(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((unsigned char*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<unsigned char>* vec_val = (std::vector<unsigned char>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == Short) {
+		} else if (GetType() == Short) {
 			short temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsShort(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((short*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<short>* vec_val = (std::vector<short>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == UShort) {
+		} else if (GetType() == UShort) {
 			unsigned short temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsUShort(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((unsigned short*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<unsigned short>* vec_val = (std::vector<unsigned short>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == Int) {
+		} else if (GetType() == Int) {
 			int temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsInt(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((int*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<int>* vec_val = (std::vector<int>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == UInt) {
+		} else if (GetType() == UInt) {
 			unsigned int temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsUInt(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((unsigned int*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<unsigned int>* vec_val = (std::vector<unsigned int>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == Long) {
+		} else if (GetType() == Long) {
 			long temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsLong(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((long*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<long>* vec_val = (std::vector<long>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == ULong) {
+		} else if (GetType() == ULong) {
 			unsigned long temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsULong(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((unsigned long*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<unsigned long>* vec_val = (std::vector<unsigned long>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == LongLong) {
+		} else if (GetType() == LongLong) {
 			long long temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsLongLong(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((long long*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<long long>* vec_val = (std::vector<long long>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == ULongLong) {
+		} else if (GetType() == ULongLong) {
 			unsigned long long temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsULongLong(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((unsigned long long*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<unsigned long long>* vec_val = (std::vector<unsigned long long>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == Float) {
+		} else if (GetType() == Float) {
 			float temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsFloat(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((float*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<float>* vec_val = (std::vector<float>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == Double) {
+		} else if (GetType() == Double) {
 			double temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsDouble(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((double*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<double>* vec_val = (std::vector<double>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
 					return 0;
 				}
 			}
-		} else if (type == LongDouble) {
+		} else if (GetType() == LongDouble) {
 			long double temp_val = 0;
 			Argument::ParseStatus_t status;
 			if((status = ParseArgumentAsLongDouble(temp_val, optarg)) < 0)  {
 				return -3;
 			} else {
-				if(mode == Single) {
+				if(GetMode() == Single) {
 					*((long double*) value) = temp_val;
 					SetDefined(true);
 					return 0;
-				} else if (mode == Multiple) {
+				} else if (GetMode() == Multiple) {
 					std::vector<long double>* vec_val = (std::vector<long double>*) value;
 					vec_val->push_back(temp_val);
 					SetDefined(true);
@@ -837,6 +843,20 @@ namespace ArgParse {
 		return -2;
 	}
 
+	bool Argument::IsConfigured() {
+		if (GetType() >= ArgObject::Divider) {
+			ArgParseMessageError("A group type is being passed to an argument!\n");
+			SetMessage("A group type is being passed to an argument!\n");
+			return false;
+		}
+		if (GetMode() == ArgObject::None) {
+			ArgParseMessageError("An argument cannot have the 'None' mode.\n");
+			SetMessage("An argument cannot have the 'None' mode.\n");
+			return false;
+		}
+		return true;
+	}
+
 	ArgObject::Accept_t Argument::AcceptsArgument(std::string arg) {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
@@ -847,7 +867,7 @@ namespace ArgParse {
 			return ArgObject::No;
 		}
 
-		if(type == Bool) {
+		if(GetType() == Bool) {
 			return ArgObject::WithoutArg;
 		} else {
 			return ArgObject::WithArg;
@@ -860,12 +880,12 @@ namespace ArgParse {
 		if(!result) {
 			return ArgObject::NotAccepted;
 		}
-		if(type == Bool && with_opt) {
+		if(GetType() == Bool && with_opt) {
 			ArgParseMessageError("A boolean argument cannot accept a value!\n");
 			SetMessage("A boolean argument cannot accept a value!\n");
 			return ArgObject::Error;
 		}
-		if(type != Bool && !with_opt) {
+		if(GetType() != Bool && !with_opt) {
 			ArgParseMessageError("A non-boolean argument must have a value!\n");
 			SetMessage("A non-boolean argument must have a value!\n");
 			return ArgObject::Error;
@@ -886,6 +906,52 @@ namespace ArgParse {
 			}
 		}
 		return ArgObject::Accepted;
+	}
+
+	size_t Argument::AmountOfData() {
+		if(!WasDefined()) {
+			return 0;
+		}
+		if(GetMode() == ArgObject::Single) {
+			return 1;
+		} else {
+			ArgObject::Type_t type = GetType();
+			if (type == ArgObject::Bool) {
+				return vector_length<bool>(value);
+			} else if (type == ArgObject::Str) {
+				return vector_length<std::string>(value);
+			} else if (type == ArgObject::Char) {
+				return vector_length<char>(value);
+			} else if (type == ArgObject::UChar) {
+				return vector_length<unsigned char>(value);
+			} else if (type == ArgObject::Short) {
+				return vector_length<short>(value);
+			} else if (type == ArgObject::UShort) {
+				return vector_length<unsigned short>(value);
+			} else if (type == ArgObject::Int) {
+				return vector_length<int>(value);
+			} else if (type == ArgObject::UInt) {
+				return vector_length<unsigned int>(value);
+			} else if (type == ArgObject::Long) {
+				return vector_length<long>(value);
+			} else if (type == ArgObject::ULong) {
+				return vector_length<unsigned long>(value);
+			} else if (type == ArgObject::LongLong) {
+				return vector_length<long long>(value);
+			} else if (type == ArgObject::ULongLong) {
+				return vector_length<unsigned long long>(value);
+			} else if (type == ArgObject::Float) {
+				return vector_length<float>(value);
+			} else if (type == ArgObject::Double) {
+				return vector_length<double>(value);
+			} else if (type == ArgObject::LongDouble) {
+				return vector_length<long double>(value);
+			} else {
+				ArgParseMessageError("An unknown type for an argument!\n");
+				SetMessage("An unknown type for an argument!\n");
+				exit(-5);
+			}
+		}
 	}
 
 	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) {

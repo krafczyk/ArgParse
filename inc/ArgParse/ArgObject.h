@@ -25,6 +25,8 @@ namespace ArgParse {
 			static const Type_t Double;
 			static const Type_t LongDouble;
 
+			static const Type_t Divider;
+
 			//Group types
 			static const Type_t Normal;
 			static const Type_t Exclusive;
@@ -67,12 +69,32 @@ namespace ArgParse {
 			}
 			virtual Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result)) = 0;
 			virtual Pass_t PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result)) = 0;
+
+			virtual size_t AmountOfData() {
+				return 0;
+			}
 	
 			virtual bool IsReady() __attribute__((warn_unused_result)) = 0;
 	
 			virtual std::string GetHelpText() = 0;
 
-		protected:
+			Type_t GetType() const {
+				return type;
+			}
+
+			Mode_t GetMode() const {
+				return mode;
+			}
+
+			bool GetRequired() const {
+				return required;
+			}
+
+			const std::string& GetHelp() const {
+				return help_text;
+			}
+
+		private:
 			Type_t type;
 			Mode_t mode;
 			bool required;

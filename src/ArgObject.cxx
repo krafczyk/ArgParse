@@ -17,9 +17,11 @@ namespace ArgParse {
 	const ArgObject::Type_t ArgObject::Double = 14;
 	const ArgObject::Type_t ArgObject::LongDouble = 15;
 
-	const ArgObject::Type_t ArgObject::Normal = 16;
-	const ArgObject::Type_t ArgObject::Exclusive = 17;
-	const ArgObject::Type_t ArgObject::Inclusive = 18;
+	const ArgObject::Type_t ArgObject::Divider = 100;
+
+	const ArgObject::Type_t ArgObject::Normal = 101;
+	const ArgObject::Type_t ArgObject::Exclusive = 102;
+	const ArgObject::Type_t ArgObject::Inclusive = 103;
 
 	const ArgObject::Mode_t ArgObject::Single = 0;
 	const ArgObject::Mode_t ArgObject::Multiple = 1;

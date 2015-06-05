@@ -34,6 +34,9 @@ namespace ArgParse {
 			static const ParseStatus_t OutOfRange;
 			static const ParseStatus_t ParseError;
 
+			template<class T>
+			static size_t vector_length(void* data);
+
 		public:
 			Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			~Argument();
@@ -62,8 +65,10 @@ namespace ArgParse {
 			}
 
 			//ArgObject functions
+			bool IsConfigured() __attribute__((warn_unused_result));
 			ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
 			int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
+			size_t AmountOfData();
 			bool IsReady() __attribute__((warn_unused_result));
 			std::string GetHelpText();
 			
@@ -77,7 +82,7 @@ namespace ArgParse {
 				*defined = status;
 			}
 			Req_t IsRequired() const {
-				return required;
+				return GetRequired();
 			}
 
 			std::vector<std::string> call_names;
