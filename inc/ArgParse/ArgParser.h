@@ -72,10 +72,10 @@ namespace ArgParse {
 			bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
 
 		private:
-			void AddArgument(Argument* argument);
+			void AddArgObject(ArgObject* object);
 
 			std::string help_intro;
-			std::vector<Argument*> arguments;
+			std::vector<ArgObject*> objects;
 			bool help_printed;
 	};
 }

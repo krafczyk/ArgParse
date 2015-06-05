@@ -29,175 +29,163 @@ namespace ArgParse {
 	}
 
 	ArgParser::~ArgParser() {
-		for(size_t i=0;i<arguments.size();++i) {
-			delete arguments[i];
+		for(size_t i=0;i<objects.size();++i) {
+			delete objects[i];
 		}
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, bool* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::string* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, char* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, short* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, int* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long long* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, float* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, double* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 	
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, argument, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
 	void ArgParser::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required, bool* was_defined) {
 		Argument* the_argument = new Argument(call_name, help_text, arguments, required, was_defined);
-		AddArgument(the_argument);
+		AddArgObject((ArgObject*) the_argument);
 	}
 
-	void ArgParser::AddArgument(Argument* argument) {
-		for(size_t i=0;i<argument->GetNum();++i) {
-			if((argument->GetName(i) == "-h") || (argument->GetName(i) == "-?") || (argument->GetName(i) == "--help")) {
-				ArgParseMessageWarning("The argument %s will be ignored, as this is reserved by the help text.\n", argument->GetName(i).c_str());
-			}
-			for(size_t j=0;j<arguments.size();++j) {
-				for(size_t k=0;k<arguments[j]->GetNum();++k) {
-					if(argument->GetName(i) == arguments[j]->GetName(k)) {
-						ArgParseMessageWarning("The argument %s has already been passed, and will be ignored for an earlier argument.\n", argument->GetName(i).c_str());
-					}
-				}
-			}
-		}
-		arguments.push_back(argument);
+	void ArgParser::AddArgObject(ArgObject* object) {
+		objects.push_back(object);
 	}
 
 
@@ -205,8 +193,8 @@ namespace ArgParse {
 		ArgParseMessagePrint("%s\n", help_intro.c_str());
 		ArgParseMessagePrint("--- Arguments ---\n");
 		ArgParseMessagePrint("-h / -? / --help : Takes no arguments : Print this help text.\n");
-		for(size_t i=0;i<arguments.size();++i) {
-			ArgParseMessagePrint("%s\n", arguments[i]->GetHelpText().c_str());
+		for(size_t i=0;i<objects.size();++i) {
+			ArgParseMessagePrint("%s\n", objects[i]->GetHelpText().c_str());
 		}
 		help_printed = true;
 	}
@@ -254,8 +242,8 @@ namespace ArgParse {
 				return 0;
 			}
 			int I = -1;
-			for(size_t i=0;i<arguments.size();++i) {
-				ArgObject::Accept_t accepted = arguments[i]->AcceptsArgument(arg);
+			for(size_t i=0;i<objects.size();++i) {
+				ArgObject::Accept_t accepted = objects[i]->AcceptsArgument(arg);
 				if (accepted != ArgObject::No) {
 					I = i;
 					if(accepted == ArgObject::WithArg) {
@@ -279,7 +267,7 @@ namespace ArgParse {
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Setting Value\n");
 						}
-						ArgObject::Pass_t passed = arguments[i]->PassArgument(arg, opt, true);
+						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, true);
 						if(passed == ArgObject::Error) {
 							return -2;
 						}
@@ -302,7 +290,7 @@ namespace ArgParse {
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Setting Value\n");
 						}
-						ArgObject::Pass_t passed = arguments[i]->PassArgument(arg, opt, false);
+						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, false);
 						if(passed == ArgObject::Error) {
 							return -4;
 						}
@@ -338,8 +326,8 @@ namespace ArgParse {
 				MessageStandardPrint("Finished eating an argument.\n");
 			}
 		}
-		for(size_t i=0;i<arguments.size();++i) {
-			if(!arguments[i]->IsReady()) {
+		for(size_t i=0;i<objects.size();++i) {
+			if(!objects[i]->IsReady()) {
 				return -3;
 			}
 		}
