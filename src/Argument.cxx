@@ -1081,4 +1081,15 @@ namespace ArgParse {
 			return false;
 		}
 	}
+
+	bool Argument::IsReady() {
+		if (IsRequired()) {
+			if(!WasDefined()) {
+				ArgParseMessageError("The argument (%s) needs to be defined.\n", GetName().c_str());
+				SetMessage("The argument (%s) needs to be defined.\n", GetName().c_str());
+				return false;
+			}
+		}
+		return true;
+	}
 }

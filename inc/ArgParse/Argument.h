@@ -121,19 +121,6 @@ namespace ArgParse {
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
-			bool WasDefined() const {
-				return *defined;
-			}
-			void SetDefined(bool status) {
-				*defined = status;
-			}
-			void SetRequired(const Req_t required) {
-				this->required = required;
-			}
-			Req_t IsRequired() const {
-				return required;
-			}
-
 			//ArgObject functions
 			ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
 			int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
@@ -143,6 +130,16 @@ namespace ArgParse {
 		private:
 			void InitializeArgument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined);
 			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
+
+			bool WasDefined() const {
+				return *defined;
+			}
+			void SetDefined(bool status) {
+				*defined = status;
+			}
+			Req_t IsRequired() const {
+				return required;
+			}
 
 			std::vector<std::string> call_names;
 			Type_t type;
