@@ -82,8 +82,8 @@ if(UNITTESTS)
 add_subdirectory(unittests)
 endif()
 
-add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Argument.cxx src/ArgObject.cxx)
-add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Argument.cxx src/ArgObject.cxx)
+add_library(ArgParse SHARED src/ArgParser.cxx src/Message.cxx src/Argument.cxx src/ArgObject.cxx src/ArgObjContainer.cxx)
+add_library(ArgParseStatic STATIC src/ArgParser.cxx src/Message.cxx src/Argument.cxx src/ArgObject.cxx src/ArgObjContainer.cxx)
 
 set_target_properties(ArgParse PROPERTIES VERSION ${VERSION_STRING})
 set_target_properties(ArgParse PROPERTIES SOVERSION ${VERSION_MAJOR})

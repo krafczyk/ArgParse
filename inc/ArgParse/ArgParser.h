@@ -22,44 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <string>
 
-#include "ArgParse/Argument.h"
+#include "ArgParse/ArgObjContainer.h"
 
 namespace ArgParse {
-	class ArgParser {
+	class ArgParser : public ArgObjContainer {
 		public:
 			ArgParser(const std::string& help_intro);
 			~ArgParser();
-
-			void AddArgument(const std::string& call_name, const std::string& help_text, bool* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::string* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const Argument::Req_t requred = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, char* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, short* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, int* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, long* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, long long* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, float* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, double* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
 			void PrintHelp();
 
@@ -72,10 +41,7 @@ namespace ArgParse {
 			bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
 
 		private:
-			void AddArgObject(ArgObject* object);
-
 			std::string help_intro;
-			std::vector<ArgObject*> objects;
 			bool help_printed;
 	};
 }
