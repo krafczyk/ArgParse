@@ -25,40 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ArgParse/Message.h"
 
 namespace ArgParse {
-	const Argument::Type_t Argument::Bool = 0;
-	const Argument::Type_t Argument::Str = 1;
-	const Argument::Type_t Argument::Char = 2;
-	const Argument::Type_t Argument::UChar = 3;
-	const Argument::Type_t Argument::Short = 4;
-	const Argument::Type_t Argument::UShort = 5;
-	const Argument::Type_t Argument::Int = 6;
-	const Argument::Type_t Argument::UInt = 7;
-	const Argument::Type_t Argument::Long = 8;
-	const Argument::Type_t Argument::ULong = 9;
-	const Argument::Type_t Argument::LongLong = 10;
-	const Argument::Type_t Argument::ULongLong = 11;
-	const Argument::Type_t Argument::Float = 12;
-	const Argument::Type_t Argument::Double = 14;
-	const Argument::Type_t Argument::LongDouble = 15;
-
-	const Argument::Mode_t Argument::Single = 0;
-	const Argument::Mode_t Argument::Multiple = 1;
-
-	const Argument::Req_t Argument::Required = true;
-	const Argument::Req_t Argument::Optional = false;
-
 	const Argument::ParseStatus_t Argument::Complete = 0;
 	const Argument::ParseStatus_t Argument::Incomplete = -1;
 	const Argument::ParseStatus_t Argument::OutOfRange = -2;
 	const Argument::ParseStatus_t Argument::ParseError = -3;
 
-	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined) {
+	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined) : ArgObject(help_text, Mode, required, Type) {
 		this->call_names = GetCallNames(call_name);
-		this->type = Type;
-		this->mode = Mode;
-		this->help_text = help_text;
 		this->value = arguments;
-		this->required = required;
 		if(was_defined == ARGPARSE_NULLPTR) {
 			this->defined = new bool;
 			this->responsible_for_defined = true;

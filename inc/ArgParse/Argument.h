@@ -27,34 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace ArgParse {
 	class Argument : public ArgObject {
 		public:
-			//Type management
-			typedef int Type_t;
-			static const Type_t Bool;
-			static const Type_t Str;
-			static const Type_t Char;
-			static const Type_t UChar;
-			static const Type_t Short;
-			static const Type_t UShort;
-			static const Type_t Int;
-			static const Type_t UInt;
-			static const Type_t Long;
-			static const Type_t ULong;
-			static const Type_t LongLong;
-			static const Type_t ULongLong;
-			static const Type_t Float;
-			static const Type_t Double;
-			static const Type_t LongDouble;
-
-			//Mode management
-			typedef int Mode_t;
-			static const Mode_t Single;
-			static const Mode_t Multiple;
-
-			//Required management
-			typedef bool Req_t;
-			static const Req_t Required;
-			static const Req_t Optional;
-
 			//Parser status
 			typedef int ParseStatus_t;
 			static const ParseStatus_t Complete;
@@ -109,12 +81,8 @@ namespace ArgParse {
 			}
 
 			std::vector<std::string> call_names;
-			Type_t type;
-			Mode_t mode;
-			bool required;
 			bool* defined;
 			bool responsible_for_defined;
-			std::string help_text;
 			void* value;
 	};
 }

@@ -8,153 +8,153 @@ namespace ArgParse {
 		}
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, bool* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Bool, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, bool* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Bool, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Bool, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Bool, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::string* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Str, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::string* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Str, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Str, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Str, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, char* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Char, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, char* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Char, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Char, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Char, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UChar, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UChar, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UChar, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UChar, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, short* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Short, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, short* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Short, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Short, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Short, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UShort, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UShort, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UShort, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UShort, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, int* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Int, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, int* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Int, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Int, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Int, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UInt, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UInt, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::UInt, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::UInt, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Long, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Long, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Long, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Long, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::ULong, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::ULong, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::ULong, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::ULong, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long long* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::LongLong, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long long* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::LongLong, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::LongLong, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::LongLong, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::ULongLong, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::ULongLong, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::ULongLong, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::ULongLong, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, float* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Float, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, float* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Float, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Float, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Float, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, double* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Double, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, double* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Double, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::Double, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::Double, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 	
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::LongDouble, Argument::Single, help_text, (void*) argument, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::LongDouble, ArgObject::Single, help_text, (void*) argument, required, was_defined);
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required, bool* was_defined) {
-		Argument* the_argument = new Argument(call_name, Argument::LongDouble, Argument::Multiple, help_text, (void*) arguments, required, was_defined);
+	void ArgObjContainer::AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const ArgObject::Req_t required, bool* was_defined) {
+		Argument* the_argument = new Argument(call_name, ArgObject::LongDouble, ArgObject::Multiple, help_text, (void*) arguments, required, was_defined);
 		AddArgument(the_argument);
 	}
 
