@@ -158,8 +158,8 @@ namespace ArgParse {
 				}
 			}
 			if(I < 0) {
-				ArgParseMessageError("The argument (%s) does not exist.\n", argv[arg_i]);
-				SetMessage("The argument (%s) does not exist.\n", argv[arg_i]);
+				ArgParseMessageError("The argument (%s) does not exist.\n", arg.c_str());
+				SetMessage("The argument (%s) does not exist.\n", arg.c_str());
 				return -2;
 			}
 			if(DebugLevel > 2) {
