@@ -14,10 +14,10 @@ namespace ArgParse {
 			ArgObject();
 			virtual ~ArgObject();
 	
-			virtual Accept_t AcceptsArgument(std::string arg) = 0;
-			virtual int PassArgument(std::string arg, std::string opt, bool with_opt) = 0;
+			virtual Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result)) = 0;
+			virtual int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result)) = 0;
 	
-			virtual bool IsReady() = 0;
+			virtual bool IsReady() __attribute__((warn_unused_result)) = 0;
 	
 			virtual std::string GetHelpText() = 0;
 	};
