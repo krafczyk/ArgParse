@@ -255,9 +255,10 @@ namespace ArgParse {
 			}
 			int I = -1;
 			for(size_t i=0;i<arguments.size();++i) {
-				if(arguments[i]->IsArgument(arg)) {
+				ArgObject::Accept_t accepted = arguments[i]->AcceptsArgument(arg);
+				if (accepted != ArgObject::No) {
 					I = i;
-					if(arguments[i]->NeedsArgument()) {
+					if(accepted == ArgObject::WithArg) {
 						if(DebugLevel > 0) {
 							MessageStandardPrint("Needs a value\n");
 						}
@@ -278,16 +279,19 @@ namespace ArgParse {
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Setting Value\n");
 						}
-						int status;
-						if((status = arguments[i]->SetValue(opt))<0) {
-							ArgParseMessageError("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
-							SetMessage("There was a problem setting (%s) as argument to (%s).\n", argv[arg_i], argv[arg_i-1]);
+						ArgObject::Pass_t passed = arguments[i]->PassArgument(arg, opt, true);
+						if(passed == ArgObject::Error) {
 							return -2;
+						}
+						if(passed == ArgObject::NotAccepted) {
+							ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
+							SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
+							return -3;
 						}
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Finished Setting Value\n");
 						}
-					} else {
+					} else if (accepted == ArgObject::WithoutArg) {
 						if(DebugLevel > 0) {
 							MessageStandardPrint("Doesn't need a value\n");
 						}
@@ -298,14 +302,22 @@ namespace ArgParse {
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Setting Value\n");
 						}
-						int status;
-						if((status = arguments[i]->SetValue("")) < 0) {
-							ArgParseMessageError("There was a problem with toggling the argument (%s)!\n", argv[arg_i]);
+						ArgObject::Pass_t passed = arguments[i]->PassArgument(arg, opt, false);
+						if(passed == ArgObject::Error) {
 							return -4;
+						}
+						if(passed == ArgObject::NotAccepted) {
+							ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
+							SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
+							return -5;
 						}
 						if(DebugLevel > 1) {
 							MessageStandardPrint("Finished Setting Value\n");
 						}
+					} else {
+						ArgParseMessageError("Something strange was returned from AcceptsArgument!\n");
+						SetMessage("Something strange was returned from AcceptsArgument!\n");
+						return -6;
 					}
 				}
 			}
@@ -327,12 +339,8 @@ namespace ArgParse {
 			}
 		}
 		for(size_t i=0;i<arguments.size();++i) {
-			if(arguments[i]->IsRequired()) {
-				if(!arguments[i]->WasDefined()) {
-					ArgParseMessageError("The argument (%s) needs to be defined.\n", arguments[i]->GetName().c_str());
-					SetMessage("The argument (%s) needs to be defined.\n", arguments[i]->GetName().c_str());
-					return -3;
-				}
+			if(!arguments[i]->IsReady()) {
+				return -3;
 			}
 		}
 		return 0;
