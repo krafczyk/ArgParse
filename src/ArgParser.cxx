@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ArgParse/Message.h"
 
 namespace ArgParse {
-	ArgParser::ArgParser(const std::string& help_intro) {
+	ArgParser::ArgParser(const std::string& help_intro) : ArgObjContainer() {
 		this->help_printed = false;
 		this->help_intro = help_intro;
 	}

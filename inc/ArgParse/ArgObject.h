@@ -10,6 +10,7 @@ namespace ArgParse {
 			static const Accept_t No;
 			static const Accept_t WithArg;
 			static const Accept_t WithoutArg;
+			static const Accept_t GroupName;
 
 			typedef int Pass_t;
 			static const Pass_t NotAccepted;

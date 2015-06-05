@@ -161,9 +161,15 @@ namespace ArgParse {
 	void ArgObjContainer::CheckName(const std::string& call_name, ArgObjContainer* parent) {
 		if(parent == ARGPARSE_NULLPTR) {
 			for(size_t i=0;i<objects.size();++i) {
-				if(objects[i]->AcceptsArgument(call_name) != ArgObject::No) {
-					ArgParseMessageError("The argument (%s) has already been defined!\n", call_name.c_str());
-					SetMessage("The argument (%s) has already been defined!\n", call_name.c_str());
+				ArgObject::Accept_t accept = objects[i]->AcceptsArgument(call_name);
+				if(accept != ArgObject::No) {
+					if(accept == ArgObject::GroupName) {
+						ArgParseMessageError("The argument (%s) conflicts with a group name!\n", call_name.c_str());
+						SetMessage("The argument (%s) conflicts with a group name!\n", call_name.c_str());
+					} else {
+						ArgParseMessageError("The argument (%s) has already been defined!\n", call_name.c_str());
+						SetMessage("The argument (%s) has already been defined!\n", call_name.c_str());
+					}
 					exit(-1);
 				}
 			}
@@ -175,7 +181,7 @@ namespace ArgParse {
 	void ArgObjContainer::AddArgument(Argument* argument) {
 		//Check that the name hasn't been defined already
 		for(size_t i=0; i<argument->GetNum(); ++i) {
-			CheckName(argument->GetName(i));
+			CheckName(argument->GetName(i), parent);
 		}
 		AddArgObject((ArgObject*) argument);
 	}
