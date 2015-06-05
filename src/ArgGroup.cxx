@@ -25,13 +25,13 @@ namespace ArgParse {
 					return false;
 				}
 			}
-		}
-		//Now check for consistency with requirement
-		for(size_t i=0; i< objects.size(); ++i) {
-			if(objects[i]->GetRequired() != GetRequired()) {
-				ArgParseMessageError("An element of this container doesn't have the same requirement criteria!\n");
-				SetMessage("An element of this container doesn't have the same requirement criteria!\n");
-				return false;
+			//Now check for consistency with requirement
+			for(size_t i=0; i< objects.size(); ++i) {
+				if(objects[i]->GetRequired() != GetRequired()) {
+					ArgParseMessageError("An element of this container doesn't have the same requirement criteria!\n");
+					SetMessage("An element of this container doesn't have the same requirement criteria!\n");
+					return false;
+				}
 			}
 		}
 		return true;
