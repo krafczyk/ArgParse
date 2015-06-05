@@ -42,6 +42,12 @@ namespace ArgParse {
 	}
 
 	int ArgParser::ParseArgs(int& argc, char**& argv) {
+		//Check that the options are configured.
+		for(size_t i=0; i<objects.size();++i) {
+			if(!objects[i]->IsConfigured()) {
+				return -1;
+			}
+		}
 		int arg_i=1;
 		while(arg_i<argc) {
 			if(DebugLevel > 0) {

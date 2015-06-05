@@ -20,6 +20,9 @@ namespace ArgParse {
 			ArgObject();
 			virtual ~ArgObject();
 	
+			virtual bool IsConfigured() __attribute__((warn_unused_result)) {
+				return true;
+			}
 			virtual Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result)) = 0;
 			virtual Pass_t PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result)) = 0;
 	
