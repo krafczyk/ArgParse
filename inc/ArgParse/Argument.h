@@ -97,13 +97,6 @@ namespace ArgParse {
 			~Argument();
 
 			//Getters/Setters
-			bool IsArgument(const std::string& opt) __attribute__((warn_unused_result));
-			bool NeedsArgument();
-			std::string GetName(size_t i=0);
-			size_t GetNum() {
-				return call_names.size();
-			}
-
 			static ParseStatus_t ParseArgumentAsChar(char& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsUChar(unsigned char& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsShort(short& val, const std::string& optarg) __attribute__((warn_unused_result));
@@ -120,6 +113,11 @@ namespace ArgParse {
 			int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
+
+			std::string GetName(size_t i=0);
+			size_t GetNum() {
+				return call_names.size();
+			}
 
 			//ArgObject functions
 			ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));

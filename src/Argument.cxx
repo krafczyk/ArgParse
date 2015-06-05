@@ -218,24 +218,6 @@ namespace ArgParse {
 		return answer;
 	}
 
-	bool Argument::IsArgument(const std::string& opt) {
-		if(DebugLevel > 1) {
-			MessageStandardPrint("Testing the argument (%s)\n", opt.c_str());
-		}
-		bool result = false;
-		std::stringstream ss;
-		for(size_t i=0; i<call_names.size();++i) {
-			if(DebugLevel > 1) {
-				MessageStandardPrint("against call name (%s)\n", call_names[i].c_str());
-			}
-			if(opt == call_names[i]) {
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
-
 	std::string Argument::GetName(size_t i) {
 		if(call_names.size() > i) {
 			return call_names[i];
@@ -1003,14 +985,6 @@ namespace ArgParse {
 		ArgParseMessageError("The argument is of unknown type!\n");
 		SetMessage("The argument is of unknown type!\n");
 		return -2;
-	}
-
-	bool Argument::NeedsArgument() {
-		if(type != Bool) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	ArgObject::Accept_t Argument::AcceptsArgument(std::string arg) {
