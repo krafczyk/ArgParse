@@ -142,6 +142,7 @@ namespace ArgParse {
 			
 		private:
 			void InitializeArgument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined);
+			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
 
 			std::vector<std::string> call_names;
 			Type_t type;

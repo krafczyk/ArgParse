@@ -1017,16 +1017,8 @@ namespace ArgParse {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
-		bool result = false;
-		for(size_t i=0; i<call_names.size();++i) {
-			if(DebugLevel > 1) {
-				MessageStandardPrint("against call name (%s)\n", call_names[i].c_str());
-			}
-			if(arg == call_names[i]) {
-				result = true;
-				break;
-			}
-		}
+		size_t pos;
+		bool result = DoesAnArgumentMatch(pos, arg);
 		if(!result) {
 			return ArgObject::No;
 		}
@@ -1035,6 +1027,58 @@ namespace ArgParse {
 			return ArgObject::WithoutArg;
 		} else {
 			return ArgObject::WithArg;
+		}
+	}
+
+	ArgObject::Pass_t Argument::PassArgument(std::string arg, std::string opt, bool with_opt) {
+		size_t pos;
+		bool result = DoesAnArgumentMatch(pos, arg);
+		if(!result) {
+			return ArgObject::NotAccepted;
+		}
+		if(type == Bool && with_opt) {
+			ArgParseMessageError("A boolean argument cannot accept a value!\n");
+			SetMessage("A boolean argument cannot accept a value!\n");
+			return ArgObject::Error;
+		}
+		if(type != Bool && !with_opt) {
+			ArgParseMessageError("A non-boolean argument must have a value!\n");
+			SetMessage("A non-boolean argument must have a value!\n");
+			return ArgObject::Error;
+		}
+
+		if (with_opt) {
+			if(SetValue(opt) < 0) {
+				return ArgObject::Error;
+			}
+		} else {
+			if (opt.size() != 0) {
+				ArgParseMessageError("You told me you didn't pass an option, but you did!\n");
+				SetMessage("You told me you didn't pass an option, but you did!\n");
+				return ArgObject::Error;
+			}
+			if(SetValue("") < 0) {
+				return ArgObject::Error;
+			}
+		}
+		return ArgObject::Accepted;
+	}
+
+	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) {
+		size_t i=0;
+		for(;i<call_names.size();++i) {
+			if(DebugLevel > 1) {
+				MessageStandardPrint("checking if call name (%s) matches.\n", call_names[i].c_str());
+			}
+			if(arg == call_names[i]) {
+				break;
+			}
+		}
+		if (i != call_names.size()) {
+			position = i;
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
