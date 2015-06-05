@@ -1,13 +1,15 @@
 #ifndef ARGPARSE_ArgObjContainer_HDR
 #define ARGPARSE_ArgObjContainer_HDR
 
+#include "ArgParse/config.h"
 #include "ArgParse/Argument.h"
 #include "ArgParse/ArgObject.h"
 
 namespace ArgParse {
 	class ArgObjContainer {
 		public:
-			ArgObjContainer() {
+			ArgObjContainer(ArgObjContainer* parent = ARGPARSE_NULLPTR) {
+				this->parent = parent;
 			}
 			virtual ~ArgObjContainer();
 
@@ -43,11 +45,12 @@ namespace ArgParse {
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
 		private:
-			void CheckName(const std::string& call_name);
+			void CheckName(const std::string& call_name, ArgObjContainer* parent);
 			void AddArgument(Argument* argument);
 			void AddArgObject(ArgObject* object);
 
 		protected:
+			ArgObjContainer* parent;
 			std::vector<ArgObject*> objects;
 	};
 }

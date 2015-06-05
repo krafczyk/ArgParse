@@ -158,13 +158,17 @@ namespace ArgParse {
 		AddArgument(the_argument);
 	}
 
-	void ArgObjContainer::CheckName(const std::string& call_name) {
-		for(size_t i=0;i<objects.size();++i) {
-			if(objects[i]->AcceptsArgument(call_name) != ArgObject::No) {
-				ArgParseMessageError("The argument (%s) has already been defined!\n", call_name.c_str());
-				SetMessage("The argument (%s) has already been defined!\n", call_name.c_str());
-				exit(-1);
+	void ArgObjContainer::CheckName(const std::string& call_name, ArgObjContainer* parent) {
+		if(parent == ARGPARSE_NULLPTR) {
+			for(size_t i=0;i<objects.size();++i) {
+				if(objects[i]->AcceptsArgument(call_name) != ArgObject::No) {
+					ArgParseMessageError("The argument (%s) has already been defined!\n", call_name.c_str());
+					SetMessage("The argument (%s) has already been defined!\n", call_name.c_str());
+					exit(-1);
+				}
 			}
+		} else {
+			parent->CheckName(call_name, parent->parent);
 		}
 	}
 
