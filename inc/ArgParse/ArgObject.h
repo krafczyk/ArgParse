@@ -5,10 +5,15 @@
 
 class ArgObject {
 	public:
+		typedef int Accept_t;
+		static const Accept_t No = 0;
+		static const Accept_t WithArg = 1;
+		static const Accept_t WithoutArg = 2;
+
 		ArgObject();
 		virtual ~ArgObject();
 
-		virtual int AcceptsArgument(std::string arg) = 0;
+		virtual Accept_t AcceptsArgument(std::string arg) = 0;
 		virtual int PassArgument(std::string arg, std::string opt, bool with_opt) = 0;
 
 		virtual bool IsReady() = 0;
