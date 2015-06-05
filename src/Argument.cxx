@@ -52,137 +52,7 @@ namespace ArgParse {
 	const Argument::ParseStatus_t Argument::OutOfRange = -2;
 	const Argument::ParseStatus_t Argument::ParseError = -3;
 
-	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined) {
-		InitializeArgument(call_name, Type, Mode, help_text, required, arguments, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, bool* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Bool, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<bool>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Bool, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::string* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Str, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Str, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, char* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Char, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<char>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Char, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UChar, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UChar, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, short* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Short, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<short>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Short, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UShort, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UShort, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, int* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Int, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<int>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Int, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UInt, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, UInt, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, long* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Long, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<long>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Long, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, ULong, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, ULong, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, long long* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, LongLong, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<long long>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, LongLong, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, ULongLong, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, ULongLong, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, float* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Float, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<float>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Float, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, double* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Double, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<double>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, Double, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, long double* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, LongDouble, Single, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::Argument(const std::string& call_name, const std::string& help_text, std::vector<long double>* argument, const Req_t required, bool* was_defined) {
-		InitializeArgument(call_name, LongDouble, Multiple, help_text, required, (void*) argument, was_defined);
-	}
-
-	Argument::~Argument() {
-		if(this->responsible_for_defined) {
-			delete this->defined;
-		}
-	}
-
-	void Argument::InitializeArgument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined) {
+	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined) {
 		this->call_names = GetCallNames(call_name);
 		this->type = Type;
 		this->mode = Mode;
@@ -196,6 +66,12 @@ namespace ArgParse {
 		} else {
 			this->responsible_for_defined = false;
 			this->defined = was_defined;
+		}
+	}
+
+	Argument::~Argument() {
+		if(this->responsible_for_defined) {
+			delete this->defined;
 		}
 	}
 

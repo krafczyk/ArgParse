@@ -63,37 +63,7 @@ namespace ArgParse {
 			static const ParseStatus_t ParseError;
 
 		public:
-			Argument(const std::string& call_name, const std::string& help_text, bool* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<bool>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::string* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<std::string>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, char* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<char>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, unsigned char* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned char>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, short* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<short>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, unsigned short* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned short>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, int* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<int>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, unsigned int* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned int>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, long* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<long>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, unsigned long* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, long long* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<long long>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, unsigned long long* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<unsigned long long>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, float* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<float>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, double* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<double>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, long double* argument, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Req_t required = Optional, bool* was_defined = ARGPARSE_NULLPTR);
-			Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined = ARGPARSE_NULLPTR);
+			Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			~Argument();
 
 			//Getters/Setters
@@ -126,7 +96,6 @@ namespace ArgParse {
 			std::string GetHelpText();
 			
 		private:
-			void InitializeArgument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined);
 			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
 
 			bool WasDefined() const {
