@@ -22,9 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <string>
 #include "ArgParse/config.h"
+#include "ArgParse/ArgObject.h"
 
 namespace ArgParse {
-	class Argument {
+	class Argument : public ArgObject {
 		public:
 			//Type management
 			typedef int Type_t;
@@ -96,8 +97,6 @@ namespace ArgParse {
 			~Argument();
 
 			//Getters/Setters
-			std::string GetHelpText();
-
 			bool IsArgument(const std::string& opt) __attribute__((warn_unused_result));
 			bool NeedsArgument();
 			std::string GetName(size_t i=0);
@@ -134,6 +133,12 @@ namespace ArgParse {
 			Req_t IsRequired() const {
 				return required;
 			}
+
+			//ArgObject functions
+			ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
+			int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
+			bool IsReady() __attribute__((warn_unused_result));
+			std::string GetHelpText();
 			
 		private:
 			void InitializeArgument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, const Req_t required, void* arguments, bool* was_defined);

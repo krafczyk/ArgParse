@@ -1012,4 +1012,29 @@ namespace ArgParse {
 			return false;
 		}
 	}
+
+	ArgObject::Accept_t Argument::AcceptsArgument(std::string arg) {
+		if(DebugLevel > 1) {
+			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
+		}
+		bool result = false;
+		for(size_t i=0; i<call_names.size();++i) {
+			if(DebugLevel > 1) {
+				MessageStandardPrint("against call name (%s)\n", call_names[i].c_str());
+			}
+			if(arg == call_names[i]) {
+				result = true;
+				break;
+			}
+		}
+		if(!result) {
+			return ArgObject::No;
+		}
+
+		if(type == Bool) {
+			return ArgObject::WithoutArg;
+		} else {
+			return ArgObject::WithArg;
+		}
+	}
 }
