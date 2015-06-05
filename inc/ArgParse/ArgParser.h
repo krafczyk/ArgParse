@@ -37,8 +37,9 @@ namespace ArgParse {
 			}
 
 			int ParseArgs(int& argc, char**& argv) __attribute__((warn_unused_result));
-			int EatArgument(int& argc, char**& argv, const int i = 1) __attribute__((warn_unused_result));
-			bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
+
+			static int EatArgument(int& argc, char**& argv, const int i = 1) __attribute__((warn_unused_result));
+			static bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
 
 		private:
 			std::string help_intro;
