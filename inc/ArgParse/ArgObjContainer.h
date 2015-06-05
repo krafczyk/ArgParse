@@ -2,10 +2,14 @@
 #define ARGPARSE_ArgObjContainer_HDR
 
 #include "ArgParse/config.h"
-#include "ArgParse/Argument.h"
 #include "ArgParse/ArgObject.h"
+#include "ArgParse/Argument.h"
+
 
 namespace ArgParse {
+	//Need to forward declare this..
+	class ArgGroup;
+
 	class ArgObjContainer {
 		public:
 			ArgObjContainer(ArgObjContainer* parent = ARGPARSE_NULLPTR) {
@@ -44,9 +48,12 @@ namespace ArgParse {
 			void AddArgument(const std::string& call_name, const std::string& help_text, long double* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
+			ArgGroup& AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, const ArgObject::Type_t type = ArgObject::Normal);
+
 		private:
 			void CheckName(const std::string& call_name, ArgObjContainer* parent);
 			void AddArgument(Argument* argument);
+			void AddArgGroupObject(ArgGroup* arggroup);
 			void AddArgObject(ArgObject* object);
 
 		protected:

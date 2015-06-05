@@ -5,9 +5,9 @@
 #include "ArgParse/ArgObjContainer.h"
 
 namespace ArgParse {
-	class ArgGroup : public ArgObject, public ArgObjContainer {
+	class ArgGroup : public ArgObject , public ArgObjContainer {
 		public:
-			ArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Type_t type = ArgObject::Normal, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional) : ArgObject(help_text, mode, required, type) {
+			ArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Type_t type = ArgObject::Normal, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, ArgObjContainer* parent = ARGPARSE_NULLPTR) : ArgObject(help_text, mode, required, type) , ArgObjContainer(parent) {
 				this->title = title;
 			}
 			~ArgGroup() {
@@ -21,6 +21,10 @@ namespace ArgParse {
 			bool IsReady() __attribute__((warn_unused_result));
 	
 			std::string GetHelpText();
+
+			const std::string& GetTitle() {
+				return this->title;
+			}
 
 		private:
 			std::string title;

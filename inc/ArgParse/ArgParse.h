@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ArgParse/Message.h"
 #include "ArgParse/Argument.h"
+#include "ArgParse/ArgGroup.h"
 #include "ArgParse/ArgParser.h"
 
 #endif

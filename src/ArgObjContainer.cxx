@@ -1,5 +1,6 @@
 #include "ArgParse/Message.h"
 #include "ArgParse/ArgObjContainer.h"
+#include "ArgParse/ArgGroup.h"
 
 namespace ArgParse {
 	ArgObjContainer::~ArgObjContainer() {
@@ -158,6 +159,12 @@ namespace ArgParse {
 		AddArgument(the_argument);
 	}
 
+	ArgGroup& ArgObjContainer::AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required, const ArgObject::Type_t type) {
+		ArgGroup* the_group = new ArgGroup(title, help_text, type, mode, required, this);
+		AddArgGroupObject(the_group);
+		return *the_group;
+	}
+
 	void ArgObjContainer::CheckName(const std::string& call_name, ArgObjContainer* parent) {
 		if(parent == ARGPARSE_NULLPTR) {
 			for(size_t i=0;i<objects.size();++i) {
@@ -184,6 +191,12 @@ namespace ArgParse {
 			CheckName(argument->GetName(i), parent);
 		}
 		AddArgObject((ArgObject*) argument);
+	}
+
+	void ArgObjContainer::AddArgGroupObject(ArgGroup* arggroup) {
+		//Check that the name hasn't been defined already
+		CheckName(arggroup->GetTitle(), parent);
+		AddArgObject((ArgObject*) arggroup);
 	}
 
 	void ArgObjContainer::AddArgObject(ArgObject* object) {
