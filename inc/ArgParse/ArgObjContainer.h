@@ -43,6 +43,8 @@ namespace ArgParse {
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const Argument::Req_t required = Argument::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
 		private:
+			void CheckName(const std::string& call_name);
+			void AddArgument(Argument* argument);
 			void AddArgObject(ArgObject* object);
 
 		protected:
