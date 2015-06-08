@@ -10,7 +10,6 @@ namespace ArgParse {
 
 			virtual bool IsConfigured() __attribute__((warn_unused_result));
 			virtual size_t AmountOfData();
-			virtual ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
 			virtual bool IsReady() __attribute__((warn_unused_result));
 	
 			virtual std::string GetHelpText();
