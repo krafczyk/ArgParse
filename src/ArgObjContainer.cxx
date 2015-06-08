@@ -1,6 +1,8 @@
 #include "ArgParse/Message.h"
 #include "ArgParse/ArgObjContainer.h"
 #include "ArgParse/ArgGroup.h"
+#include "ArgParse/ArgInclusiveGroup.h"
+#include "ArgParse/ArgExclusiveGroup.h"
 
 namespace ArgParse {
 	ArgObjContainer::~ArgObjContainer() {
@@ -161,6 +163,18 @@ namespace ArgParse {
 
 	ArgGroup& ArgObjContainer::AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required) {
 		ArgGroup* the_group = new ArgGroup(title, help_text, mode, required, this);
+		AddArgGroupObject(the_group);
+		return *the_group;
+	}
+
+	ArgGroup& ArgObjContainer::AddInclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required) {
+		ArgGroup* the_group = (ArgGroup*) new ArgInclusiveGroup(title, help_text, mode, required, this);
+		AddArgGroupObject(the_group);
+		return *the_group;
+	}
+
+	ArgGroup& ArgObjContainer::AddExclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required) {
+		ArgGroup* the_group = (ArgGroup*) new ArgExclusiveGroup(title, help_text, mode, required, this);
 		AddArgGroupObject(the_group);
 		return *the_group;
 	}

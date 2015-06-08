@@ -49,6 +49,8 @@ namespace ArgParse {
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<long double>* arguments, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR);
 
 			ArgGroup& AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
+			ArgGroup& AddInclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
+			ArgGroup& AddExclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
 
 		private:
 			void CheckName(const std::string& call_name, ArgObjContainer* parent);
