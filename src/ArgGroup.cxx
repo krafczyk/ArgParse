@@ -75,14 +75,17 @@ namespace ArgParse {
 	}
 
 	bool ArgGroup::IsReady() {
-		//Check that everybody is ready.
-		for(size_t i=0; i<objects.size(); ++i) {
-			if(!objects[i]->IsReady()) {
-				return false;
+		if(GetType() == ArgObject::Normal) {
+			//Check for normal group
+			//Check that everybody is ready.
+			for(size_t i=0; i<objects.size(); ++i) {
+				if(!objects[i]->IsReady()) {
+					ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+					return false;
+				}
 			}
-		}
-		//Special checks for special cases
-		if(GetType() == ArgObject::Inclusive) {
+		} else if(GetType() == ArgObject::Inclusive) {
+			//Check for inclusive groups
 			if((GetMode() == ArgObject::Multiple)||(GetMode() == ArgObject::Single)) {
 				//Check that everybody has the same amount of data.
 				size_t the_size = objects[0]->AmountOfData();
@@ -95,7 +98,7 @@ namespace ArgParse {
 				}
 			}
 		} else if (GetType() == ArgObject::Exclusive) {
-			//Check that only one of the objects received data
+			//Check for exclusive group
 			bool found_non_zero = false;
 			for(size_t i=0;i<objects.size(); ++i) {
 				if (objects[i]->AmountOfData() > 0) {

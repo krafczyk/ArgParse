@@ -159,8 +159,8 @@ namespace ArgParse {
 		AddArgument(the_argument);
 	}
 
-	ArgGroup& ArgObjContainer::AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required, const ArgObject::Type_t type) {
-		ArgGroup* the_group = new ArgGroup(title, help_text, type, mode, required, this);
+	ArgGroup& ArgObjContainer::AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required) {
+		ArgGroup* the_group = new ArgGroup(title, help_text, mode, required, this);
 		AddArgGroupObject(the_group);
 		return *the_group;
 	}

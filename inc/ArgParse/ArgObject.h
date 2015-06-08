@@ -28,6 +28,7 @@ namespace ArgParse {
 			static const Type_t Divider;
 
 			//Group types
+			static const Type_t Group;
 			static const Type_t Normal;
 			static const Type_t Exclusive;
 			static const Type_t Inclusive;

@@ -19,6 +19,7 @@ namespace ArgParse {
 
 	const ArgObject::Type_t ArgObject::Divider = 100;
 
+	const ArgObject::Type_t ArgObject::Group = 101;
 	const ArgObject::Type_t ArgObject::Normal = 101;
 	const ArgObject::Type_t ArgObject::Exclusive = 102;
 	const ArgObject::Type_t ArgObject::Inclusive = 103;
