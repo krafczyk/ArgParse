@@ -54,6 +54,6 @@ namespace ArgParse {
 	}
 	
 	std::string ArgExclusiveGroup::GetHelpText() {
-		return GetGroupHelpText("Inclusive");
+		return GetGroupHelpText("Exclusive");
 	}
 }
