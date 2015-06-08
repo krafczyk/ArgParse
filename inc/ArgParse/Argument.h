@@ -39,7 +39,7 @@ namespace ArgParse {
 
 		public:
 			Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
-			~Argument();
+			virtual ~Argument();
 
 			//Getters/Setters
 			static ParseStatus_t ParseArgumentAsChar(char& val, const std::string& optarg) __attribute__((warn_unused_result));
@@ -55,7 +55,7 @@ namespace ArgParse {
 			static ParseStatus_t ParseArgumentAsFloat(float& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsDouble(double& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const std::string& optarg) __attribute__((warn_unused_result));
-			int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
+			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
@@ -66,11 +66,11 @@ namespace ArgParse {
 
 			//ArgObject functions
 			bool IsConfigured() __attribute__((warn_unused_result));
-			ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
-			int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
-			size_t AmountOfData();
+			virtual ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
+			virtual int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
+			virtual size_t AmountOfData();
 			bool IsReady() __attribute__((warn_unused_result));
-			std::string GetHelpText();
+			virtual std::string GetHelpText();
 			
 		private:
 			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
