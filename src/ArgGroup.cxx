@@ -52,7 +52,7 @@ namespace ArgParse {
 	}
 
 	ArgObject::Accept_t ArgGroup::AcceptsArgument(std::string arg) {
-		if (arg == title) {
+		if (arg == GetTitle()) {
 			return ArgObject::GroupName;
 		}
 		for(size_t i=0; i<this->objects.size(); ++i) {
@@ -115,14 +115,11 @@ namespace ArgParse {
 		return true;
 	}
 
-	std::string ArgGroup::GetHelpText() {
+	std::string ArgGroup::GetGroupHelpText(const std::string& name) {
 		std::stringstream ss;
 		ss << "--- Begin ";
-		if(GetType() == Exclusive) {
-			ss << "Exclusive ";
-		}
-		if(GetType() == Inclusive) {
-			ss << "Inclusive ";
+		if(name.size() != 0) {
+			ss << name;
 		}
 		ss << "Group " << title << " ---" << std::endl;
 		ss << GetHelp() << std::endl;
@@ -130,13 +127,15 @@ namespace ArgParse {
 			ss << this->objects[i]->GetHelpText() << std::endl;
 		}
 		ss << "--- End ";
-		if(GetType() == Exclusive) {
-			ss << "Exclusive ";
-		}
-		if(GetType() == Inclusive) {
-			ss << "Inclusive ";
+		if(name.size() != 0) {
+			ss << name;
 		}
 		ss << "Group " << title << " ---" << std::endl;
 		return ss.str();
+
+	}
+
+	std::string ArgGroup::GetHelpText() {
+		return GetGroupHelpText("");
 	}
 }

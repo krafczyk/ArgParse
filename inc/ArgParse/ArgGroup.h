@@ -22,6 +22,8 @@ namespace ArgParse {
 	
 			virtual std::string GetHelpText();
 
+			std::string GetGroupHelpText(const std::string& name);
+
 			const std::string& GetTitle() {
 				return this->title;
 			}
