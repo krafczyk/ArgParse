@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "ArgParse/Message.h"
+
 namespace ArgParse {
 	class ArgObject {
 		public:
@@ -57,30 +59,33 @@ namespace ArgParse {
 			static const Req_t Required;
 			static const Req_t Optional;
 	
-			ArgObject(const std::string& help_text, const Mode_t mode, const bool required, const Type_t type) {
+			ArgObject(const std::string& help_text, const Mode_t mode, const bool required) {
 				this->help_text = help_text;
 				this->mode = mode;
 				this->required = required;
-				this->type = type;
 			}
 			virtual ~ArgObject();
 	
 			virtual bool IsConfigured() __attribute__((warn_unused_result)) {
 				return true;
 			}
-			virtual Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result)) = 0;
-			virtual Pass_t PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result)) = 0;
+			virtual Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) __attribute__((warn_unused_result)) {
+				return ArgObject::No;
+			}
+			virtual Pass_t PassArgument(const std::string& arg __attribute__((unused)), const std::string& opt __attribute__((unused)), const bool with_opt __attribute__((unused))) __attribute__((warn_unused_result)) {
+				return ArgObject::NotAccepted;
+			}
 
 			virtual size_t AmountOfData() {
 				return 0;
 			}
 	
-			virtual bool IsReady() __attribute__((warn_unused_result)) = 0;
+			virtual bool IsReady() __attribute__((warn_unused_result)) {
+				return false;
+			}
 	
-			virtual std::string GetHelpText() = 0;
-
-			Type_t GetType() const {
-				return type;
+			virtual std::string GetHelpText() {
+				return "Empty ArgObject";
 			}
 
 			Mode_t GetMode() const {
@@ -96,7 +101,6 @@ namespace ArgParse {
 			}
 
 		private:
-			Type_t type;
 			Mode_t mode;
 			bool required;
 			std::string help_text;

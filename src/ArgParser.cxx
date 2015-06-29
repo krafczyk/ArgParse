@@ -33,8 +33,14 @@ namespace ArgParse {
 
 	void ArgParser::PrintHelp() {
 		ArgParseMessagePrint("%s\n", help_intro.c_str());
+		ArgParseMessagePrint("The Argument listing is in columns separated by colons ':'.\n");
+		ArgParseMessagePrint("The columns give the following information.\n");
+		ArgParseMessagePrint("1 - Names the argument must be refered by.\n");
+		ArgParseMessagePrint("2 - What type of argument it takes or if it takes no argument.\n");
+		ArgParseMessagePrint("3 - Whether the argument should be specified a single time (Scalar) Or can be specified multiple times (Vector)\n");
+		ArgParseMessagePrint("4 - Help text for that argument.\n");
 		ArgParseMessagePrint("--- Arguments ---\n");
-		ArgParseMessagePrint("-h / -? / --help : Takes no arguments : Print this help text.\n");
+		ArgParseMessagePrint("-h / -? / --help : Takes no argument : Vector : Print this help text.\n");
 		for(size_t i=0;i<objects.size();++i) {
 			ArgParseMessagePrint("%s\n", objects[i]->GetHelpText().c_str());
 		}
@@ -59,9 +65,15 @@ namespace ArgParse {
 			if(arg == std::string("--")) {
 				if(!split_arg) {
 					//We need to eat this variable and then quit.
+					if(DebugLevel > 2) {
+						MessageStandardPrint("Eating an argument.\n");
+					}
 					if(EatArgument(argc, argv, arg_i) < 0) {
 						MessageStandardPrint("There was a problem eating an argument!\n");
 						return -1;
+					}
+					if(DebugLevel > 2) {
+						MessageStandardPrint("Finished eating an argument.\n");
 					}
 					break;
 				}
@@ -113,7 +125,7 @@ namespace ArgParse {
 							opt = std::string(argv[arg_i]);
 						}
 						if(DebugLevel > 1) {
-							MessageStandardPrint("Setting Value\n");
+							MessageStandardPrint("Setting Value (%s)\n", opt.c_str());
 						}
 						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, true);
 						if(passed == ArgObject::Error) {
@@ -140,6 +152,7 @@ namespace ArgParse {
 						}
 						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, false);
 						if(passed == ArgObject::Error) {
+							ArgParseMessageError("There was a problem passing the argument (%s) to (%s)\n", opt.c_str(), arg.c_str());
 							return -4;
 						}
 						if(passed == ArgObject::NotAccepted) {

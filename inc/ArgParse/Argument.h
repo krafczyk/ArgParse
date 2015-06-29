@@ -38,7 +38,7 @@ namespace ArgParse {
 			static size_t vector_length(void* data);
 
 		public:
-			Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			Argument(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			virtual ~Argument();
 
 			//Getters/Setters
@@ -55,7 +55,7 @@ namespace ArgParse {
 			static ParseStatus_t ParseArgumentAsFloat(float& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsDouble(double& val, const std::string& optarg) __attribute__((warn_unused_result));
 			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const std::string& optarg) __attribute__((warn_unused_result));
-			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
+			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result)) = 0;
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
@@ -65,22 +65,22 @@ namespace ArgParse {
 			}
 
 			//ArgObject functions
-			bool IsConfigured() __attribute__((warn_unused_result));
-			virtual ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
-			virtual int PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
-			virtual size_t AmountOfData();
 			bool IsReady() __attribute__((warn_unused_result));
 			virtual std::string GetHelpText();
+			void PrepareHelpText(std::stringstream& ss);
+			virtual void AppendType(std::stringstream& ss);
+			std::string GetHelpTextWithMessage(const std::string& message);
 			
-		private:
+		protected:
 			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
-
 			bool WasDefined() const {
 				return *defined;
 			}
 			void SetDefined(bool status) {
 				*defined = status;
 			}
+
+		private:
 			Req_t IsRequired() const {
 				return GetRequired();
 			}
@@ -88,7 +88,6 @@ namespace ArgParse {
 			std::vector<std::string> call_names;
 			bool* defined;
 			bool responsible_for_defined;
-			void* value;
 	};
 }
 

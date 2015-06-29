@@ -6,11 +6,11 @@ namespace ArgParse {
 	}
 
 	bool ArgExclusiveGroup::IsConfigured() {
-		if(GetType() <= ArgObject::Divider) {
-			ArgParseMessageError("An Argument type is being passed to a group!\n");
-			SetMessage("An Argument type is beign passed to a group!\n");
-			return false;
-		}
+		//if(GetType() <= ArgObject::Divider) {
+		//	ArgParseMessageError("An Argument type is being passed to a group!\n");
+		//	SetMessage("An Argument type is beign passed to a group!\n");
+		//	return false;
+		//}
 		//If any of it's sub objects aren't configured, it isn't configured.
 		for(size_t i = 0; i < objects.size(); ++i) {
 			if(!objects[i]->IsConfigured()) {

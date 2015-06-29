@@ -36,9 +36,8 @@ namespace ArgParse {
 		return val->size();
 	}
 
-	Argument::Argument(const std::string& call_name, const Type_t& Type, const Mode_t& Mode, const std::string& help_text, void* arguments, const Req_t required, bool* was_defined) : ArgObject(help_text, Mode, required, Type) {
+	Argument::Argument(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, const Req_t required, bool* was_defined) : ArgObject(help_text, Mode, required) {
 		this->call_names = GetCallNames(call_name);
-		this->value = arguments;
 		if(was_defined == ARGPARSE_NULLPTR) {
 			this->defined = new bool;
 			this->responsible_for_defined = true;
@@ -82,8 +81,7 @@ namespace ArgParse {
 		}
 	}
 
-	std::string Argument::GetHelpText() {
-		std::stringstream ss;
+	void Argument::PrepareHelpText(std::stringstream& ss) {
 		for(size_t i=0;i<call_names.size();++i) {
 			ss << GetName(i) << " ";
 			if(i < call_names.size()-1) {
@@ -91,39 +89,23 @@ namespace ArgParse {
 			}
 		}
 		ss << ": ";
-		if(GetType() == Bool) {
-			ss << "Takes no argument : ";
-		} else if (GetType() == Str) {
-			ss << "Takes a string : ";
-		} else if (GetType() == Char) {
-			ss << "Takes a character : ";
-		} else if (GetType() == UChar) {
-			ss << "Takes an unsigned character : ";
-		} else if (GetType() == Short) {
-			ss << "Takes a short : ";
-		} else if (GetType() == UShort) {
-			ss << "Takes an unsigned short : ";
-		} else if (GetType() == Int) {
-			ss << "Takes an integer : ";
-		} else if (GetType() == UInt) {
-			ss << "Takes an unsigned integer : ";
-		} else if (GetType() == Long) {
-			ss << "Takes an long : ";
-		} else if (GetType() == ULong) {
-			ss << "Takes an unsigned long : ";
-		} else if (GetType() == LongLong) {
-			ss << "Takes an long long : ";
-		} else if (GetType() == ULongLong) {
-			ss << "Takes an unsigned long long : ";
-		} else if (GetType() == Float) {
-			ss << "Takes a float : ";
-		} else if (GetType() == Double) {
-			ss << "Takes a double : ";
-		} else if (GetType() == LongDouble) {
-			ss << "Takes a long double : ";
-		}
+	}
+	
+	void Argument::AppendType(std::stringstream& ss) {
+		ss << " Generic Type : ";
+	}
+
+	std::string Argument::GetHelpTextWithMessage(const std::string& message) {
+		std::stringstream ss;
+		PrepareHelpText(ss);
+		ss << message;
+		AppendType(ss);
 		ss << GetHelp();
 		return ss.str();
+	}
+
+	std::string Argument::GetHelpText() {
+		return GetHelpTextWithMessage("Takes a generic argument : ");
 	}
 
 	Argument::ParseStatus_t Argument::ParseArgumentAsChar(char& val, const std::string& optarg) {
@@ -587,6 +569,7 @@ namespace ArgParse {
 		}
 	}
 
+	/*
 	int Argument::SetValue(const std::string& optarg) {
 		if(DebugLevel > 3) {
 			MessageStandardPrint("Setting a value\n");
@@ -841,8 +824,9 @@ namespace ArgParse {
 		ArgParseMessageError("The argument is of unknown type!\n");
 		SetMessage("The argument is of unknown type!\n");
 		return -2;
-	}
+	} */
 
+	/*
 	bool Argument::IsConfigured() {
 		if (GetType() >= ArgObject::Divider) {
 			ArgParseMessageError("A group type is being passed to an argument!\n");
@@ -856,8 +840,10 @@ namespace ArgParse {
 		}
 		return true;
 	}
+	*/
 
-	ArgObject::Accept_t Argument::AcceptsArgument(std::string arg) {
+	/*
+	ArgObject::Accept_t Argument::AcceptsArgument(const std::string& arg) {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
@@ -873,7 +859,9 @@ namespace ArgParse {
 			return ArgObject::WithArg;
 		}
 	}
+	*/
 
+	/*
 	ArgObject::Pass_t Argument::PassArgument(std::string arg, std::string opt, bool with_opt) {
 		size_t pos;
 		bool result = DoesAnArgumentMatch(pos, arg);
@@ -907,7 +895,9 @@ namespace ArgParse {
 		}
 		return ArgObject::Accepted;
 	}
+	*/
 
+	/*
 	size_t Argument::AmountOfData() {
 		if(!WasDefined()) {
 			return 0;
@@ -953,12 +943,16 @@ namespace ArgParse {
 			}
 		}
 	}
+	*/
 
 	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) {
 		size_t i=0;
 		for(;i<call_names.size();++i) {
 			if(DebugLevel > 1) {
 				MessageStandardPrint("checking if call name (%s) matches.\n", call_names[i].c_str());
+			}
+			if(DebugLevel > 3) {
+				MessageStandardPrint("position: %lu arg: (%s)\n", position, arg.c_str());
 			}
 			if(arg == call_names[i]) {
 				break;
