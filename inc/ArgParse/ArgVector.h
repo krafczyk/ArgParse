@@ -28,7 +28,7 @@ namespace ArgParse {
 	template<class T>
 	class ArgVector : public Argument {
 		public:
-			ArgVector(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			ArgVector(const std::string& call_name, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			~ArgVector() {}
 
 			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
@@ -43,12 +43,16 @@ namespace ArgParse {
 				ss << "Vector : ";
 			}
 
+			virtual ArgObject::Mode_t GetMode() const {
+				return ArgObject::Multiple;
+			}
+
 		private:
 			std::vector<T>* value;
 	};
 
 	template<class T>
-	ArgVector<T>::ArgVector(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined) : Argument(call_name, Mode, help_text, required, was_defined) {
+	ArgVector<T>::ArgVector(const std::string& call_name, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined) : Argument(call_name, help_text, required, was_defined) {
 		this->value = value;
 	}
 

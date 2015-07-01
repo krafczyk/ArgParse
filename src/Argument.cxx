@@ -30,7 +30,7 @@ namespace ArgParse {
 	const Argument::ParseStatus_t Argument::OutOfRange = -2;
 	const Argument::ParseStatus_t Argument::ParseError = -3;
 
-	Argument::Argument(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, const Req_t required, bool* was_defined) : ArgObject(help_text, Mode, required) {
+	Argument::Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined) : ArgObject(help_text, required) {
 		this->call_names = GetCallNames(call_name);
 		if(was_defined == ARGPARSE_NULLPTR) {
 			this->defined = new bool;

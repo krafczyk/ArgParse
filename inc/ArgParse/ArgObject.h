@@ -32,9 +32,8 @@ namespace ArgParse {
 			static const Req_t Required;
 			static const Req_t Optional;
 	
-			ArgObject(const std::string& help_text, const Mode_t mode, const bool required) {
+			ArgObject(const std::string& help_text, const bool required) {
 				this->help_text = help_text;
-				this->mode = mode;
 				this->required = required;
 			}
 			virtual ~ArgObject();
@@ -61,8 +60,8 @@ namespace ArgParse {
 				return "Empty ArgObject";
 			}
 
-			Mode_t GetMode() const {
-				return mode;
+			virtual Mode_t GetMode() const {
+				return None;
 			}
 
 			bool GetRequired() const {
@@ -74,7 +73,6 @@ namespace ArgParse {
 			}
 
 		private:
-			Mode_t mode;
 			bool required;
 			std::string help_text;
 	};

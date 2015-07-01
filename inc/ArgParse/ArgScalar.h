@@ -28,7 +28,7 @@ namespace ArgParse {
 	template<class T>
 	class ArgScalar : public Argument {
 		public:
-			ArgScalar(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, T* value, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			ArgScalar(const std::string& call_name, const std::string& help_text, T* value, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			~ArgScalar() {}
 
 			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
@@ -43,12 +43,16 @@ namespace ArgParse {
 				ss << "Scalar : ";
 			}
 
+			virtual ArgObject::Mode_t GetMode() const {
+				return ArgObject::Single;
+			}
+
 		private:
 			T* value;
 	};
 
 	template<class T>
-	ArgScalar<T>::ArgScalar(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, T* value, const Req_t required, bool* was_defined) : Argument(call_name, Mode, help_text, required, was_defined) {
+	ArgScalar<T>::ArgScalar(const std::string& call_name, const std::string& help_text, T* value, const Req_t required, bool* was_defined) : Argument(call_name, help_text, required, was_defined) {
 		this->value = value;
 	}
 
