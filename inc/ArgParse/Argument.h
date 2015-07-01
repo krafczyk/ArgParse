@@ -34,9 +34,6 @@ namespace ArgParse {
 			static const ParseStatus_t OutOfRange;
 			static const ParseStatus_t ParseError;
 
-			template<class T>
-			static size_t vector_length(void* data);
-
 		public:
 			Argument(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			virtual ~Argument();

@@ -1,29 +1,6 @@
 #include "ArgParse/ArgObject.h"
 
 namespace ArgParse {
-	const ArgObject::Type_t ArgObject::Bool = 0;
-	const ArgObject::Type_t ArgObject::Str = 1;
-	const ArgObject::Type_t ArgObject::Char = 2;
-	const ArgObject::Type_t ArgObject::UChar = 3;
-	const ArgObject::Type_t ArgObject::Short = 4;
-	const ArgObject::Type_t ArgObject::UShort = 5;
-	const ArgObject::Type_t ArgObject::Int = 6;
-	const ArgObject::Type_t ArgObject::UInt = 7;
-	const ArgObject::Type_t ArgObject::Long = 8;
-	const ArgObject::Type_t ArgObject::ULong = 9;
-	const ArgObject::Type_t ArgObject::LongLong = 10;
-	const ArgObject::Type_t ArgObject::ULongLong = 11;
-	const ArgObject::Type_t ArgObject::Float = 12;
-	const ArgObject::Type_t ArgObject::Double = 14;
-	const ArgObject::Type_t ArgObject::LongDouble = 15;
-
-	const ArgObject::Type_t ArgObject::Divider = 100;
-
-	const ArgObject::Type_t ArgObject::Group = 101;
-	const ArgObject::Type_t ArgObject::Normal = 101;
-	const ArgObject::Type_t ArgObject::Exclusive = 102;
-	const ArgObject::Type_t ArgObject::Inclusive = 103;
-
 	const ArgObject::Mode_t ArgObject::Single = 0;
 	const ArgObject::Mode_t ArgObject::Multiple = 1;
 	const ArgObject::Mode_t ArgObject::None = -1;
