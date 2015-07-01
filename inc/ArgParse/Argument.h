@@ -35,24 +35,8 @@ namespace ArgParse {
 			static const ParseStatus_t ParseError;
 
 		public:
-			Argument(const std::string& call_name, const Mode_t& Mode, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			virtual ~Argument();
-
-			//Getters/Setters
-			static ParseStatus_t ParseArgumentAsChar(char& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUChar(unsigned char& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsShort(short& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUShort(unsigned short& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsInt(int& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsUInt(unsigned int& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLong(long& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsULong(unsigned long& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLongLong(long long& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsULongLong(unsigned long long& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsFloat(float& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsDouble(double& val, const std::string& optarg) __attribute__((warn_unused_result));
-			static ParseStatus_t ParseArgumentAsLongDouble(long double& val, const std::string& optarg) __attribute__((warn_unused_result));
-			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result)) = 0;
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
