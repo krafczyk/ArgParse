@@ -27,14 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace ArgParse {
 	class Argument : public ArgObject {
 		public:
-			//Parser status
-			typedef int ParseStatus_t;
-			static const ParseStatus_t Complete;
-			static const ParseStatus_t Incomplete;
-			static const ParseStatus_t OutOfRange;
-			static const ParseStatus_t ParseError;
-
-		public:
 			Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
 			virtual ~Argument();
 

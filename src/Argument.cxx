@@ -25,11 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ArgParse/Message.h"
 
 namespace ArgParse {
-	const Argument::ParseStatus_t Argument::Complete = 0;
-	const Argument::ParseStatus_t Argument::Incomplete = -1;
-	const Argument::ParseStatus_t Argument::OutOfRange = -2;
-	const Argument::ParseStatus_t Argument::ParseError = -3;
-
 	Argument::Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined) : ArgObject(help_text, required) {
 		this->call_names = GetCallNames(call_name);
 		if(was_defined == ARGPARSE_NULLPTR) {
