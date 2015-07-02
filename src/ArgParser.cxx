@@ -103,10 +103,16 @@ namespace ArgParse {
 			}
 			int I = -1;
 			for(size_t i=0;i<objects.size();++i) {
+				if(DebugLevel > 5) {
+					ArgParseMessageDebug("Checking against object %lu\n", i);
+				}
 				ArgObject::Accept_t accepted = objects[i]->AcceptsArgument(arg);
 				if (accepted != ArgObject::No) {
 					I = i;
 					if(accepted == ArgObject::WithArg) {
+						if(DebugLevel > 5) {
+							ArgParseMessageDebug("object %lu accepts the argument with an option\n", i);
+						}
 						if(DebugLevel > 0) {
 							MessageStandardPrint("Needs a value\n");
 						}
@@ -140,6 +146,9 @@ namespace ArgParse {
 							MessageStandardPrint("Finished Setting Value\n");
 						}
 					} else if (accepted == ArgObject::WithoutArg) {
+						if(DebugLevel > 5) {
+							ArgParseMessageDebug("object %lu accepts the argument without an option\n", i);
+						}
 						if(DebugLevel > 0) {
 							MessageStandardPrint("Doesn't need a value\n");
 						}
@@ -167,6 +176,10 @@ namespace ArgParse {
 						ArgParseMessageError("Something strange was returned from AcceptsArgument!\n");
 						SetMessage("Something strange was returned from AcceptsArgument!\n");
 						return -6;
+					}
+				} else {
+					if(DebugLevel > 5) {
+						ArgParseMessageDebug("object %i doesn't Accept the argument.\n");
 					}
 				}
 			}
