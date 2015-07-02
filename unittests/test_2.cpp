@@ -36,10 +36,10 @@ int main(int argc, char** argv) {
 	ArgParse::ArgGroup& NormalGroup = Parser.AddArgGroup("norm", "This is a normal group");
 	NormalGroup.AddArgument("-a", "Test argument for a normal group", &a);
 	NormalGroup.AddArgument("-o/--output-dir", "Test required argument", &output_dir, ArgParse::Argument::Required);
-	ArgParse::ArgGroup& RequiredInclusiveGroup = Parser.AddArgGroup("required-inclusive", "This is a required Inclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
+	ArgParse::ArgGroup& RequiredInclusiveGroup = Parser.AddInclusiveArgGroup("required-inclusive", "This is a required Inclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
 	RequiredInclusiveGroup.AddArgument("-r", "Test argument", &r, ArgParse::Argument::Required);
 	RequiredInclusiveGroup.AddArgument("-s", "Test argument", &s, ArgParse::Argument::Required);
-	ArgParse::ArgGroup& RequiredExclusiveGroup = Parser.AddArgGroup("required-exclusive", "This is a required Exclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
+	ArgParse::ArgGroup& RequiredExclusiveGroup = Parser.AddExclusiveArgGroup("required-exclusive", "This is a required Exclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
 	RequiredExclusiveGroup.AddArgument("-t", "Test argument", &t, ArgParse::Argument::Required);
 	RequiredExclusiveGroup.AddArgument("-u", "Test argument", &u, ArgParse::Argument::Required);
 	RequiredExclusiveGroup.AddArgument("-v", "Test argument", &v, ArgParse::Argument::Required);
