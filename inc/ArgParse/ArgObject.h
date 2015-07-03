@@ -49,6 +49,13 @@ namespace ArgParse {
 			typedef bool Req_t;
 			static const Req_t Required;
 			static const Req_t Optional;
+
+			//Ready types
+			typedef int Ready_t;
+			static const Ready_t NotReady;
+			static const Ready_t Defined;
+			static const Ready_t NotDefined;
+			static const Ready_t Ready;
 	
 			ArgObject(const std::string& help_text, const bool required) {
 				this->help_text = help_text;
@@ -70,8 +77,8 @@ namespace ArgParse {
 				return 0;
 			}
 	
-			virtual bool IsReady() const __attribute__((warn_unused_result)) {
-				return false;
+			virtual int IsReady() const __attribute__((warn_unused_result)) {
+				return ArgObject::NotReady;
 			}
 	
 			virtual std::string GetHelpText() const {

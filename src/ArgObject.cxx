@@ -35,6 +35,11 @@ namespace ArgParse {
 	const ArgObject::Pass_t ArgObject::Accepted = 1;
 	const ArgObject::Pass_t ArgObject::Error = -1;
 
+	const ArgObject::Ready_t ArgObject::NotReady = -1;
+	const ArgObject::Ready_t ArgObject::Defined = 0;
+	const ArgObject::Ready_t ArgObject::NotDefined = 1;
+	const ArgObject::Ready_t ArgObject::Ready = 2;
+
 	ArgObject::~ArgObject() {
 	}
 }

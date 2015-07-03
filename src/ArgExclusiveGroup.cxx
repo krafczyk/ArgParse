@@ -38,27 +38,34 @@ namespace ArgParse {
 	}
 
 	bool ArgExclusiveGroup::CheckSubObjects() const {
-		for(size_t i=0; i<objects.size(); ++i) {
-			if(!objects[i]->IsReady()) {
-				ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+		if(GetRequired()) {
+			int num_ready = 0;
+			for(size_t i=0; i<objects.size(); ++i) {
+				ArgObject::Ready_t isready = objects[i]->IsReady();
+				if(isready == ArgObject::Ready) {
+					num_ready += 1;
+				}
+			}
+			if (num_ready == 0) {
+				ArgParseMessageError("No arguments of the required exclusive group (%s) were ready.\n", GetTitle().c_str());
 				return false;
 			}
-		}
-		return true;
-	}
-
-	bool ArgExclusiveGroup::CheckDataConsistency() const {
-		//Check for exclusive group
-		bool found_non_zero = false;
-		for(size_t i=0;i<objects.size(); ++i) {
-			if (objects[i]->AmountOfData() > 0) {
-				if(found_non_zero) {
-					ArgParseMessageError("Only a single argument in an exclusive group may be defined!\n");
-					SetMessage("Only a single argument in an exclusive group may be defined!\n");
-					return false;
-				} else {
-					found_non_zero = true;
+			if (num_ready != 1) {
+				ArgParseMessageError("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
+				return false;
+			}
+		} else {
+			int num_defined = 0;
+			for(size_t i=0; i<objects.size(); ++i) {
+				ArgObject::Ready_t isready = objects[i]->IsReady();
+				if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
+					num_defined += 1;
+					ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
 				}
+			}
+			if(num_defined > 1) {
+				ArgParseMessageError("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
+				return false;
 			}
 		}
 		return true;

@@ -68,16 +68,16 @@ namespace ArgParse {
 		return ArgObject::NotAccepted;
 	}
 
-	bool ArgGroup::IsReady() const {
+	ArgObject::Ready_t ArgGroup::IsReady() const {
 		//Check that everybody is ready.
 		if(!CheckSubObjects()) {
-			return false;
+			return ArgObject::NotReady;
 		}
 		//Check that the data is consistent
 		if(!CheckDataConsistency()) {
-			return false;
+			return ArgObject::NotReady;
 		}
-		return true;
+		return ArgObject::Ready;
 	}
 
 	std::string ArgGroup::GetGroupHelpText(const std::string& name) const {
