@@ -12,12 +12,14 @@ namespace ArgParse {
 				return false;
 			}
 		}
-		//Now check for consistency with group mode
-		for(size_t i=0; i< objects.size(); ++i) {
-			if (objects[i]->GetMode() != GetMode()) {
-				ArgParseMessageError("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
-				SetMessage("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
-				return false;
+		if(GetMode() != ArgObject::None) {
+			//Now check for consistency with group mode
+			for(size_t i=0; i< objects.size(); ++i) {
+				if (objects[i]->GetMode() != GetMode()) {
+					ArgParseMessageError("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
+					SetMessage("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
+					return false;
+				}
 			}
 		}
 		//Now check for consistency with requirement
