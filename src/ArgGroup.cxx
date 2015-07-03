@@ -43,6 +43,9 @@ namespace ArgParse {
 	}
 
 	ArgObject::Accept_t ArgGroup::AcceptsArgument(std::string arg) {
+		if (DebugLevel > 5) {
+			ArgParseMessageDebug("Checking if we accept an argument\n");
+		}
 		if (arg == GetTitle()) {
 			return ArgObject::GroupName;
 		}
