@@ -5,7 +5,7 @@ namespace ArgParse {
 	ArgInclusiveGroup::ArgInclusiveGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required, ArgObjContainer* parent) : ArgGroup(title, help_text, mode, required, parent) {
 	}
 
-	bool ArgInclusiveGroup::IsConfigured() {
+	bool ArgInclusiveGroup::IsConfigured() const {
 		//If any of it's sub objects aren't configured, it isn't configured.
 		for(size_t i = 0; i < objects.size(); ++i) {
 			if(!objects[i]->IsConfigured()) {
@@ -31,11 +31,11 @@ namespace ArgParse {
 		return true;
 	}
 
-	size_t ArgInclusiveGroup::AmountOfData() {
+	size_t ArgInclusiveGroup::AmountOfData() const {
 		return objects[0]->AmountOfData();
 	}
 
-	bool ArgInclusiveGroup::IsReady() {
+	bool ArgInclusiveGroup::IsReady() const {
 		//Check for inclusive groups
 		if((GetMode() == ArgObject::Multiple)||(GetMode() == ArgObject::Single)) {
 			//Check that everybody has the same amount of data.
@@ -51,7 +51,7 @@ namespace ArgParse {
 		return true;
 	}
 	
-	std::string ArgInclusiveGroup::GetHelpText() {
+	std::string ArgInclusiveGroup::GetHelpText() const {
 		return GetGroupHelpText("Inclusive");
 	}
 }

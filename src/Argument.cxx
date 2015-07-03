@@ -62,7 +62,7 @@ namespace ArgParse {
 		return answer;
 	}
 
-	std::string Argument::GetName(size_t i) {
+	std::string Argument::GetName(size_t i) const {
 		if(call_names.size() > i) {
 			return call_names[i];
 		} else {
@@ -70,7 +70,7 @@ namespace ArgParse {
 		}
 	}
 
-	void Argument::PrepareHelpText(std::stringstream& ss) {
+	void Argument::PrepareHelpText(std::stringstream& ss) const {
 		for(size_t i=0;i<call_names.size();++i) {
 			ss << GetName(i) << " ";
 			if(i < call_names.size()-1) {
@@ -80,11 +80,11 @@ namespace ArgParse {
 		ss << ": ";
 	}
 	
-	void Argument::AppendType(std::stringstream& ss) {
+	void Argument::AppendType(std::stringstream& ss) const {
 		ss << " Generic Type : ";
 	}
 
-	std::string Argument::GetHelpTextWithMessage(const std::string& message) {
+	std::string Argument::GetHelpTextWithMessage(const std::string& message) const {
 		std::stringstream ss;
 		PrepareHelpText(ss);
 		ss << message;
@@ -93,11 +93,11 @@ namespace ArgParse {
 		return ss.str();
 	}
 
-	std::string Argument::GetHelpText() {
+	std::string Argument::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a generic argument : ");
 	}
 
-	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) {
+	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) const {
 		size_t i=0;
 		for(;i<call_names.size();++i) {
 			if(DebugLevel > 1) {
@@ -118,7 +118,7 @@ namespace ArgParse {
 		}
 	}
 
-	bool Argument::IsReady() {
+	bool Argument::IsReady() const {
 		if (IsRequired()) {
 			if(!WasDefined()) {
 				ArgParseMessageError("The argument (%s) needs to be defined.\n", GetName().c_str());

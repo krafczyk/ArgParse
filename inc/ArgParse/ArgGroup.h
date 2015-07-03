@@ -32,18 +32,22 @@ namespace ArgParse {
 			~ArgGroup() {
 			}
 
-			virtual bool IsConfigured() __attribute__((warn_unused_result));
-			virtual size_t AmountOfData();
-			virtual ArgObject::Accept_t AcceptsArgument(std::string arg) __attribute__((warn_unused_result));
-			virtual ArgObject::Pass_t PassArgument(std::string arg, std::string opt, bool with_opt) __attribute__((warn_unused_result));
+			virtual bool IsConfigured() const __attribute__((warn_unused_result));
+			virtual size_t AmountOfData() const;
+			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg) const __attribute__((warn_unused_result));
+			virtual ArgObject::Pass_t PassArgument(const std::string& arg, const std::string& opt, const bool with_opt) __attribute__((warn_unused_result));
 	
-			virtual bool IsReady() __attribute__((warn_unused_result));
+			virtual bool IsReady() const __attribute__((warn_unused_result));
 	
-			virtual std::string GetHelpText();
+			virtual std::string GetHelpText() const;
 
-			std::string GetGroupHelpText(const std::string& name);
+			virtual bool CheckSubObjects() const __attribute__((warn_unused_result));
 
-			const std::string& GetTitle() {
+			virtual bool CheckDataConsistency() const __attribute__((warn_unused_result));
+
+			std::string GetGroupHelpText(const std::string& name) const;
+
+			const std::string& GetTitle() const {
 				return this->title;
 			}
 

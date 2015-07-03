@@ -33,13 +33,13 @@ namespace ArgParse {
 
 			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
 
-			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) __attribute__((warn_unused_result));
+			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) const __attribute__((warn_unused_result));
 			virtual int PassArgument(const std::string& arg, const std::string& opt, const bool with_opt) __attribute__((warn_unused_result));
-			virtual size_t AmountOfData();
+			virtual size_t AmountOfData() const;
 
-			virtual std::string GetHelpText();
+			virtual std::string GetHelpText() const;
 
-			virtual void AppendType(std::stringstream& ss) {
+			virtual void AppendType(std::stringstream& ss) const {
 				ss << "Scalar : ";
 			}
 
@@ -73,7 +73,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	ArgObject::Accept_t ArgScalar<T>::AcceptsArgument(const std::string& arg) {
+	ArgObject::Accept_t ArgScalar<T>::AcceptsArgument(const std::string& arg) const {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
@@ -109,7 +109,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	size_t ArgScalar<T>::AmountOfData() {
+	size_t ArgScalar<T>::AmountOfData() const {
 		if(!WasDefined()) {
 			return 0;
 		}
@@ -117,7 +117,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	std::string ArgScalar<T>::GetHelpText() {
+	std::string ArgScalar<T>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a generic type : ");
 	}
 
@@ -125,55 +125,55 @@ namespace ArgParse {
 	int ArgScalar<bool>::SetValue(const std::string& optarg);
 
 	template<>
-	ArgObject::Accept_t ArgScalar<bool>::AcceptsArgument(const std::string& arg);
+	ArgObject::Accept_t ArgScalar<bool>::AcceptsArgument(const std::string& arg) const;
 
 	template<>
 	int ArgScalar<bool>::PassArgument(const std::string& arg, const std::string& opt, const bool with_opt);
 
 	template<>
-	std::string ArgScalar<bool>::GetHelpText();
+	std::string ArgScalar<bool>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<std::string>::GetHelpText();
+	std::string ArgScalar<std::string>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<char>::GetHelpText();
+	std::string ArgScalar<char>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<unsigned char>::GetHelpText();
+	std::string ArgScalar<unsigned char>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<short>::GetHelpText();
+	std::string ArgScalar<short>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<unsigned short>::GetHelpText();
+	std::string ArgScalar<unsigned short>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<int>::GetHelpText();
+	std::string ArgScalar<int>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<unsigned int>::GetHelpText();
+	std::string ArgScalar<unsigned int>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<long>::GetHelpText();
+	std::string ArgScalar<long>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<unsigned long>::GetHelpText();
+	std::string ArgScalar<unsigned long>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<long long>::GetHelpText();
+	std::string ArgScalar<long long>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<unsigned long long>::GetHelpText();
+	std::string ArgScalar<unsigned long long>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<float>::GetHelpText();
+	std::string ArgScalar<float>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<double>::GetHelpText();
+	std::string ArgScalar<double>::GetHelpText() const;
 
 	template<>
-	std::string ArgScalar<long double>::GetHelpText();
+	std::string ArgScalar<long double>::GetHelpText() const;
 }
 
 #endif

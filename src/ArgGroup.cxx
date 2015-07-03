@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ArgParse/ArgGroup.h"
 
 namespace ArgParse {
-	bool ArgGroup::IsConfigured() {
+	bool ArgGroup::IsConfigured() const {
 		//If any of it's sub objects aren't configured, it isn't configured.
 		for(size_t i = 0; i < objects.size(); ++i) {
 			if(!objects[i]->IsConfigured()) {
@@ -32,7 +32,7 @@ namespace ArgParse {
 		return true;
 	}
 
-	size_t ArgGroup::AmountOfData() {
+	size_t ArgGroup::AmountOfData() const {
 		for(size_t i=0;i<objects.size();++i) {
 			size_t amount = objects[i]->AmountOfData();
 			if(amount != 0) {
@@ -42,7 +42,7 @@ namespace ArgParse {
 		return 0;
 	}
 
-	ArgObject::Accept_t ArgGroup::AcceptsArgument(std::string arg) {
+	ArgObject::Accept_t ArgGroup::AcceptsArgument(const std::string& arg) const {
 		if (DebugLevel > 5) {
 			ArgParseMessageDebug("Checking if we accept an argument\n");
 		}
@@ -58,7 +58,7 @@ namespace ArgParse {
 		return ArgObject::No;
 	}
 
-	ArgObject::Pass_t ArgGroup::PassArgument(std::string arg, std::string opt, bool with_opt) {
+	ArgObject::Pass_t ArgGroup::PassArgument(const std::string& arg, const std::string& opt, const bool with_opt) {
 		for(size_t i=0; i < this->objects.size(); ++i) {
 			ArgObject::Pass_t passed = this->objects[i]->PassArgument(arg, opt, with_opt);
 			if(passed != ArgObject::NotAccepted) {
@@ -68,7 +68,7 @@ namespace ArgParse {
 		return ArgObject::NotAccepted;
 	}
 
-	bool ArgGroup::IsReady() {
+	bool ArgGroup::IsReady() const {
 		//Check for normal group
 		//Check that everybody is ready.
 		for(size_t i=0; i<objects.size(); ++i) {
@@ -80,7 +80,7 @@ namespace ArgParse {
 		return true;
 	}
 
-	std::string ArgGroup::GetGroupHelpText(const std::string& name) {
+	std::string ArgGroup::GetGroupHelpText(const std::string& name) const {
 		std::stringstream ss;
 		ss << "--- Begin ";
 		if(name.size() != 0) {
@@ -100,7 +100,7 @@ namespace ArgParse {
 
 	}
 
-	std::string ArgGroup::GetHelpText() {
+	std::string ArgGroup::GetHelpText() const {
 		return GetGroupHelpText("");
 	}
 }

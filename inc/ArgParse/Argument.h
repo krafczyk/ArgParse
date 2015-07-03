@@ -32,20 +32,20 @@ namespace ArgParse {
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);
 
-			std::string GetName(size_t i=0);
+			std::string GetName(size_t i=0) const;
 			size_t GetNum() {
 				return call_names.size();
 			}
 
 			//ArgObject functions
-			bool IsReady() __attribute__((warn_unused_result));
-			virtual std::string GetHelpText();
-			void PrepareHelpText(std::stringstream& ss);
-			virtual void AppendType(std::stringstream& ss);
-			std::string GetHelpTextWithMessage(const std::string& message);
+			bool IsReady() const __attribute__((warn_unused_result));
+			virtual std::string GetHelpText() const;
+			void PrepareHelpText(std::stringstream& ss) const;
+			virtual void AppendType(std::stringstream& ss) const;
+			std::string GetHelpTextWithMessage(const std::string& message) const;
 			
 		protected:
-			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) __attribute__((warn_unused_result));
+			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) const __attribute__((warn_unused_result));
 			bool WasDefined() const {
 				return *defined;
 			}

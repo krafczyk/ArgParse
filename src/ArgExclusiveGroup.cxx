@@ -5,7 +5,7 @@ namespace ArgParse {
 	ArgExclusiveGroup::ArgExclusiveGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode, const ArgObject::Req_t required, ArgObjContainer* parent) : ArgGroup(title, help_text, mode, required, parent) {
 	}
 
-	bool ArgExclusiveGroup::IsConfigured() {
+	bool ArgExclusiveGroup::IsConfigured() const {
 		//If any of it's sub objects aren't configured, it isn't configured.
 		for(size_t i = 0; i < objects.size(); ++i) {
 			if(!objects[i]->IsConfigured()) {
@@ -31,7 +31,7 @@ namespace ArgParse {
 		return true;
 	}
 
-	bool ArgExclusiveGroup::IsReady() {
+	bool ArgExclusiveGroup::IsReady() const {
 		//Check for exclusive group
 		bool found_non_zero = false;
 		for(size_t i=0;i<objects.size(); ++i) {
@@ -48,7 +48,7 @@ namespace ArgParse {
 		return true;
 	}
 	
-	std::string ArgExclusiveGroup::GetHelpText() {
+	std::string ArgExclusiveGroup::GetHelpText() const {
 		return GetGroupHelpText("Exclusive");
 	}
 }

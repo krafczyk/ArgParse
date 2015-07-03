@@ -31,7 +31,7 @@ namespace ArgParse {
 	}
 
 	template<>
-	ArgObject::Accept_t ArgScalar<bool>::AcceptsArgument(const std::string& arg) {
+	ArgObject::Accept_t ArgScalar<bool>::AcceptsArgument(const std::string& arg) const {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
@@ -71,77 +71,77 @@ namespace ArgParse {
 	}
 
 	template<>
-	std::string ArgScalar<bool>::GetHelpText() {
+	std::string ArgScalar<bool>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes no argument : ");
 	}
 
 	template<>
-	std::string ArgScalar<std::string>::GetHelpText() {
+	std::string ArgScalar<std::string>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a string : ");
 	}
 
 	template<>
-	std::string ArgScalar<char>::GetHelpText() {
+	std::string ArgScalar<char>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a character : ");
 	}
 
 	template<>
-	std::string ArgScalar<unsigned char>::GetHelpText() {
+	std::string ArgScalar<unsigned char>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned character : ");
 	}
 
 	template<>
-	std::string ArgScalar<short>::GetHelpText() {
+	std::string ArgScalar<short>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a short : ");
 	}
 
 	template<>
-	std::string ArgScalar<unsigned short>::GetHelpText() {
+	std::string ArgScalar<unsigned short>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned short : ");
 	}
 
 	template<>
-	std::string ArgScalar<int>::GetHelpText() {
+	std::string ArgScalar<int>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an integer : ");
 	}
 
 	template<>
-	std::string ArgScalar<unsigned int>::GetHelpText() {
+	std::string ArgScalar<unsigned int>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned integer : ");
 	}
 
 	template<>
-	std::string ArgScalar<long>::GetHelpText() {
+	std::string ArgScalar<long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long : ");
 	}
 
 	template<>
-	std::string ArgScalar<unsigned long>::GetHelpText() {
+	std::string ArgScalar<unsigned long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned long : ");
 	}
 
 	template<>
-	std::string ArgScalar<long long>::GetHelpText() {
+	std::string ArgScalar<long long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long long : ");
 	}
 
 	template<>
-	std::string ArgScalar<unsigned long long>::GetHelpText() {
+	std::string ArgScalar<unsigned long long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned long long : ");
 	}
 
 	template<>
-	std::string ArgScalar<float>::GetHelpText() {
+	std::string ArgScalar<float>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a float : ");
 	}
 
 	template<>
-	std::string ArgScalar<double>::GetHelpText() {
+	std::string ArgScalar<double>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a double : ");
 	}
 
 	template<>
-	std::string ArgScalar<long double>::GetHelpText() {
+	std::string ArgScalar<long double>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long double : ");
 	}
 }

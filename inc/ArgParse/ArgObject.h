@@ -56,25 +56,25 @@ namespace ArgParse {
 			}
 			virtual ~ArgObject();
 	
-			virtual bool IsConfigured() __attribute__((warn_unused_result)) {
+			virtual bool IsConfigured() const __attribute__((warn_unused_result)) {
 				return true;
 			}
-			virtual Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) __attribute__((warn_unused_result)) {
+			virtual Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) const __attribute__((warn_unused_result)) {
 				return ArgObject::No;
 			}
 			virtual Pass_t PassArgument(const std::string& arg __attribute__((unused)), const std::string& opt __attribute__((unused)), const bool with_opt __attribute__((unused))) __attribute__((warn_unused_result)) {
 				return ArgObject::NotAccepted;
 			}
 
-			virtual size_t AmountOfData() {
+			virtual size_t AmountOfData() const {
 				return 0;
 			}
 	
-			virtual bool IsReady() __attribute__((warn_unused_result)) {
+			virtual bool IsReady() const __attribute__((warn_unused_result)) {
 				return false;
 			}
 	
-			virtual std::string GetHelpText() {
+			virtual std::string GetHelpText() const {
 				return "Empty ArgObject";
 			}
 

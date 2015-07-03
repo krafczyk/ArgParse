@@ -31,7 +31,7 @@ namespace ArgParse {
 	}
 
 	template<>
-	ArgObject::Accept_t ArgVector<bool>::AcceptsArgument(const std::string& arg) {
+	ArgObject::Accept_t ArgVector<bool>::AcceptsArgument(const std::string& arg) const {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
@@ -71,77 +71,77 @@ namespace ArgParse {
 	}
 
 	template<>
-	std::string ArgVector<bool>::GetHelpText() {
+	std::string ArgVector<bool>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes no argument : ");
 	}
 
 	template<>
-	std::string ArgVector<std::string>::GetHelpText() {
+	std::string ArgVector<std::string>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a string : ");
 	}
 
 	template<>
-	std::string ArgVector<char>::GetHelpText() {
+	std::string ArgVector<char>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a character : ");
 	}
 
 	template<>
-	std::string ArgVector<unsigned char>::GetHelpText() {
+	std::string ArgVector<unsigned char>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned character : ");
 	}
 
 	template<>
-	std::string ArgVector<short>::GetHelpText() {
+	std::string ArgVector<short>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a short : ");
 	}
 
 	template<>
-	std::string ArgVector<unsigned short>::GetHelpText() {
+	std::string ArgVector<unsigned short>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned short : ");
 	}
 
 	template<>
-	std::string ArgVector<int>::GetHelpText() {
+	std::string ArgVector<int>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an integer : ");
 	}
 
 	template<>
-	std::string ArgVector<unsigned int>::GetHelpText() {
+	std::string ArgVector<unsigned int>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned integer : ");
 	}
 
 	template<>
-	std::string ArgVector<long>::GetHelpText() {
+	std::string ArgVector<long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long : ");
 	}
 
 	template<>
-	std::string ArgVector<unsigned long>::GetHelpText() {
+	std::string ArgVector<unsigned long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned long : ");
 	}
 
 	template<>
-	std::string ArgVector<long long>::GetHelpText() {
+	std::string ArgVector<long long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long long : ");
 	}
 
 	template<>
-	std::string ArgVector<unsigned long long>::GetHelpText() {
+	std::string ArgVector<unsigned long long>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes an unsigned long long : ");
 	}
 
 	template<>
-	std::string ArgVector<float>::GetHelpText() {
+	std::string ArgVector<float>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a float : ");
 	}
 
 	template<>
-	std::string ArgVector<double>::GetHelpText() {
+	std::string ArgVector<double>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a double : ");
 	}
 
 	template<>
-	std::string ArgVector<long double>::GetHelpText() {
+	std::string ArgVector<long double>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a long double : ");
 	}
 }

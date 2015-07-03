@@ -33,13 +33,13 @@ namespace ArgParse {
 
 			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));
 
-			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) __attribute__((warn_unused_result));
+			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg __attribute__((unused))) const __attribute__((warn_unused_result));
 			virtual int PassArgument(const std::string& arg, const std::string& opt, const bool with_opt) __attribute__((warn_unused_result));
-			virtual size_t AmountOfData();
+			virtual size_t AmountOfData() const;
 
-			virtual std::string GetHelpText();
+			virtual std::string GetHelpText() const;
 
-			virtual void AppendType(std::stringstream& ss) {
+			virtual void AppendType(std::stringstream& ss) const {
 				ss << "Vector : ";
 			}
 
@@ -75,7 +75,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	ArgObject::Accept_t ArgVector<T>::AcceptsArgument(const std::string& arg) {
+	ArgObject::Accept_t ArgVector<T>::AcceptsArgument(const std::string& arg) const {
 		if(DebugLevel > 1) {
 			MessageStandardPrint("Testing the argument (%s)\n", arg.c_str());
 		}
@@ -109,7 +109,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	size_t ArgVector<T>::AmountOfData() {
+	size_t ArgVector<T>::AmountOfData() const {
 		if(!WasDefined()) {
 			return 0;
 		}
@@ -117,7 +117,7 @@ namespace ArgParse {
 	}
 
 	template<class T>
-	std::string ArgVector<T>::GetHelpText() {
+	std::string ArgVector<T>::GetHelpText() const {
 		return GetHelpTextWithMessage("Takes a generic type : ");
 	}
 
@@ -125,55 +125,55 @@ namespace ArgParse {
 	int ArgVector<bool>::SetValue(const std::string& optarg);
 
 	template<>
-	ArgObject::Accept_t ArgVector<bool>::AcceptsArgument(const std::string& arg);
+	ArgObject::Accept_t ArgVector<bool>::AcceptsArgument(const std::string& arg) const;
 
 	template<>
 	int ArgVector<bool>::PassArgument(const std::string& arg, const std::string& opt, const bool with_opt);
 
 	template<>
-	std::string ArgVector<bool>::GetHelpText();
+	std::string ArgVector<bool>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<std::string>::GetHelpText();
+	std::string ArgVector<std::string>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<char>::GetHelpText();
+	std::string ArgVector<char>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<unsigned char>::GetHelpText();
+	std::string ArgVector<unsigned char>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<short>::GetHelpText();
+	std::string ArgVector<short>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<unsigned short>::GetHelpText();
+	std::string ArgVector<unsigned short>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<int>::GetHelpText();
+	std::string ArgVector<int>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<unsigned int>::GetHelpText();
+	std::string ArgVector<unsigned int>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<long>::GetHelpText();
+	std::string ArgVector<long>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<unsigned long>::GetHelpText();
+	std::string ArgVector<unsigned long>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<long long>::GetHelpText();
+	std::string ArgVector<long long>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<unsigned long long>::GetHelpText();
+	std::string ArgVector<unsigned long long>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<float>::GetHelpText();
+	std::string ArgVector<float>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<double>::GetHelpText();
+	std::string ArgVector<double>::GetHelpText() const;
 
 	template<>
-	std::string ArgVector<long double>::GetHelpText();
+	std::string ArgVector<long double>::GetHelpText() const;
 }
 
 #endif
