@@ -41,7 +41,7 @@ namespace ArgParse {
 		if(GetRequired()) {
 			int num_ready = 0;
 			for(size_t i=0; i<objects.size(); ++i) {
-				ArgObject::Ready_t isready = objects[i]->IsReady();
+				ArgObject::Ready_t isready = objects[i]->IsReady(true);
 				if(isready == ArgObject::Ready) {
 					num_ready += 1;
 				}
@@ -57,7 +57,7 @@ namespace ArgParse {
 		} else {
 			int num_defined = 0;
 			for(size_t i=0; i<objects.size(); ++i) {
-				ArgObject::Ready_t isready = objects[i]->IsReady();
+				ArgObject::Ready_t isready = objects[i]->IsReady(true);
 				if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
 					num_defined += 1;
 					ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());

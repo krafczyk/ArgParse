@@ -44,20 +44,20 @@ namespace ArgParse {
 	bool ArgInclusiveGroup::CheckSubObjects() const {
 		if(GetRequired()) {
 			for(size_t i=0; i<objects.size(); ++i) {
-				ArgObject::Ready_t isready = objects[i]->IsReady();
+				ArgObject::Ready_t isready = objects[i]->IsReady(true);
 				if(isready != ArgObject::Ready) {
-					ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+					ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
 					return false;
 				}
 			}
 		} else {
-			ArgObject::Ready_t isready = objects[0]->IsReady();
+			ArgObject::Ready_t isready = objects[0]->IsReady(true);
 			bool defined = false;
 			if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
 				defined = true;
 			}
 			for(size_t i=1; i<objects.size(); ++i) {
-				isready = objects[i]->IsReady();
+				isready = objects[i]->IsReady(true);
 				if (defined) {
 					if((isready == ArgObject::NotDefined)||(isready == ArgObject::NotReady)) {
 						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());

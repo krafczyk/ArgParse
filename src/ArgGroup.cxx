@@ -68,7 +68,7 @@ namespace ArgParse {
 		return ArgObject::NotAccepted;
 	}
 
-	ArgObject::Ready_t ArgGroup::IsReady() const {
+	ArgObject::Ready_t ArgGroup::IsReady(bool quiet __attribute__((unused))) const {
 		//Check that everybody is ready.
 		if(!CheckSubObjects()) {
 			return ArgObject::NotReady;
@@ -106,8 +106,8 @@ namespace ArgParse {
 
 	bool ArgGroup::CheckSubObjects() const {
 		for(size_t i=0; i<objects.size(); ++i) {
-			if(!objects[i]->IsReady()) {
-				ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+			if(objects[i]->IsReady(true) == ArgObject::NotReady) {
+				ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
 				return false;
 			}
 		}

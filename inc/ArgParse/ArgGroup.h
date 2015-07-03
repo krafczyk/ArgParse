@@ -37,7 +37,7 @@ namespace ArgParse {
 			virtual ArgObject::Accept_t AcceptsArgument(const std::string& arg) const __attribute__((warn_unused_result));
 			virtual ArgObject::Pass_t PassArgument(const std::string& arg, const std::string& opt, const bool with_opt) __attribute__((warn_unused_result));
 	
-			virtual ArgObject::Ready_t IsReady() const __attribute__((warn_unused_result));
+			virtual ArgObject::Ready_t IsReady(bool quiet = false) const __attribute__((warn_unused_result));
 	
 			virtual std::string GetHelpText() const;
 

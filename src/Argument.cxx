@@ -118,11 +118,13 @@ namespace ArgParse {
 		}
 	}
 
-	ArgObject::Ready_t Argument::IsReady() const {
+	ArgObject::Ready_t Argument::IsReady(bool quiet) const {
 		if (IsRequired()) {
 			if(!WasDefined()) {
-				ArgParseMessageError("The argument (%s) needs to be defined.\n", GetName().c_str());
-				SetMessage("The argument (%s) needs to be defined.\n", GetName().c_str());
+				if (!quiet) {
+					ArgParseMessageError("The argument (%s) needs to be defined.\n", GetName().c_str());
+					SetMessage("The argument (%s) needs to be defined.\n", GetName().c_str());
+				}
 				return ArgObject::NotReady;
 			} else {
 				return ArgObject::Ready;

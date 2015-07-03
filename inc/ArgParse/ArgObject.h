@@ -77,7 +77,7 @@ namespace ArgParse {
 				return 0;
 			}
 	
-			virtual int IsReady() const __attribute__((warn_unused_result)) {
+			virtual int IsReady(bool quiet __attribute__((unused)) = false) const __attribute__((warn_unused_result)) {
 				return ArgObject::NotReady;
 			}
 	
