@@ -201,7 +201,9 @@ namespace ArgParse {
 			}
 		}
 		for(size_t i=0;i<objects.size();++i) {
-			if(!objects[i]->IsReady()) {
+			if(objects[i]->IsReady() == ArgObject::NotReady) {
+				ArgParseMessageError("One of the arguments wasn't ready!\n");
+				SetMessage("One of the arguments wasn't ready!\n");
 				return -3;
 			}
 		}
