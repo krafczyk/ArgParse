@@ -69,13 +69,13 @@ namespace ArgParse {
 	}
 
 	bool ArgGroup::IsReady() const {
-		//Check for normal group
 		//Check that everybody is ready.
-		for(size_t i=0; i<objects.size(); ++i) {
-			if(!objects[i]->IsReady()) {
-				ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
-				return false;
-			}
+		if(!CheckSubObjects()) {
+			return false;
+		}
+		//Check that the data is consistent
+		if(!CheckDataConsistency()) {
+			return false;
 		}
 		return true;
 	}
@@ -102,5 +102,19 @@ namespace ArgParse {
 
 	std::string ArgGroup::GetHelpText() const {
 		return GetGroupHelpText("");
+	}
+
+	bool ArgGroup::CheckSubObjects() const {
+		for(size_t i=0; i<objects.size(); ++i) {
+			if(!objects[i]->IsReady()) {
+				ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool ArgGroup::CheckDataConsistency() const {
+		return true;
 	}
 }

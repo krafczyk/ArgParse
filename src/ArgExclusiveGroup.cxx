@@ -33,7 +33,21 @@ namespace ArgParse {
 		return true;
 	}
 
-	bool ArgExclusiveGroup::IsReady() const {
+	std::string ArgExclusiveGroup::GetHelpText() const {
+		return GetGroupHelpText("Exclusive");
+	}
+
+	bool ArgExclusiveGroup::CheckSubObjects() const {
+		for(size_t i=0; i<objects.size(); ++i) {
+			if(!objects[i]->IsReady()) {
+				ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool ArgExclusiveGroup::CheckDataConsistency() const {
 		//Check for exclusive group
 		bool found_non_zero = false;
 		for(size_t i=0;i<objects.size(); ++i) {
@@ -48,9 +62,5 @@ namespace ArgParse {
 			}
 		}
 		return true;
-	}
-	
-	std::string ArgExclusiveGroup::GetHelpText() const {
-		return GetGroupHelpText("Exclusive");
 	}
 }

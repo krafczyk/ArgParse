@@ -10,9 +10,12 @@ namespace ArgParse {
 
 			virtual bool IsConfigured() const __attribute__((warn_unused_result));
 			virtual size_t AmountOfData() const;
-			virtual bool IsReady() const __attribute__((warn_unused_result));
 	
 			virtual std::string GetHelpText() const;
+
+			virtual bool CheckSubObjects() const __attribute__((warn_unused_result));
+
+			virtual bool CheckDataConsistency() const __attribute__((warn_unused_result));
 	};
 }
 

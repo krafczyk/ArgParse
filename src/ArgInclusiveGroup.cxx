@@ -37,8 +37,23 @@ namespace ArgParse {
 		return objects[0]->AmountOfData();
 	}
 
-	bool ArgInclusiveGroup::IsReady() const {
-		//Check for inclusive groups
+	std::string ArgInclusiveGroup::GetHelpText() const {
+		return GetGroupHelpText("Inclusive");
+	}
+
+	bool ArgInclusiveGroup::CheckSubObjects() const {
+		if(GetRequired()) {
+			for(size_t i=0; i<objects.size(); ++i) {
+				if(!objects[i]->IsReady()) {
+					ArgParseMessageError("A sub argument of the group (%s) wasn't ready.\n", GetTitle().c_str());
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	bool ArgInclusiveGroup::CheckDataConsistency() const {
 		if((GetMode() == ArgObject::Multiple)||(GetMode() == ArgObject::Single)) {
 			//Check that everybody has the same amount of data.
 			size_t the_size = objects[0]->AmountOfData();
@@ -51,9 +66,5 @@ namespace ArgParse {
 			}
 		}
 		return true;
-	}
-	
-	std::string ArgInclusiveGroup::GetHelpText() const {
-		return GetGroupHelpText("Inclusive");
 	}
 }
