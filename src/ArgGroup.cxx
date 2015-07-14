@@ -106,9 +106,10 @@ namespace ArgParse {
 
 	bool ArgGroup::CheckSubObjects() const {
 		for(size_t i=0; i<objects.size(); ++i) {
-			if(objects[i]->IsReady() == ArgObject::NotReady) {
-				ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
-				SetMessage("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
+			Ready_t ready = objects[i]->IsReady();
+			if(ready == ArgObject::NotReady) {
+				ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateReady(ready));
+				SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateReady(ready));
 				return false;
 			}
 		}

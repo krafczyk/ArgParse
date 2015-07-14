@@ -42,4 +42,66 @@ namespace ArgParse {
 
 	ArgObject::~ArgObject() {
 	}
+
+	const char* ArgObject::TranslateReady(const Ready_t i) {
+		if(i == NotReady) {
+			return "NotReady";
+		} else if (i == Defined) {
+			return "Defined";
+		} else if (i == NotDefined) {
+			return "NotDefined";
+		} else if (i == Ready) {
+			return "Ready";
+		} else {
+			return "Undefined Ready_t";
+		}
+	}
+
+	const char* ArgObject::TranslateReq(const Req_t i) {
+		if(i == Required) {
+			return "Required";
+		} else if (i == Optional) {
+			return "Optional";
+		} else {
+			return "Undefined Req_t";
+		}
+	}
+
+	const char* ArgObject::TranslateAccept(const Accept_t i) {
+		if(i == No) {
+			return "No";
+		} else if (i == WithArg) {
+			return "WithArg";
+		} else if (i == WithoutArg) {
+			return "WithoutArg";
+		} else if (i == GroupName) {
+			return "GroupName";
+		} else {
+			return "Undefined Accept_t";
+		}
+	}
+
+	const char* ArgObject::TranslateMode(const Mode_t i) {
+		if(i == Single) {
+			return "Single";
+		} else if (i == Multiple) {
+			return "Multiple";
+		} else if (i == None) {
+			return "None";
+		} else {
+			return "Undefined Mode_t";
+		}
+	}
+
+	const char* ArgObject::TranslatePass(const Pass_t i) {
+		if(i == NotAccepted) {
+			return "NotAccepted";
+		} else if (i == Accepted) {
+			return "Accepted";
+		} else if (i == Error) {
+			return "Error";
+		} else {
+			return "Undefined Pass_t";
+		}
+	}
 }

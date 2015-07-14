@@ -16,8 +16,8 @@ namespace ArgParse {
 			//Now check for consistency with group mode
 			for(size_t i=0; i< objects.size(); ++i) {
 				if (objects[i]->GetMode() != GetMode()) {
-					ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetMode(), GetMode());
-					SetMessage("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetMode(), GetMode());
+					ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %s versus %s\n", i, this->GetTitle().c_str(), TranslateMode(objects[i]->GetMode()), TranslateMode(GetMode()));
+					SetMessage("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %s versus %s\n", i, this->GetTitle().c_str(), TranslateMode(objects[i]->GetMode()), TranslateMode(GetMode()));
 					return false;
 				}
 			}
@@ -25,8 +25,8 @@ namespace ArgParse {
 		//Now check for consistency with requirement
 		for(size_t i=0; i< objects.size(); ++i) {
 			if(objects[i]->GetRequired() != GetRequired()) {
-				ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetRequired(), GetRequired());
-				SetMessage("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetRequired(), GetRequired());
+				ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), TranslateReq(objects[i]->GetRequired()), TranslateReq(GetRequired()));
+				SetMessage("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), TranslateReq(objects[i]->GetRequired()), TranslateReq(GetRequired()));
 				return false;
 			}
 		}

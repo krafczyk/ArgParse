@@ -15,9 +15,10 @@ namespace ArgParse {
 		if(GetMode() != ArgObject::None) {
 			//Now check for consistency with group mode
 			for(size_t i=0; i< objects.size(); ++i) {
-				if (objects[i]->GetMode() != GetMode()) {
-					ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetMode(), GetMode());
-					SetMessage("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetMode(), GetMode());
+				Mode_t the_mode = objects[i]->GetMode();
+				if (the_mode != GetMode()) {
+					ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %s versus %s\n", i, this->GetTitle().c_str(), TranslateMode(the_mode), TranslateMode(GetMode()));
+					SetMessage("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes. %i versus %i\n", i, this->GetTitle().c_str(), TranslateMode(the_mode), TranslateMode(GetMode()));
 					return false;
 				}
 			}
@@ -25,8 +26,8 @@ namespace ArgParse {
 		//Now check for consistency with requirement
 		for(size_t i=0; i< objects.size(); ++i) {
 			if(objects[i]->GetRequired() != GetRequired()) {
-				ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetRequired(), GetRequired());
-				SetMessage("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), objects[i]->GetRequired(), GetRequired());
+				ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), TranslateReq(objects[i]->GetRequired()), TranslateReq(GetRequired()));
+				SetMessage("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria! %i versus %i\n", i, this->GetTitle().c_str(), TranslateReq(objects[i]->GetRequired()), TranslateReq(GetRequired()));
 				return false;
 			}
 		}
@@ -46,8 +47,8 @@ namespace ArgParse {
 			for(size_t i=0; i<objects.size(); ++i) {
 				ArgObject::Ready_t isready = objects[i]->IsReady(true);
 				if(isready != ArgObject::Ready) {
-					ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
-					SetMessage("A sub argument(%i) of the group (%s) wasn't ready.\n", i, GetTitle().c_str());
+					ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateReady(isready));
+					SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateReady(isready));
 					return false;
 				}
 			}
@@ -61,14 +62,14 @@ namespace ArgParse {
 				isready = objects[i]->IsReady(true);
 				if (defined) {
 					if((isready == ArgObject::NotDefined)||(isready == ArgObject::NotReady)) {
-						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
-						SetMessage("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
+						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
+						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
 						return false;
 					}
 				} else {
 					if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
-						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
-						SetMessage("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
+						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
+						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
 						return false;
 					}
 				}

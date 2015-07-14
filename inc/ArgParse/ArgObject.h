@@ -32,23 +32,27 @@ namespace ArgParse {
 			static const Accept_t WithArg;
 			static const Accept_t WithoutArg;
 			static const Accept_t GroupName;
+			static const char* TranslateAccept(const Accept_t i);
 
 			//Pass management
 			typedef int Pass_t;
 			static const Pass_t NotAccepted;
 			static const Pass_t Accepted;
 			static const Pass_t Error;
+			static const char* TranslatePass(const Pass_t i);
 
 			//Mode management
 			typedef int Mode_t;
 			static const Mode_t Single;
 			static const Mode_t Multiple;
 			static const Mode_t None;
+			static const char* TranslateMode(const Mode_t i);
 
 			//Required management
 			typedef bool Req_t;
 			static const Req_t Required;
 			static const Req_t Optional;
+			static const char* TranslateReq(const Req_t i);
 
 			//Ready types
 			typedef int Ready_t;
@@ -56,6 +60,7 @@ namespace ArgParse {
 			static const Ready_t Defined;
 			static const Ready_t NotDefined;
 			static const Ready_t Ready;
+			static const char* TranslateReady(const Ready_t i);
 	
 			ArgObject(const std::string& help_text, const bool required) {
 				this->help_text = help_text;
