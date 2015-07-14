@@ -16,8 +16,8 @@ namespace ArgParse {
 			//Now check for consistency with group mode
 			for(size_t i=0; i< objects.size(); ++i) {
 				if (objects[i]->GetMode() != GetMode()) {
-					ArgParseMessageError("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
-					SetMessage("An element of this container doesn't have the right mode! All elments must have matching modes.\n");
+					ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes.\n", i, this->GetTitle().c_str());
+					SetMessage("A sub argument(%i) of this container(%s) doesn't have the right mode! All elments must have matching modes.\n", i, this->GetTitle().c_str());
 					return false;
 				}
 			}
@@ -25,8 +25,8 @@ namespace ArgParse {
 		//Now check for consistency with requirement
 		for(size_t i=0; i< objects.size(); ++i) {
 			if(objects[i]->GetRequired() != GetRequired()) {
-				ArgParseMessageError("An element of this container doesn't have the same requirement criteria!\n");
-				SetMessage("An element of this container doesn't have the same requirement criteria!\n");
+				ArgParseMessageError("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria!\n", i, this->GetTitle().c_str());
+				SetMessage("A sub argument(%i) of this container(%s) doesn't have the same requirement criteria!\n", i, this->GetTitle().c_str());
 				return false;
 			}
 		}
@@ -48,10 +48,12 @@ namespace ArgParse {
 			}
 			if (num_ready == 0) {
 				ArgParseMessageError("No arguments of the required exclusive group (%s) were ready.\n", GetTitle().c_str());
+				SetMessage("No arguments of the required exclusive group (%s) were ready.\n", GetTitle().c_str());
 				return false;
 			}
 			if (num_ready != 1) {
 				ArgParseMessageError("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
+				SetMessage("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
 				return false;
 			}
 		} else {
@@ -60,11 +62,11 @@ namespace ArgParse {
 				ArgObject::Ready_t isready = objects[i]->IsReady(true);
 				if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
 					num_defined += 1;
-					ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined.\n", GetTitle().c_str());
 				}
 			}
 			if(num_defined > 1) {
 				ArgParseMessageError("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
+				SetMessage("Only a single argument in the exclusive group (%s) should be defined.\n", GetTitle().c_str());
 				return false;
 			}
 		}
