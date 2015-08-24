@@ -2,6 +2,8 @@ Features which ought to be implemented:
 
 - Help should be pretty printed properly
 - Help should show the user default values
+- A single header or header with source file should be included
+  for people who don't want to rely on a library.
 
 Completed Features
 
