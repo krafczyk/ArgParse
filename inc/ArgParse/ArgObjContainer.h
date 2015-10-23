@@ -49,9 +49,9 @@ namespace ArgParse {
 				AddArgument(the_argument);
 			}
 
-			ArgGroup& AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
-			ArgGroup& AddInclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
-			ArgGroup& AddExclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
+			ArgGroup* AddArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
+			ArgGroup* AddInclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
+			ArgGroup* AddExclusiveArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional);
 
 		private:
 			void CheckName(const std::string& call_name, ArgObjContainer* parent);
