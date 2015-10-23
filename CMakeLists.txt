@@ -71,8 +71,8 @@ configure_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h")
 	
 set(VERSION_MAJOR 0)
-set(VERSION_MINOR 5)
-set(VERSION_PATCH 2)
+set(VERSION_MINOR 6)
+set(VERSION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
