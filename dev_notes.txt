@@ -1,12 +1,17 @@
 Features which ought to be implemented:
 
-- Argument groups should be implemented
-
-
-- Argument groups should have an inclusive mode and an exclusive mode.
-
+- Help should be pretty printed properly
+- Help should show the user default values
+- A single header or header with source file should be included
+  for people who don't want to rely on a library.
 
 Completed Features
+
+Changelog 0.5.2 -> 0.4.0
+
+x Argument groups should be implemented
+
+x Argument groups should have an inclusive mode and an exclusive mode.
 
 Changelog 0.3.2 -> 0.4.0
 

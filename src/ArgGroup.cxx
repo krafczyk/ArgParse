@@ -88,6 +88,9 @@ namespace ArgParse {
 		}
 		ss << "Group " << title << " ---" << std::endl;
 		ss << GetHelp() << std::endl;
+		if(DebugLevel > 5) {
+			ArgParseMessageDebug("There are %lu objects in this group.\n", this->objects.size());
+		}
 		for(size_t i=0;i< this->objects.size(); ++i) {
 			ss << this->objects[i]->GetHelpText() << std::endl;
 		}

@@ -73,8 +73,8 @@ configure_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h")
 	
 set(VERSION_MAJOR 0)
-set(VERSION_MINOR 5)
-set(VERSION_PATCH 1)
+set(VERSION_MINOR 6)
+set(VERSION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
@@ -96,6 +96,11 @@ set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h DESTINATION include/ArgParse)
+
+set(INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+if(FINAL_INSTALL_PREFIX)
+	set(INSTALL_PREFIX "${FINAL_INSTALL_PREFIX}")
+endif()
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/ArgParse.pc.in"
