@@ -14,6 +14,8 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+cmake_minimum_required(VERSION 2.8)
+
 set(CC "$ENV{CC}")
 if(CC)
 	set(CMAKE_C_COMPILER CACHE STRING ${CC})
@@ -24,11 +26,11 @@ if(CXX)
 	set(CMAKE_CXX_COMPILER CACHE STRING ${CXX})
 endif()
 
+if((CMAKE_VERSION VERSION_GREATER 3.1) OR (CMAKE_VERSION VERSION_EQUAL 3.1))
 cmake_policy(SET CMP0054 NEW)
+endif()
 
 project(ArgParse)
-
-cmake_minimum_required(VERSION 2.8)
 
 option(UNITTESTS "Compile the unittests" OFF)
 
