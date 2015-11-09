@@ -101,7 +101,7 @@ namespace ArgParse {
 		}
 
 		if(SetValue(opt) < 0) {
-			ArgParseMessageError("There was a problem setting the value of the option!\n");
+			ArgParseMessageError("There was a problem setting the value of the option! Arg(%s) Opt(%s)\n", arg.c_str(), opt.c_str());
 			return ArgObject::Error;
 		}
 		SetDefined(true);
