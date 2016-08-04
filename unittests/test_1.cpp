@@ -1,6 +1,6 @@
 /*
 ArgParser - C++ Argument Parser reflecting the python module ArgParse.
-Copyright (C) 2015  Matthew Scott Krafczyk
+Copyright (C) 2014-2016  Matthew Scott Krafczyk
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
