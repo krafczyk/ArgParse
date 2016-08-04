@@ -33,6 +33,7 @@ endif()
 project(ArgParse)
 
 option(UNITTESTS "Compile the unittests" OFF)
+option(TUTORIAL "Compile the tutorial" OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
@@ -82,6 +83,10 @@ include_directories(inc ${CMAKE_CURRENT_BINARY_DIR}/inc)
 
 if(UNITTESTS)
 add_subdirectory(unittests)
+endif()
+
+if(TUTORIAL)
+add_subdirectory(tutorial)
 endif()
 
 add_library(ArgParse SHARED src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx)
