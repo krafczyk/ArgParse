@@ -1,10 +1,17 @@
 # ArgParse
 ArgParser - C++ Argument Parser reflecting the python module ArgParse
 
-Quick Start
------------
+Why Use?
+--------
 
 The `ArgParse` library allows the easy creation of a 'living' help text for your program following the python module [ArgParse](https://docs.python.org/3/library/argparse.html).
+
+`ArgParse` Creates a reaonable looking help text without much work from the developer. For any argument the developer wishes to recognize, this sytem requires him or her to tell the user that the argument exists, how to call it, as well as what that argument does. This is in contrast to some systems where code for reading arguments is separated from the code to display help text.
+
+Using `ArgParse` will greatly simplify the creation of help text as well as keep you honest about what your arguments are for.
+
+Quick Start
+-----------
 
 A parser object takes pointers directly to the objects or plain old data (POD) types where you want the argument information to end up. The parser object fills the type or object with the argument information after it parses the arguments passed to your program.
 
