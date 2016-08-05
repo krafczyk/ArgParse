@@ -2,7 +2,7 @@
 ArgParser - C++ Argument Parser reflecting the python module ArgParse
 
 Why Use?
---------
+========
 
 The `ArgParse` library allows the easy creation of a 'living' help text for your program following the python module [ArgParse](https://docs.python.org/3/library/argparse.html).
 
@@ -11,7 +11,7 @@ The `ArgParse` library allows the easy creation of a 'living' help text for your
 Using `ArgParse` will greatly simplify the creation of help text as well as keep you honest about what your arguments are for.
 
 Quick Start
------------
+===========
 
 A parser object takes pointers directly to the objects or plain old data (POD) types where you want the argument information to end up. The parser object fills the type or object with the argument information after it parses the arguments passed to your program.
 
@@ -65,7 +65,7 @@ A parser object takes pointers directly to the objects or plain old data (POD) t
 Refer to the file `tutorial/tutorial.cpp` for a commented example of a complete program which uses the `ArgParse` library.
 
 Building and Installing
------------------------
+=======================
 
 Both shared and static libraries are created by this package. The following directions show how to build and install this software.
 
@@ -87,3 +87,64 @@ Both shared and static libraries are created by this package. The following dire
   4. Install the package.
   
     Make the `install` target with `make install`.
+
+Using ArgParse
+==============
+
+This section serves as a more detailed guide to defining arguments.
+
+Argument Types
+--------------
+
+`ArgParse` supports a number of 'scalar' and 'vector' types. The scalar types are meant to be defined once. If they are passed to the program multiple times, the value which gets stored will be the last one passed. The scalar types are meant to be able to be defined multiple times. All values will be stored in the order they are given. All supported variable types are available in both scalar and vector forms. To get the vector form of a supported type, define a `std::vector<T>` where `T` is the supported type.
+
+###Supported Types:
+
+`bool`
+
+`std::string`
+
+`char`
+
+`unsigned char`
+
+`short`
+
+`unsigned short`
+
+`int`
+
+`unsigned int`
+
+`long`
+
+`unsigned long`
+
+`long long`
+
+`unsigned long long`
+
+`float`
+
+`double`
+
+`long double`
+
+Argument Groups
+---------------
+
+A group of arguments can be added to the parser object which can be used to either logically collect the arguments together, or functionally enforce some behaviour like requiring that only one argument of a group is defined, or if one is defined, then all must be defined.
+
+Three types of argument groups can be defined 
+  1. A plain group which places no requirements on how the arguments are defined. This type of group is useful to logically collect a set of arguments together.
+   
+  To add a plain group to the parser object, call the `AddArgGroup` method.
+
+  2. An inclusive group which requires that if one argument in the group is defined, that all arguments in that group must be defined
+  
+  To add an inclusive group to the parser object, call the `AddInclusiveArgGroup` method.
+
+  3. An exclusive group which requires that if an argument in the group is defined, that only one argument in that group is defined.
+  
+  To add an exclusive group to the parser object, call the `AddExclusiveArgGroup` method.
+
