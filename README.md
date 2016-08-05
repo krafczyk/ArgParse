@@ -63,3 +63,27 @@ A parser object takes pointers directly to the objects or plain old data (POD) t
     This checks if the help text was printed, and if it does, it exists. Be sure to add appropriate cleanup code here.
 
 Refer to the file `tutorial/tutorial.cpp` for a commented example of a complete program which uses the `ArgParse` library.
+
+Building and Installing
+-----------------------
+
+Both shared and static libraries are created by this package. The following directions show how to build and install this software.
+
+  1. Create a directory `<build_dir>` you want to build the `ArgParse` in.
+  2. Configure the package.
+    
+    Change to `<build_dir>` and call `cmake <source_dir>`.
+
+    You can specify a specific installation directory by passing the option `-DCMAKE_INSTALL_PREFIX=<install_dir>` to the `cmake` command.
+    
+    You can enable the building of unit tests by passing the argument `-DUNITTESTS` to the `cmake` command.
+
+    You can enable the building of the tutorial program by passing the argument `-DTUTORIAL` to the `cmake` command.
+  
+  3. Build the package.
+  
+    Change to the `<build_dir>` and execute the `make` command possibly with `-j <n>` for a parallel build.
+
+  4. Install the package.
+  
+    Make the `install` target with `make install`.
