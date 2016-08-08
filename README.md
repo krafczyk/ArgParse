@@ -155,3 +155,5 @@ Each of these methods returns a pointer to an `ArgGroup` object. This object can
 After the help text for that group, the group can have a mode set which defines whether the arguments in the group have no restrictions (`ArgParse::Argument::None`), the group can only be defined once (`ArgParse::Argument::Single`), the group has the possibility to be defined multiple times (`ArgParse::Argument::Multiple`). The default is no restrictions.
 
 After the group mode, you can define whether the arguments in the group are optional or required. The default is optional.
+
+Once the group is created, arguments and even groups can be added in just the same way as the argument parser object. Just call the `AddArgument`, `AddArgGroup`, `AddInclusiveArgGroup`, and `AddExclusiveArgGroup` methods.
