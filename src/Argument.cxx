@@ -118,7 +118,7 @@ namespace ArgParse {
 		}
 	}
 
-	ArgObject::Ready_t Argument::IsReady(bool quiet) const {
+	ArgObject::State_t Argument::State(bool quiet) const {
 		if (IsRequired()) {
 			if(!WasDefined()) {
 				if (!quiet) {

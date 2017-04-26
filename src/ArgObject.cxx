@@ -35,15 +35,15 @@ namespace ArgParse {
 	const ArgObject::Pass_t ArgObject::Accepted = 1;
 	const ArgObject::Pass_t ArgObject::Error = -1;
 
-	const ArgObject::Ready_t ArgObject::NotReady = -1;
-	const ArgObject::Ready_t ArgObject::Defined = 0;
-	const ArgObject::Ready_t ArgObject::NotDefined = 1;
-	const ArgObject::Ready_t ArgObject::Ready = 2;
+	const ArgObject::State_t ArgObject::NotReady = -1;
+	const ArgObject::State_t ArgObject::Defined = 0;
+	const ArgObject::State_t ArgObject::NotDefined = 1;
+	const ArgObject::State_t ArgObject::Ready = 2;
 
 	ArgObject::~ArgObject() {
 	}
 
-	const char* ArgObject::TranslateReady(const Ready_t i) {
+	const char* ArgObject::TranslateState(const State_t i) {
 		if(i == NotReady) {
 			return "NotReady";
 		} else if (i == Defined) {
@@ -53,7 +53,7 @@ namespace ArgParse {
 		} else if (i == Ready) {
 			return "Ready";
 		} else {
-			return "Undefined Ready_t";
+			return "Undefined State_t";
 		}
 	}
 

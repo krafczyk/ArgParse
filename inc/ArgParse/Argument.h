@@ -38,7 +38,7 @@ namespace ArgParse {
 			}
 
 			//ArgObject functions
-			ArgObject::Ready_t IsReady(bool quiet = false) const __attribute__((warn_unused_result));
+			ArgObject::State_t State(bool quiet = false) const __attribute__((warn_unused_result));
 			virtual std::string GetHelpText() const;
 			void PrepareHelpText(std::stringstream& ss) const;
 			virtual void AppendType(std::stringstream& ss) const;

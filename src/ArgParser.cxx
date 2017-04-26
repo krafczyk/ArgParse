@@ -213,7 +213,7 @@ namespace ArgParse {
 			}
 		}
 		for(size_t i=0;i<objects.size();++i) {
-			if(objects[i]->IsReady() == ArgObject::NotReady) {
+			if(objects[i]->State() == ArgObject::NotReady) {
 				ArgParseMessageError("One of the arguments wasn't ready!\n");
 				SetMessage("One of the arguments wasn't ready!\n");
 				ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());

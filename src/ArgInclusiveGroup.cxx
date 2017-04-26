@@ -63,31 +63,31 @@ namespace ArgParse {
 	bool ArgInclusiveGroup::CheckSubObjects() const {
 		if(GetRequired()) {
 			for(size_t i=0; i<objects.size(); ++i) {
-				ArgObject::Ready_t isready = objects[i]->IsReady(true);
-				if(isready != ArgObject::Ready) {
-					ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateReady(isready));
-					SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateReady(isready));
+				ArgObject::State_t obj_state = objects[i]->State(true);
+				if(obj_state != ArgObject::Ready) {
+					ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateState(obj_state));
+					SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), TranslateState(obj_state));
 					return false;
 				}
 			}
 		} else {
-			ArgObject::Ready_t isready = objects[0]->IsReady(true);
+			ArgObject::State_t obj_state = objects[0]->State(true);
 			bool defined = false;
-			if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
+			if((obj_state == ArgObject::Defined)||(obj_state == ArgObject::Ready)) {
 				defined = true;
 			}
 			for(size_t i=1; i<objects.size(); ++i) {
-				isready = objects[i]->IsReady(true);
+				obj_state = objects[i]->State(true);
 				if (defined) {
-					if((isready == ArgObject::NotDefined)||(isready == ArgObject::NotReady)) {
-						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
-						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
+					if((obj_state == ArgObject::NotDefined)||(obj_state == ArgObject::NotReady)) {
+						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateState(obj_state));
+						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateState(obj_state));
 						return false;
 					}
 				} else {
-					if((isready == ArgObject::Defined)||(isready == ArgObject::Ready)) {
-						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
-						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateReady(isready));
+					if((obj_state == ArgObject::Defined)||(obj_state == ArgObject::Ready)) {
+						ArgParseMessageError("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateState(obj_state));
+						SetMessage("All sub arguments of the group (%s) must either be defined or not defined. (%s)\n", GetTitle().c_str(), TranslateState(obj_state));
 						return false;
 					}
 				}

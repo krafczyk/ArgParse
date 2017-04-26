@@ -68,7 +68,7 @@ namespace ArgParse {
 		return ArgObject::NotAccepted;
 	}
 
-	ArgObject::Ready_t ArgGroup::IsReady(bool quiet __attribute__((unused))) const {
+	ArgObject::State_t ArgGroup::State(bool quiet __attribute__((unused))) const {
 		//Check that everybody is ready.
 		if(!CheckSubObjects()) {
 			return ArgObject::NotReady;
@@ -109,10 +109,10 @@ namespace ArgParse {
 
 	bool ArgGroup::CheckSubObjects() const {
 		for(size_t i=0; i<objects.size(); ++i) {
-			Ready_t ready = objects[i]->IsReady();
+			State_t ready = objects[i]->State();
 			if(ready == ArgObject::NotReady) {
-				ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateReady(ready));
-				SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateReady(ready));
+				ArgParseMessageError("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateState(ready));
+				SetMessage("A sub argument(%i) of the group (%s) wasn't ready. (%s)\n", i, GetTitle().c_str(), ArgObject::TranslateState(ready));
 				return false;
 			}
 		}

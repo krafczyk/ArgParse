@@ -55,12 +55,12 @@ namespace ArgParse {
 			static const char* TranslateReq(const Req_t i);
 
 			//Ready types
-			typedef int Ready_t;
-			static const Ready_t NotReady;
-			static const Ready_t Defined;
-			static const Ready_t NotDefined;
-			static const Ready_t Ready;
-			static const char* TranslateReady(const Ready_t i);
+			typedef int State_t;
+			static const State_t NotReady;
+			static const State_t Defined;
+			static const State_t NotDefined;
+			static const State_t Ready;
+			static const char* TranslateState(const State_t i);
 	
 			ArgObject(const std::string& help_text, const bool required) {
 				this->help_text = help_text;
@@ -82,7 +82,7 @@ namespace ArgParse {
 				return 0;
 			}
 	
-			virtual int IsReady(bool quiet __attribute__((unused)) = false) const __attribute__((warn_unused_result)) {
+			virtual int State(bool quiet __attribute__((unused)) = false) const __attribute__((warn_unused_result)) {
 				return ArgObject::NotReady;
 			}
 	
