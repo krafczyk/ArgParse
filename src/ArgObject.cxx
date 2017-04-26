@@ -27,7 +27,8 @@ namespace ArgParse {
 	const ArgObject::Req_t ArgObject::Optional = false;
 
 	const ArgObject::Accept_t ArgObject::No = 0;
-	const ArgObject::Accept_t ArgObject::WithArg = 1;
+	const ArgObject::Accept_t ArgObject::WithSingleArg = 1;
+	const ArgObject::Accept_t ArgObject::WithMultipleArg = 4;
 	const ArgObject::Accept_t ArgObject::WithoutArg = 2;
 	const ArgObject::Accept_t ArgObject::GroupName = 3;
 

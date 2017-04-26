@@ -143,7 +143,7 @@ namespace ArgParse {
 				if(DebugLevel > 1) {
 					MessageStandardPrint("Finished Setting Value\n");
 				}
-			} else if (accepted == ArgObject::WithArg) {
+			} else if ((accepted == ArgObject::WithSingleArg)||(accepted == ArgObject::WithMultipleArg)) {
 				if(DebugLevel > 5) {
 					ArgParseMessageDebug("object %lu accepts the argument with an option\n", accepting_obj_idx);
 				}

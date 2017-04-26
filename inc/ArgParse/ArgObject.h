@@ -29,7 +29,8 @@ namespace ArgParse {
 			//Accept management
 			typedef int Accept_t;
 			static const Accept_t No;
-			static const Accept_t WithArg;
+			static const Accept_t WithSingleArg;
+			static const Accept_t WithMultipleArg;
 			static const Accept_t WithoutArg;
 			static const Accept_t GroupName;
 			static const char* TranslateAccept(const Accept_t i);

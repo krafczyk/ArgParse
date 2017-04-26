@@ -83,7 +83,7 @@ namespace ArgParse {
 			return ArgObject::No;
 		}
 
-		return ArgObject::WithArg;
+		return ArgObject::WithSingleArg;
 	}
 
 	template<class T>
