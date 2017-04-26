@@ -38,19 +38,19 @@ int main(int argc, char** argv) {
 	//ArgParse::DebugLevel = 10;
 
 	ArgParse::ArgParser Parser("This parser demonstrates how to use ArgParse groups.");
-	ArgParse::ArgGroup& NormalGroup = Parser.AddArgGroup("norm", "This is a normal group");
-	NormalGroup.AddArgument("-a", "Test argument for a normal group", &a);
-	NormalGroup.AddArgument("-o/--output-dir", "Test required argument", &output_dir, ArgParse::ArgObject::Required);
-	ArgParse::ArgGroup& RequiredInclusiveGroup = Parser.AddInclusiveArgGroup("required-inclusive", "This is a required Inclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
-	RequiredInclusiveGroup.AddArgument("-r", "Test argument", &r, ArgParse::ArgObject::Required);
-	RequiredInclusiveGroup.AddArgument("-s", "Test argument", &s, ArgParse::ArgObject::Required);
-	ArgParse::ArgGroup& RequiredExclusiveGroup = Parser.AddExclusiveArgGroup("required-exclusive", "This is a required Exclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
-	RequiredExclusiveGroup.AddArgument("-t", "Test argument", &t, ArgParse::ArgObject::Required);
-	RequiredExclusiveGroup.AddArgument("-u", "Test argument", &u, ArgParse::ArgObject::Required);
-	RequiredExclusiveGroup.AddArgument("-v", "Test argument", &v, ArgParse::ArgObject::Required);
-	ArgParse::ArgGroup& InclusiveMultipleGroup = Parser.AddInclusiveArgGroup("multiple-inclusive", "This is a multiple inclusive group", ArgParse::ArgObject::Multiple);
-	InclusiveMultipleGroup.AddArgument("-i", "Test argument", &ints);
-	InclusiveMultipleGroup.AddArgument("-str", "Test argument", &strings);
+	ArgParse::ArgGroup* NormalGroup = Parser.AddArgGroup("norm", "This is a normal group");
+	NormalGroup->AddArgument("-a", "Test argument for a normal group", &a);
+	NormalGroup->AddArgument("-o/--output-dir", "Test required argument", &output_dir, ArgParse::ArgObject::Required);
+	ArgParse::ArgGroup* RequiredInclusiveGroup = Parser.AddInclusiveArgGroup("required-inclusive", "This is a required Inclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
+	RequiredInclusiveGroup->AddArgument("-r", "Test argument", &r, ArgParse::ArgObject::Required);
+	RequiredInclusiveGroup->AddArgument("-s", "Test argument", &s, ArgParse::ArgObject::Required);
+	ArgParse::ArgGroup* RequiredExclusiveGroup = Parser.AddExclusiveArgGroup("required-exclusive", "This is a required Exclusive group", ArgParse::ArgObject::None, ArgParse::ArgObject::Required);
+	RequiredExclusiveGroup->AddArgument("-t", "Test argument", &t, ArgParse::ArgObject::Required);
+	RequiredExclusiveGroup->AddArgument("-u", "Test argument", &u, ArgParse::ArgObject::Required);
+	RequiredExclusiveGroup->AddArgument("-v", "Test argument", &v, ArgParse::ArgObject::Required);
+	ArgParse::ArgGroup* InclusiveMultipleGroup = Parser.AddInclusiveArgGroup("multiple-inclusive", "This is a multiple inclusive group", ArgParse::ArgObject::Multiple);
+	InclusiveMultipleGroup->AddArgument("-i", "Test argument", &ints);
+	InclusiveMultipleGroup->AddArgument("-str", "Test argument", &strings);
 	
 	if(Parser.ParseArgs(argc, argv) < 0) {
 		fprintf(stderr, "There was a problem parsing the arguments!\n");
