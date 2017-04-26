@@ -42,6 +42,7 @@ namespace ArgParse {
 
 			static int EatArgument(int& argc, char**& argv, const int i = 1) __attribute__((warn_unused_result));
 			static bool SplitArg(std::string& arg, std::string& opt, const std::string argument);
+			int ObjectIdxAcceptingArgument(const std::string& arg __attribute__((unused))) const __attribute__((warn_unused_result));
 
 		private:
 			std::string help_intro;

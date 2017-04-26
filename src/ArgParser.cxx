@@ -56,6 +56,7 @@ namespace ArgParse {
 				return -1;
 			}
 		}
+		//We start at 1 because the zeroth argument is the program name.
 		int arg_i=1;
 		while(arg_i<argc) {
 			if(DebugLevel > 0) {
@@ -104,101 +105,90 @@ namespace ArgParse {
 				PrintHelp();
 				return 0;
 			}
-			int I = -1;
-			for(size_t i=0;i<objects.size();++i) {
-				if(DebugLevel > 5) {
-					ArgParseMessageDebug("Checking against object %lu\n", i);
-				}
-				ArgObject::Accept_t accepted = objects[i]->AcceptsArgument(arg);
-				if (accepted != ArgObject::No) {
-					I = i;
-					if(accepted == ArgObject::WithArg) {
-						if(DebugLevel > 5) {
-							ArgParseMessageDebug("object %lu accepts the argument with an option\n", i);
-						}
-						if(DebugLevel > 0) {
-							MessageStandardPrint("Needs a value\n");
-						}
-						if(!split_arg) {
-							if(DebugLevel > 2) {
-								MessageStandardPrint("Eating an argument.\n");
-							}
-							if(EatArgument(argc, argv, arg_i) < 0) {
-								ArgParseMessageError("There was a problem eating an argument!\n");
-								SetMessage("There was a problem eating an argument!\n");
-								ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-								return -1;
-							}
-							if(DebugLevel > 2) {
-								MessageStandardPrint("Finished eating an argument.\n");
-							}
-							opt = std::string(argv[arg_i]);
-						}
-						if(DebugLevel > 1) {
-							MessageStandardPrint("Setting Value (%s)\n", opt.c_str());
-						}
-						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, true);
-						if(passed == ArgObject::Error) {
-							ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-							return -2;
-						}
-						if(passed == ArgObject::NotAccepted) {
-							ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
-							SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
-							ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-							return -3;
-						}
-						if(DebugLevel > 1) {
-							MessageStandardPrint("Finished Setting Value\n");
-						}
-					} else if (accepted == ArgObject::WithoutArg) {
-						if(DebugLevel > 5) {
-							ArgParseMessageDebug("object %lu accepts the argument without an option\n", i);
-						}
-						if(DebugLevel > 0) {
-							MessageStandardPrint("Doesn't need a value\n");
-						}
-						if (split_arg) {
-							ArgParseMessageError("The argument (%s) doesn't take a value!\n", arg.c_str());
-							ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-							return -3;
-						}
-						if(DebugLevel > 1) {
-							MessageStandardPrint("Setting Value\n");
-						}
-						ArgObject::Pass_t passed = objects[i]->PassArgument(arg, opt, false);
-						if(passed == ArgObject::Error) {
-							ArgParseMessageError("There was a problem passing the argument (%s) to (%s)\n", opt.c_str(), arg.c_str());
-							ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-							return -4;
-						}
-						if(passed == ArgObject::NotAccepted) {
-							ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
-							SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
-							ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-							return -5;
-						}
-						if(DebugLevel > 1) {
-							MessageStandardPrint("Finished Setting Value\n");
-						}
-					} else {
-						ArgParseMessageError("Something strange was returned from AcceptsArgument!\n");
-						SetMessage("Something strange was returned from AcceptsArgument!\n");
-						ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
-						return -6;
-					}
-				} else {
-					if(DebugLevel > 5) {
-						ArgParseMessageDebug("object %i doesn't Accept the argument.\n");
-					}
-				}
-			}
-			if(I < 0) {
+			int accepting_obj_idx = ObjectIdxAcceptingArgument(arg);
+			if(accepting_obj_idx < 0) {
 				ArgParseMessageError("The argument (%s) does not exist.\n", arg.c_str());
 				SetMessage("The argument (%s) does not exist.\n", arg.c_str());
 				ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
 				return -2;
 			}
+			ArgObject::Accept_t accepted = objects[accepting_obj_idx]->AcceptsArgument(arg);
+			if (accepted == ArgObject::WithoutArg) {
+				if(DebugLevel > 5) {
+					ArgParseMessageDebug("object %lu accepts the argument without an option\n", accepting_obj_idx);
+				}
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Doesn't need a value\n");
+				}
+				if (split_arg) {
+					ArgParseMessageError("The argument (%s) doesn't take a value!\n", arg.c_str());
+					ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+					return -3;
+				}
+				if(DebugLevel > 1) {
+					MessageStandardPrint("Setting Value\n");
+				}
+				ArgObject::Pass_t passed = objects[accepting_obj_idx]->PassArgument(arg, opt, false);
+				if(passed == ArgObject::Error) {
+					ArgParseMessageError("There was a problem passing the argument (%s) to (%s)\n", opt.c_str(), arg.c_str());
+					ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+					return -4;
+				}
+				if(passed == ArgObject::NotAccepted) {
+					ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
+					SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
+					ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+					return -5;
+				}
+				if(DebugLevel > 1) {
+					MessageStandardPrint("Finished Setting Value\n");
+				}
+			} else if (accepted == ArgObject::WithArg) {
+				if(DebugLevel > 5) {
+					ArgParseMessageDebug("object %lu accepts the argument with an option\n", accepting_obj_idx);
+				}
+				if(DebugLevel > 0) {
+					MessageStandardPrint("Needs a value\n");
+				}
+				if(!split_arg) {
+					if(DebugLevel > 2) {
+						MessageStandardPrint("Eating an argument.\n");
+					}
+					if(EatArgument(argc, argv, arg_i) < 0) {
+						ArgParseMessageError("There was a problem eating an argument!\n");
+						SetMessage("There was a problem eating an argument!\n");
+						ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+						return -1;
+					}
+					if(DebugLevel > 2) {
+						MessageStandardPrint("Finished eating an argument.\n");
+					}
+					opt = std::string(argv[arg_i]);
+				}
+				if(DebugLevel > 1) {
+					MessageStandardPrint("Setting Value (%s)\n", opt.c_str());
+				}
+				ArgObject::Pass_t passed = objects[accepting_obj_idx]->PassArgument(arg, opt, true);
+				if(passed == ArgObject::Error) {
+					ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+					return -2;
+				}
+				if(passed == ArgObject::NotAccepted) {
+					ArgParseMessageError("The argument did not accept what we passed it! this shouldn't happen!\n");
+					SetMessage("The argument did not accept what we passed it! this shouldn't happen!\n");
+					ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+					return -3;
+				}
+				if(DebugLevel > 1) {
+					MessageStandardPrint("Finished Setting Value\n");
+				}
+			} else {
+				ArgParseMessageError("Something strange was returned from AcceptsArgument!\n");
+				SetMessage("Something strange was returned from AcceptsArgument!\n");
+				ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
+				return -6;
+			}
+
 			if(DebugLevel > 2) {
 				MessageStandardPrint("Eating an argument.\n");
 			}
@@ -292,5 +282,15 @@ namespace ArgParse {
 			}
 			return true;
 		}
+	}
+
+
+	int ArgParser::ObjectIdxAcceptingArgument(const std::string& arg __attribute__((unused))) const {
+		for(size_t i=0;i<objects.size();++i) {
+			if(objects[i]->AcceptsArgument(arg) != ArgObject::No) {
+				return (int) i;
+			}
+		}
+		return -1;
 	}
 }
