@@ -45,7 +45,7 @@ namespace ArgParse {
 
 	std::vector<std::string> Argument::GetCallNames(const std::string& combined_names) {
 		std::vector<std::string> answer;
-		const size_t buffer_size = combined_names.size();
+		const size_t buffer_size = combined_names.size()+1;
 		char temp_buffer[buffer_size];
 		strcpy(temp_buffer, combined_names.c_str());
 		char* token = strtok(temp_buffer, "/");
