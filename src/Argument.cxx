@@ -103,9 +103,9 @@ namespace ArgParse {
 			if(DebugLevel > 1) {
 				MessageStandardPrint("checking if call name (%s) matches.\n", call_names[i].c_str());
 			}
-			if(DebugLevel > 3) {
-				MessageStandardPrint("position: %lu arg: (%s)\n", position, arg.c_str());
-			}
+			//if(DebugLevel > 3) {
+			//	MessageStandardPrint("position: %lu arg: (%s)\n", position, arg.c_str());
+			//}
 			if(arg == call_names[i]) {
 				break;
 			}
