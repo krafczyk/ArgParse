@@ -71,8 +71,10 @@ namespace ArgParse {
 	const char* ArgObject::TranslateAccept(const Accept_t i) {
 		if(i == No) {
 			return "No";
-		} else if (i == WithArg) {
-			return "WithArg";
+		} else if (i == WithSingleArg) {
+			return "WithSingleArg";
+		} else if (i == WithMultipleArg) {
+			return "WithMultipleArg";
 		} else if (i == WithoutArg) {
 			return "WithoutArg";
 		} else if (i == GroupName) {
