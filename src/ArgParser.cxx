@@ -109,7 +109,7 @@ namespace ArgParse {
 			}
 			int accepting_obj_idx = ObjectIdxAcceptingArgument(arg);
 			if(accepting_obj_idx < 0) {
-				if (obj_idx_accepting_multiple_args > 0) {
+				if (obj_idx_accepting_multiple_args >= 0) {
 					if(DebugLevel > 5) {
 						ArgParseMessageDebug("Arg (%s) isn't a known argument, but there is an argument (%s) which is taking multiple arguments. Passing this arg to that argument\n", argv[arg_i], multiple_args_arg.c_str());
 					}
