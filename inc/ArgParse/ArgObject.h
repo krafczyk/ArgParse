@@ -62,13 +62,13 @@ namespace ArgParse {
 			static const State_t NotDefined;
 			static const State_t Ready;
 			static const char* TranslateState(const State_t i);
-	
+
 			ArgObject(const std::string& help_text, const bool required) {
 				this->help_text = help_text;
 				this->required = required;
 			}
 			virtual ~ArgObject();
-	
+
 			virtual bool IsConfigured() const __attribute__((warn_unused_result)) {
 				return true;
 			}
@@ -82,11 +82,11 @@ namespace ArgParse {
 			virtual size_t AmountOfData() const {
 				return 0;
 			}
-	
+
 			virtual int State(bool quiet __attribute__((unused)) = false) const __attribute__((warn_unused_result)) {
 				return ArgObject::NotReady;
 			}
-	
+
 			virtual std::string GetHelpText() const {
 				return "Empty ArgObject";
 			}

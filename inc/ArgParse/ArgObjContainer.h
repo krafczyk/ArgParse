@@ -42,7 +42,7 @@ namespace ArgParse {
 				Argument* the_argument = (Argument*) new ArgScalar<T>(call_name, help_text, argument, required, was_defined);
 				AddArgument(the_argument);
 			}
-			
+
 			template<class T>
 			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<T>* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR) {
 				Argument* the_argument = (Argument*) new ArgVector<T>(call_name, help_text, argument, required, was_defined);

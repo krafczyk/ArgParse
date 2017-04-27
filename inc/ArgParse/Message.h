@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstring>
 
 namespace ArgParse {
-	int _vscprintf (const char * format, va_list pargs); 
+	int _vscprintf (const char* format, va_list pargs);
 
 	const std::string& GetMessage();
 

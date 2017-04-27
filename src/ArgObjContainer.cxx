@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace ArgParse {
 	ArgObjContainer::~ArgObjContainer() {
-		for(size_t i=0;i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			delete objects[i];
 		}
 	}
@@ -49,7 +49,7 @@ namespace ArgParse {
 
 	void ArgObjContainer::CheckName(const std::string& call_name, ArgObjContainer* parent) {
 		if(parent == ARGPARSE_NULLPTR) {
-			for(size_t i=0;i<objects.size();++i) {
+			for(size_t i=0; i<objects.size(); ++i) {
 				ArgObject::Accept_t accept = objects[i]->AcceptsArgument(call_name);
 				if(accept != ArgObject::No) {
 					if(accept == ArgObject::GroupName) {

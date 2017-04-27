@@ -28,7 +28,7 @@ namespace ArgParse {
 
 			virtual bool IsConfigured() const __attribute__((warn_unused_result));
 			virtual size_t AmountOfData() const;
-	
+
 			virtual std::string GetHelpText() const;
 
 			virtual bool CheckSubObjects() const __attribute__((warn_unused_result));

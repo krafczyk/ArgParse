@@ -71,7 +71,7 @@ namespace ArgParse {
 	}
 
 	void Argument::PrepareHelpText(std::stringstream& ss) const {
-		for(size_t i=0;i<call_names.size();++i) {
+		for(size_t i=0; i<call_names.size(); ++i) {
 			ss << GetName(i) << " ";
 			if(i < call_names.size()-1) {
 				ss << "/ ";
@@ -79,7 +79,7 @@ namespace ArgParse {
 		}
 		ss << ": ";
 	}
-	
+
 	void Argument::AppendType(std::stringstream& ss) const {
 		ss << " Generic Type : ";
 	}
@@ -99,7 +99,7 @@ namespace ArgParse {
 
 	bool Argument::DoesAnArgumentMatch(size_t& position, const std::string& arg) const {
 		size_t i=0;
-		for(;i<call_names.size();++i) {
+		for(; i<call_names.size(); ++i) {
 			if(DebugLevel > 1) {
 				MessageStandardPrint("checking if call name (%s) matches.\n", call_names[i].c_str());
 			}

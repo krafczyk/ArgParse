@@ -33,7 +33,7 @@ namespace ArgParse {
 	}
 
 	size_t ArgGroup::AmountOfData() const {
-		for(size_t i=0;i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			size_t amount = objects[i]->AmountOfData();
 			if(amount != 0) {
 				return amount;
@@ -91,7 +91,7 @@ namespace ArgParse {
 		if(DebugLevel > 5) {
 			ArgParseMessageDebug("There are %lu objects in this group.\n", this->objects.size());
 		}
-		for(size_t i=0;i< this->objects.size(); ++i) {
+		for(size_t i=0; i< this->objects.size(); ++i) {
 			ss << this->objects[i]->GetHelpText() << std::endl;
 		}
 		ss << "--- End ";

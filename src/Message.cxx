@@ -36,13 +36,13 @@ namespace ArgParse {
 		currentMessage = message;
 	}
 
-	int _vscprintf (const char* format, va_list pargs) { 
-		int retval; 
-		va_list argcopy; 
-		va_copy(argcopy, pargs); 
-		retval = vsnprintf(ARGPARSE_NULLPTR, 0, format, argcopy); 
-		va_end(argcopy); 
-		return retval; 
+	int _vscprintf (const char* format, va_list pargs) {
+		int retval;
+		va_list argcopy;
+		va_copy(argcopy, pargs);
+		retval = vsnprintf(ARGPARSE_NULLPTR, 0, format, argcopy);
+		va_end(argcopy);
+		return retval;
 	}
 
 	void SetMessage(const char* format, ...) {

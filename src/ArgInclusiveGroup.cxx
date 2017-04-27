@@ -100,7 +100,7 @@ namespace ArgParse {
 		if((GetMode() == ArgObject::Multiple)||(GetMode() == ArgObject::Single)) {
 			//Check that everybody has the same amount of data.
 			size_t the_size = objects[0]->AmountOfData();
-			for(size_t i=1;i<objects.size();++i) {
+			for(size_t i=1; i<objects.size(); ++i) {
 				if(objects[i]->AmountOfData() != the_size) {
 					ArgParseMessageError("You need to pass the same number of arguments for each argument in an inclusive group.\n");
 					SetMessage("You need to pass the same number of arguments for each argument in an inclusive group.\n");

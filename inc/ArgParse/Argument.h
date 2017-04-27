@@ -43,7 +43,7 @@ namespace ArgParse {
 			void PrepareHelpText(std::stringstream& ss) const;
 			virtual void AppendType(std::stringstream& ss) const;
 			std::string GetHelpTextWithMessage(const std::string& message) const;
-			
+
 		protected:
 			bool DoesAnArgumentMatch(size_t& position, const std::string& arg) const __attribute__((warn_unused_result));
 			bool WasDefined() const {

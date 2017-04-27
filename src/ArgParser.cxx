@@ -41,7 +41,7 @@ namespace ArgParse {
 		ArgParseMessagePrint("4 - Help text for that argument.\n");
 		ArgParseMessagePrint("--- Arguments ---\n");
 		ArgParseMessagePrint("-h / -? / --help : Takes no argument : Vector : Print this help text.\n");
-		for(size_t i=0;i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			ArgParseMessagePrint("%s\n", objects[i]->GetHelpText().c_str());
 		}
 		help_printed = true;
@@ -50,7 +50,7 @@ namespace ArgParse {
 	int ArgParser::ParseArgs(int& argc, char**& argv) {
 		std::string command_line = ArgsToString(argc, argv);
 		//Check that the options are configured.
-		for(size_t i=0; i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			if(!objects[i]->IsConfigured()) {
 				ArgParseMessageError("There was a problem parsing the arguments. The command line was (%s)\n", command_line.c_str());
 				return -1;
@@ -242,7 +242,7 @@ namespace ArgParse {
 				MessageStandardPrint("Finished eating an argument.\n");
 			}
 		}
-		for(size_t i=0;i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			if(objects[i]->State() == ArgObject::NotReady) {
 				ArgParseMessageError("One of the arguments wasn't ready!\n");
 				SetMessage("One of the arguments wasn't ready!\n");
@@ -326,7 +326,7 @@ namespace ArgParse {
 
 
 	int ArgParser::ObjectIdxAcceptingArgument(const std::string& arg __attribute__((unused))) const {
-		for(size_t i=0;i<objects.size();++i) {
+		for(size_t i=0; i<objects.size(); ++i) {
 			if(objects[i]->AcceptsArgument(arg) != ArgObject::No) {
 				return (int) i;
 			}
