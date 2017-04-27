@@ -132,13 +132,18 @@ namespace ArgParse {
 					return -2;
 				}
 			} else {
-				//Reset the multiarg variables
-				obj_idx_accepting_multiple_args = -1;
-				multiple_args_arg = "";
-
 				ArgObject::Accept_t accepted = objects[accepting_obj_idx]->AcceptsArgument(arg);
 				if(DebugLevel > 5) {
 					ArgParseMessageDebug("Accepting object %lu gave acceptance message (%s)\n", accepting_obj_idx, ArgObject::TranslateAccept(accepted));
+				}
+
+				if (obj_idx_accepting_multiple_args < 0) {
+					if (DebugLevel > 5) {
+						ArgParseMessageDebug("Clearing object accepting multiple args.\n");
+					}
+					//Reset the multiarg variables
+					obj_idx_accepting_multiple_args = -1;
+					multiple_args_arg = "";
 				}
 
 				if (accepted == ArgObject::WithoutArg) {
@@ -210,6 +215,9 @@ namespace ArgParse {
 					if (accepted == ArgObject::WithMultipleArg) {
 						obj_idx_accepting_multiple_args = accepting_obj_idx;
 						multiple_args_arg = arg;
+						if(DebugLevel > 5) {
+							ArgParseMessageDebug("Set the object currently accepting multiple args as %i\n", obj_idx_accepting_multiple_args);
+						}
 					}
 					if(DebugLevel > 1) {
 						MessageStandardPrint("Finished Setting Value\n");
