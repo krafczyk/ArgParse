@@ -7,6 +7,15 @@ Features which ought to be implemented:
 
 Completed Features
 
+Changelog 0.6.3 -> 0.7.0
+
+x Vector Arguments now grab all arguments after itself unless that argument
+  is recognized as an argument. This enables specifying arguments like
+  this: -i 1 2 3 4 5 If -i is a vector argument, it will now contain
+  1, 2, 3, 4, 5.
+
+x Update licences for 2017
+
 Changelog 0.5.2 -> 0.4.0
 
 x Argument groups should be implemented
