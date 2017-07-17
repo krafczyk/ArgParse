@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <cstring>
 
+#include "ArgParse/Utilities.h"
+
 namespace ArgParse {
 	int _vscprintf (const char* format, va_list pargs);
 
@@ -55,8 +57,8 @@ namespace ArgParse {
 #define ARGPARSE_TDBG ARGPARSE_TBLU
 
 #define ArgParseMessagePrint(format, ...) ArgParse::MessageStandardPrint(format, ##__VA_ARGS__)
-#define ArgParseMessageWarning(format, ...) if(ArgParse::Color) { ArgParse::MessageStandardPrint("%s%s-W (%s:%i):%s " format, ARGPARSE_TWRN, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageStandardPrint("%s-W (%s:%i): " format, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ##__VA_ARGS__); }
-#define ArgParseMessageDebug(format, ...) if(ArgParse::Color) { ArgParse::MessageStandardPrint("%s%s-D (%s:%i):%s " format, ARGPARSE_TDBG, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageStandardPrint("%s-D (%s:%i): " format, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ##__VA_ARGS__); }
-#define ArgParseMessageError(format, ...) if(ArgParse::Color) { ArgParse::MessageErrorPrint("%s%s-E (%s:%i):%s " format, ARGPARSE_TERR, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageErrorPrint("%s-E (%s:%i): " format, __PRETTY_FUNCTION__, basename(__FILE__), __LINE__, ##__VA_ARGS__); }
+#define ArgParseMessageWarning(format, ...) if(ArgParse::Color) { ArgParse::MessageStandardPrint("%s%s-W (%s:%i):%s " format, ARGPARSE_TWRN, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageStandardPrint("%s-W (%s:%i): " format, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ##__VA_ARGS__); }
+#define ArgParseMessageDebug(format, ...) if(ArgParse::Color) { ArgParse::MessageStandardPrint("%s%s-D (%s:%i):%s " format, ARGPARSE_TDBG, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageStandardPrint("%s-D (%s:%i): " format, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ##__VA_ARGS__); }
+#define ArgParseMessageError(format, ...) if(ArgParse::Color) { ArgParse::MessageErrorPrint("%s%s-E (%s:%i):%s " format, ARGPARSE_TERR, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ARGPARSE_TNRM, ##__VA_ARGS__); } else { ArgParse::MessageErrorPrint("%s-E (%s:%i): " format, __PRETTY_FUNCTION__, ArgParse::basename(__FILE__), __LINE__, ##__VA_ARGS__); }
 
 #endif
