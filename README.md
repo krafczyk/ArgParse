@@ -13,6 +13,12 @@ Using `ArgParse` will greatly simplify the creation of help text as well as keep
 Quick Start
 ===========
 
+`ArgParse` offers both a traditional library with separated headers and a standalone header containing all necessary code. For the quickest start, simply add
+
+`#include "ArgParse/ArgParseStandalone.h"`
+
+to your the file containing your main function and you should be good to go!
+
 A parser object takes pointers directly to the objects or plain old data (POD) types where you want the argument information to end up. The parser object fills the type or object with the argument information after it parses the arguments passed to your program.
 
   1. Define all objects and variables you want to contain arguments. Be sure to initialize them with appropriate default values.
@@ -67,7 +73,7 @@ Refer to the file `tutorial/tutorial.cpp` for a commented example of a complete 
 Building and Installing
 =======================
 
-Both shared and static libraries are created by this package. The following directions show how to build and install this software.
+Shared and static libraries as well as a standalone header are created by this package. The following directions show how to build and install this software.
 
   1. Create a directory `<build_dir>` you want to build the `ArgParse` in.
   2. Configure the package.
