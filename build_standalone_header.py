@@ -4,13 +4,17 @@
 from shutil import copyfile
 import re
 import os
-
-include_directory = "inc"
-source_directory = "src"
+import sys
 
 include_re = re.compile(r'#include "ArgParse/(.*\.h)"')
 
-output_file_path = "inc/ArgParse/ArgParseStandalone.h"
+source_path = sys.argv[1]
+binary_path = sys.argv[2]
+output_file_path = "/".join([binary_path,"inc/ArgParse/ArgParseStandalone.h"])
+include_directory = "/".join([source_path,"inc"])
+source_directory = "/".join([source_path,"src"])
+
+
 
 def get_lines_from_file(path):
     with open(path, "r") as infile:
@@ -20,7 +24,7 @@ def write_lines_to_file(path, lines):
     with open(path, "w") as outfile:
         outfile.writelines(lines)
 
-copyfile('/'.join([include_directory, "ArgParse", "ArgParse.h"]), output_file_path)
+copyfile('/'.join([binary_path, "inc", "ArgParse", "ArgParse.h"]), output_file_path)
 
 # Append source files after include file.
 source_file_list = [f for f in os.listdir(source_directory) if os.path.isfile('/'.join([source_directory,f]))]
@@ -80,7 +84,7 @@ lines.insert(0,"\n")
 lines.insert(0,"// This file was created from individual ArgParse source objects\n")
 lines.insert(0,"\n")
 
-license_lines = get_lines_from_file("LICENSE")
+license_lines = get_lines_from_file("/".join([source_path, "LICENSE"]))
 i = 0
 while i < len(license_lines):
     lines.insert(0,"// "+license_lines[len(license_lines)-1-i])

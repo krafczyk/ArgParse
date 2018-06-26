@@ -64,10 +64,10 @@ add_subdirectory(tutorial)
 endif()
 
 
-add_custom_command(OUTPUT inc/ArgParse/ArgParseStandalone.h COMMAND python build_standalone_header.py DEPENDS src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParseStandalone.h COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/build_standalone_header.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} DEPENDS src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
 
 add_custom_target(standalone-wrapper DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParseStandalone.h)
-set_source_files_properties(inc/ArgParse/ArgParseStandalone.h PROPERTIES GENERATED TRUE)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParseStandalone.h PROPERTIES GENERATED TRUE)
 
 add_library(ArgParse SHARED src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
 add_library(ArgParseStatic STATIC src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
@@ -80,6 +80,7 @@ set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
 
 set(INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 if(FINAL_INSTALL_PREFIX)
