@@ -30,7 +30,7 @@ namespace ArgParse {
 	}
 
 	void ArgObjContainer::CheckName(const std::string& call_name, ArgObjContainer* parent) {
-		if(parent == ARGPARSE_NULLPTR) {
+		if(parent == nullptr) {
 			for(size_t i=0; i<objects.size(); ++i) {
 				ArgObject::Accept_t accept = objects[i]->AcceptsArgument(call_name);
 				if(accept != ArgObject::No) {

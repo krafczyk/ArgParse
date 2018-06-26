@@ -1,7 +1,6 @@
 #ifndef ARGPARSE_ArgObjContainer_HDR
 #define ARGPARSE_ArgObjContainer_HDR
 
-#include "ArgParse/config.h"
 #include "ArgParse/ArgObject.h"
 #include "ArgParse/Argument.h"
 #include "ArgParse/ArgScalar.h"
@@ -14,19 +13,19 @@ namespace ArgParse {
 
 	class ArgObjContainer {
 		public:
-			ArgObjContainer(ArgObjContainer* parent = ARGPARSE_NULLPTR) {
+			ArgObjContainer(ArgObjContainer* parent = nullptr) {
 				this->parent = parent;
 			}
 			virtual ~ArgObjContainer();
 
 			template<class T>
-			void AddArgument(const std::string& call_name, const std::string& help_text, T* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR) {
+			void AddArgument(const std::string& call_name, const std::string& help_text, T* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = nullptr) {
 				Argument* the_argument = (Argument*) new ArgScalar<T>(call_name, help_text, argument, required, was_defined);
 				AddArgument(the_argument);
 			}
 
 			template<class T>
-			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<T>* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = ARGPARSE_NULLPTR) {
+			void AddArgument(const std::string& call_name, const std::string& help_text, std::vector<T>* argument, const ArgObject::Req_t required = ArgObject::Optional, bool* was_defined = nullptr) {
 				Argument* the_argument = (Argument*) new ArgVector<T>(call_name, help_text, argument, required, was_defined);
 				AddArgument(the_argument);
 			}

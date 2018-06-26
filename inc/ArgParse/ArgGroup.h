@@ -7,7 +7,7 @@
 namespace ArgParse {
 	class ArgGroup : public ArgObject , public ArgObjContainer {
 		public:
-			ArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, ArgObjContainer* parent = ARGPARSE_NULLPTR) : ArgObject(help_text, required) , ArgObjContainer(parent) {
+			ArgGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, ArgObjContainer* parent = nullptr) : ArgObject(help_text, required) , ArgObjContainer(parent) {
 				this->mode = mode;
 				this->title = title;
 			}

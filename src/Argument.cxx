@@ -9,7 +9,7 @@
 namespace ArgParse {
 	Argument::Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined) : ArgObject(help_text, required) {
 		this->call_names = GetCallNames(call_name);
-		if(was_defined == ARGPARSE_NULLPTR) {
+		if(was_defined == nullptr) {
 			this->defined = new bool;
 			this->responsible_for_defined = true;
 			*(this->defined) = false;

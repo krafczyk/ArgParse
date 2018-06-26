@@ -42,21 +42,6 @@ endif()
 
 set(CMAKE_REQUIRED_FLAGS "${CPPSTANDARD}")
 
-#Check if we have nullptr
-file(READ ${CMAKE_CURRENT_SOURCE_DIR}/platform_tests/nullptr_test.cpp NULLPTR_CODE)
-check_cxx_source_compiles("${NULLPTR_CODE}" ARGPARSE_HAVE_NULLPTR)
-
-if(ARGPARSE_HAVE_NULLPTR)
-message(STATUS "Compiler has nullptr")
-else()
-message(STATUS "Compiler doesn't have nullptr")
-endif()
-
-#configure config.h
-configure_file(
-	"${CMAKE_CURRENT_SOURCE_DIR}/inc/ArgParse/config.h.in"
-	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h")
-	
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 7)
 set(VERSION_PATCH 0)
@@ -84,7 +69,6 @@ set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
 install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/config.h DESTINATION include/ArgParse)
 
 set(INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 if(FINAL_INSTALL_PREFIX)

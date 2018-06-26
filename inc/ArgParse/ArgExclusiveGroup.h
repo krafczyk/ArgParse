@@ -6,7 +6,7 @@
 namespace ArgParse {
 	class ArgExclusiveGroup : public ArgGroup {
 		public:
-			ArgExclusiveGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, ArgObjContainer* parent = ARGPARSE_NULLPTR);
+			ArgExclusiveGroup(const std::string& title, const std::string& help_text, const ArgObject::Mode_t mode = ArgObject::None, const ArgObject::Req_t required = ArgObject::Optional, ArgObjContainer* parent = nullptr);
 
 			virtual bool IsConfigured() const __attribute__((warn_unused_result));
 

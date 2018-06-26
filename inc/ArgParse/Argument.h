@@ -3,13 +3,12 @@
 
 #include <vector>
 #include <string>
-#include "ArgParse/config.h"
 #include "ArgParse/ArgObject.h"
 
 namespace ArgParse {
 	class Argument : public ArgObject {
 		public:
-			Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			Argument(const std::string& call_name, const std::string& help_text, const Req_t required, bool* was_defined = nullptr);
 			virtual ~Argument();
 
 			static std::vector<std::string> GetCallNames(const std::string& combined_names);

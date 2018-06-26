@@ -10,7 +10,7 @@ namespace ArgParse {
 	template<class T>
 	class ArgVector : public Argument {
 		public:
-			ArgVector(const std::string& call_name, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined = ARGPARSE_NULLPTR);
+			ArgVector(const std::string& call_name, const std::string& help_text, std::vector<T>* value, const Req_t required, bool* was_defined = nullptr);
 			~ArgVector() {}
 
 			virtual int SetValue(const std::string& optarg) __attribute__((warn_unused_result));

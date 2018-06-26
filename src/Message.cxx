@@ -1,6 +1,5 @@
 #include <cstdarg>
 
-#include "ArgParse/config.h"
 #include "ArgParse/Message.h"
 
 namespace ArgParse {
@@ -22,7 +21,7 @@ namespace ArgParse {
 		int retval;
 		va_list argcopy;
 		va_copy(argcopy, pargs);
-		retval = vsnprintf(ARGPARSE_NULLPTR, 0, format, argcopy);
+		retval = vsnprintf(nullptr, 0, format, argcopy);
 		va_end(argcopy);
 		return retval;
 	}
@@ -46,7 +45,7 @@ namespace ArgParse {
 	}
 
 	void MessageStandardPrint(const char* format, ...) {
-		if(STDOUT_Channel != ARGPARSE_NULLPTR) {
+		if(STDOUT_Channel != nullptr) {
 			va_list argptr;
 			va_start(argptr, format);
 			vfprintf(STDOUT_Channel, format, argptr);
@@ -55,7 +54,7 @@ namespace ArgParse {
 	}
 
 	void MessageErrorPrint(const char* format, ...) {
-		if(STDERR_Channel != ARGPARSE_NULLPTR) {
+		if(STDERR_Channel != nullptr) {
 			va_list argptr;
 			va_start(argptr, format);
 			vfprintf(STDERR_Channel, format, argptr);
