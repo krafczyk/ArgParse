@@ -58,8 +58,13 @@ if(TUTORIAL)
 add_subdirectory(tutorial)
 endif()
 
+
+add_custom_command(OUTPUT inc/ArgParse/ArgParseStandalone.h COMMAND python build_standalone_header.py DEPENDS src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
+
+add_custom_target(standalone-wrapper DEPENDS inc/ArgParse/ArgParseStandalone.h)
+set_source_files_properties(inc/ArgParse/ArgParseStandalone.h PROPERTIES GENERATED TRUE)
+
 add_library(ArgParse SHARED src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
-add_custom_command(TARGET ArgParse PRE_BUILD COMMAND python build_standalone_header.py)
 add_library(ArgParseStatic STATIC src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
 
 set_target_properties(ArgParse PROPERTIES VERSION ${VERSION_STRING})

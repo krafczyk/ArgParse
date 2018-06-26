@@ -25,9 +25,9 @@ copyfile('/'.join([include_directory, "ArgParse", "ArgParse.h"]), output_file_pa
 # Append source files after include file.
 source_file_list = [f for f in os.listdir(source_directory) if os.path.isfile('/'.join([source_directory,f]))]
 
-lines = get_lines_from_file(output_file_path)
 
 for source_file in source_file_list:
+    lines = get_lines_from_file(output_file_path)
     new_lines = lines+get_lines_from_file('/'.join([source_directory,source_file]))
     write_lines_to_file(output_file_path, new_lines)
 
@@ -74,7 +74,10 @@ while True:
 lines = get_lines_from_file(output_file_path)
 
 lines.insert(0,"\n")
-lines.insert(0,"// This file was created from individual ArgParse source objects")
+lines.insert(0,"#define ARGPARSE_STANDALONE_HDR\n")
+lines.insert(0,"#ifndef ARGPARSE_STANDALONE_HDR\n")
+lines.insert(0,"\n")
+lines.insert(0,"// This file was created from individual ArgParse source objects\n")
 lines.insert(0,"\n")
 
 license_lines = get_lines_from_file("LICENSE")
@@ -82,5 +85,7 @@ i = 0
 while i < len(license_lines):
     lines.insert(0,"// "+license_lines[len(license_lines)-1-i])
     i += 1
+
+lines.insert(len(lines),"#endif\n")
 
 write_lines_to_file(output_file_path, lines)
