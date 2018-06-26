@@ -70,7 +70,10 @@ add_custom_target(standalone-wrapper DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/inc/Arg
 set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParseStandalone.h PROPERTIES GENERATED TRUE)
 
 add_library(ArgParse SHARED src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
+add_dependencies(ArgParse standalone-wrapper)
+
 add_library(ArgParseStatic STATIC src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
+add_dependencies(ArgParseStatic standalone-wrapper)
 
 set_target_properties(ArgParse PROPERTIES VERSION ${VERSION_STRING})
 set_target_properties(ArgParse PROPERTIES SOVERSION ${VERSION_MAJOR})
