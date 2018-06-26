@@ -43,9 +43,14 @@ endif()
 set(CMAKE_REQUIRED_FLAGS "${CPPSTANDARD}")
 
 set(VERSION_MAJOR 0)
-set(VERSION_MINOR 7)
+set(VERSION_MINOR 8)
 set(VERSION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+
+#configure config.h
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/inc/ArgParse/ArgParse.h.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParse.h")
 
 add_definitions("${CPPSTANDARD} -Wall -Wextra -Werror")
 include_directories(inc ${CMAKE_CURRENT_BINARY_DIR}/inc)
@@ -61,7 +66,7 @@ endif()
 
 add_custom_command(OUTPUT inc/ArgParse/ArgParseStandalone.h COMMAND python build_standalone_header.py DEPENDS src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
 
-add_custom_target(standalone-wrapper DEPENDS inc/ArgParse/ArgParseStandalone.h)
+add_custom_target(standalone-wrapper DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse/ArgParseStandalone.h)
 set_source_files_properties(inc/ArgParse/ArgParseStandalone.h PROPERTIES GENERATED TRUE)
 
 add_library(ArgParse SHARED src/Message.cxx src/ArgObject.cxx src/ArgObjContainer.cxx src/Argument.cxx src/ArgScalar.cxx src/ArgVector.cxx src/ArgGroup.cxx src/ArgExclusiveGroup.cxx src/ArgInclusiveGroup.cxx src/ArgExclusiveGroup.cxx src/ArgParser.cxx src/Utilities.cxx)
@@ -74,7 +79,7 @@ set_target_properties(ArgParseStatic PROPERTIES SOVERSION ${VERSION_MAJOR})
 set_target_properties(ArgParseStatic PROPERTIES OUTPUT_NAME ArgParse)
 
 install(TARGETS ArgParse ArgParseStatic DESTINATION lib)
-install(DIRECTORY inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/inc/ArgParse DESTINATION include FILES_MATCHING PATTERN "*.h")
 
 set(INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 if(FINAL_INSTALL_PREFIX)

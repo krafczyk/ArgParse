@@ -1,6 +1,11 @@
 #ifndef ARGPARSE_ArgParse_HDR
 #define ARGPARSE_ArgParse_HDR
 
+#ifdef ARGPARSE_VERSION
+#error "Please only include one version of ArgParse."
+#endif
+#define ARGPARSE_VERSION @VERSION_STRING@
+
 #include "ArgParse/Message.h"
 #include "ArgParse/Argument.h"
 #include "ArgParse/ArgGroup.h"
