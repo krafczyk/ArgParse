@@ -17,7 +17,7 @@
 #ifdef ARGPARSE_VERSION
 #error "Please only include one version of ArgParse."
 #endif
-#define ARGPARSE_VERSION 0.8.1
+#define ARGPARSE_VERSION 0.8.2
 
 #ifndef ARGPARSE_Message_HDR
 #define ARGPARSE_Message_HDR
