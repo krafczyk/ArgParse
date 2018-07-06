@@ -37,20 +37,26 @@ for source_file in source_file_list:
 
 included_directives = []
 
+lines = get_lines_from_file(output_file_path)
+
 while True:
     # Reset replacement numbers
     num_replacements = 0
     # Read in lines
-    lines = get_lines_from_file(output_file_path)
     i = 0
+    #print("Start of round")
     while i < len(lines):
         match = include_re.search(lines[i])
+        #print(lines[i].strip())
         if match:
             header_name = match.group(1)
-
+            #print("line matched")
             # always remove the matched line
             del lines[i]
+            #print("removed")
+            num_replacements += 1
             if header_name not in included_directives:
+                #print("replaced")
                 include_file_path = "/".join([include_directory,"ArgParse",header_name])
                 include_lines = get_lines_from_file(include_file_path)
                 # delete the include line
@@ -59,14 +65,13 @@ while True:
                     new_line = include_lines[len(include_lines)-1-j]
                     lines.insert(i,new_line)
                     j += 1
-                num_replacements += 1
                 included_directives.append(header_name)
-                write_lines_to_file(output_file_path, lines)
-                # break from the loop and start again.
                 break
+                # break from the loop and start again.
             #No need to advance the index, since we deleted the line we're currently on.
 
         else:
+            #print("line didn't match")
             # Advance index by one by default
             i += 1
 
@@ -74,8 +79,6 @@ while True:
         break
 
 # Prepend license and a message
-
-lines = get_lines_from_file(output_file_path)
 
 lines.insert(0,"\n")
 lines.insert(0,"#define ARGPARSE_STANDALONE_HDR\n")
